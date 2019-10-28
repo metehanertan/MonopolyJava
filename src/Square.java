@@ -1,10 +1,13 @@
+//This class creates squares on the board
+
 public class Square extends Board {
 
-    private int squareID;
-    private String squareName;
+    private int squareID; //ID of every square
+    private String squareName; //name of every square
 
-    public Square(int squareID){
+    public Square(int squareID) {
         this.squareID = squareID;
+
     }
 
     public int getSquareID() {
@@ -12,13 +15,15 @@ public class Square extends Board {
     }
 
     public void setSquareID(int squareID) {
+
         this.squareID = squareID;
     }
 
-    public String getSquareName(){
+    public String getSquareName() {
         return squareName;
     }
-    public void setSquareName(String squareName){
+
+    public void setSquareName(String squareName) {
         this.squareName = squareName;
 
     }
