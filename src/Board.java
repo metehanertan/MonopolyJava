@@ -32,10 +32,6 @@ public class Board extends MonopolyGame{
             this.squareList[i] = new Square(i);
         }
 
-        for(int i = 0; i < BOARD_SIZE; i++){
-            System.out.println("squarelist"+squareList[i].getSquareID());
-        }
-
         this.squareList[0].setSquareName("GO"); //name the first square as GO square.
     }
 }
