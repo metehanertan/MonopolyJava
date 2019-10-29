@@ -38,10 +38,20 @@ public class MonopolyGame {
                 System.out.println(playerList[i].getPlayerName() + "'s old position : " + playerList[i].getPosition());
                 playerList[i].move(diceValue);
                 System.out.println("Dice is " + diceValue);
+
+                if(playerList[i].getPosition() >= 40){
+                    playerList[i].setMovePosition();
+                }
+
+
                 System.out.println(playerList[i].getPlayerName() + "'s position is " + playerList[i].getPosition());
+
+
             }
             count++;
-            if(count == 10) {break;}
+            if(count == 10) {
+                break;
+            }
         }
 
     }

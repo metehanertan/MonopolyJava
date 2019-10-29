@@ -43,6 +43,10 @@ public class Player extends MonopolyGame {
         this.position = position;
     }
 
+    public void setMovePosition(){
+        this.position -= 40;
+    }
+
     public Square getSquare() {
 
         return square;
