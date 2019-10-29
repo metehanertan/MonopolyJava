@@ -6,10 +6,10 @@ public class Board extends MonopolyGame{
     private Square[] squareList; //Square list to keep all squares on the board.
 
     //Default constructor of Board Class.
-    public void Board(){
+    public Board(){
 
         this.squareList = new Square[BOARD_SIZE]; //set the square list's size to board size.
-        setSquareList(); //set the square list.
+
 
     }
 
@@ -21,7 +21,7 @@ public class Board extends MonopolyGame{
 
     //getter method for square list
     public Square[] getSquareList() {
-        return squareList;
+        return this.squareList;
     }
 
     //set the square list
@@ -30,6 +30,10 @@ public class Board extends MonopolyGame{
         for (int i = 0; i < BOARD_SIZE;i++)
         {
             this.squareList[i] = new Square(i);
+        }
+
+        for(int i = 0; i < BOARD_SIZE; i++){
+            System.out.println("squarelist"+squareList[i].getSquareID());
         }
 
         this.squareList[0].setSquareName("GO"); //name the first square as GO square.

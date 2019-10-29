@@ -11,6 +11,7 @@ public class Square extends Board {
     }
 
     public int getSquareID() {
+
         return squareID;
     }
 
