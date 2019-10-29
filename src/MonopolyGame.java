@@ -1,5 +1,6 @@
 public class MonopolyGame {
-
+    private final String[] NAMES = {"ARDA", "EKIN", "MINEL", "METE", "HAMZA", "MELISA", "BARIS", "EYLUL"};
+    private final String[] PIECES = {"DOG", "HAT", "BOOT", "THIMBLE", "CAT", "CAR", "SHIP", "HORSEMAN"};
     private Board board; //Board object
     private Player[] playerList; //Player array to create given number of players
     private int playerSize, taxValue, startMoney, taxNumber;
@@ -25,10 +26,9 @@ public class MonopolyGame {
         this.playerList = new Player[this.playerSize];
         this.board = new Board();
 
-
-
-
-
+        for (int i = 0; i < playerSize; i++){
+            playerList[i] = new Player(NAMES[i], PIECES[i], startMoney);
+        }
 
 
     }
