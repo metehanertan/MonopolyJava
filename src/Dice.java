@@ -1,4 +1,4 @@
-public class Dice {
+public class Dice extends MonopolyGame{
 
     private int firstValue;
     private int secondValue;
