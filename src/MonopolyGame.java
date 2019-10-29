@@ -18,6 +18,7 @@ public class MonopolyGame {
         this.startMoney = startMoney;
         this.taxNumber = taxNumber;
 
+
     }
 
     //Play method to play the game.
@@ -25,6 +26,8 @@ public class MonopolyGame {
 
         this.playerList = new Player[this.playerSize];
         this.board = new Board();
+        board.setSquareList();
+
 
         for (int i = 0; i < playerSize; i++){
             playerList[i] = new Player(NAMES[i], PIECES[i], startMoney);
