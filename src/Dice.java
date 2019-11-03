@@ -16,4 +16,5 @@ public class Dice extends MonopolyGame{
         secondValue = (int)(6 * Math.random() + 1);
         return secondValue;
     }
+
 }

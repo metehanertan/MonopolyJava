@@ -22,7 +22,6 @@ public class Player extends MonopolyGame {
         this.money = new Money(startMoney);
     }
 
-
     public String report() {
         return "";
     }
