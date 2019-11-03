@@ -10,7 +10,7 @@ public class Money extends Player{
     }
 
     //getter method for money amount
-    public int getMoney(){
+    public int getCurrentMoney(){
 
         return this.money;
     }
