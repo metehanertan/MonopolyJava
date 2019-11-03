@@ -7,16 +7,13 @@ public class Piece extends MonopolyGame {
     private Square position;
 
     public Piece() {
-
     }
 
     //Constructor of Piece Class.
     public Piece(String pieceType, Board board) {
-
         this.pieceType = pieceType;
         this.board = board;
         this.position = board.getSquareList()[INITIAL_POSITION];
-
     }
 
     //getter method for piece.
@@ -27,7 +24,6 @@ public class Piece extends MonopolyGame {
 
     //setter method for piece.
     public void setPieceType(String pieceType) {
-
         this.pieceType = pieceType;
     }
 
@@ -40,16 +36,13 @@ public class Piece extends MonopolyGame {
         }
 
         this.position = board.getSquareList()[moving];
-
     }
 
     public Square getSquare() {
-
         return position;
     }
 
     public void setSquare(Square square) {
-
         this.position = square;
     }
 }

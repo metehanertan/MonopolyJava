@@ -50,7 +50,6 @@ public class MonopolyGame {
         System.out.println("Current = " + currentPlayerSize);
 
         while (check) {
-
             System.out.println("----------------");
             for (int i = 0; i < playerSize; ) {
 
@@ -59,26 +58,23 @@ public class MonopolyGame {
                     continue;
                 }
 
+                playerList[i].increaseTurnCounter();
+                playerList[i].reportBeforeRoll();
+
                 firstDice = dice.getFirstValue();
                 secondDice = dice.getSecondValue();
                 diceValue = firstDice + secondDice;
 
-                System.out.println("\nCurrent players: " + currentPlayerSize);
-
-                System.out.println("\n" + playerList[i].getPlayerName() + "'s money: " + playerList[i].getMoney().getCurrentMoney());
-                System.out.println(playerList[i].getPlayerName() + "'s old position : " + playerList[i].getPiece().getSquare().getSquareID());
                 playerList[i].getPiece().move(diceValue);
-                System.out.println("Dice is " + diceValue);
-
-                System.out.println(playerList[i].getPlayerName() + "'s position is " + playerList[i].getPiece().getSquare().getSquareID());
+                System.out.println("\nFirst dice is : " + firstDice + " Second dice is : " + secondDice);
+                System.out.println("Sum of dices is " + diceValue);
+                playerList[i].reportAfterRoll();
 
                 if (playerList[i].getPiece().getSquare().getSquareName() == "TAX") {
                     playerList[i].getMoney().decreaseMoney(taxValue);
-                    System.out.println(playerList[i].getPlayerName() + "'s money: " + playerList[i].getMoney().getCurrentMoney());
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
                         playerList[i] = null;
                         currentPlayerSize--;
-
                         if (currentPlayerSize == 1) {
                             check = false;
                             break;
@@ -87,7 +83,6 @@ public class MonopolyGame {
                 }
 
                 if (firstDice == secondDice) {
-                    System.out.println("First dice is : " + firstDice + " Second dice is : " + secondDice);
                     continue;
                 } else {
                     i++;

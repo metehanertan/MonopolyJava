@@ -6,5 +6,6 @@ public abstract class Square extends Board {
     abstract void setSquareID(int squareID);
     abstract String getSquareName();
     abstract void setSquareName(String squareName);
+    abstract int getFine();
 
 }
