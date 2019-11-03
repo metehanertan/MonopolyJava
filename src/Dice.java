@@ -7,11 +7,6 @@ public class Dice extends MonopolyGame{
     public Dice(){
     }
 
-    public int roll(){
-        result = getFirstValue() + getSecondValue();
-        return result;
-    }
-
     public int getFirstValue(){
         firstValue = (int)(6 * Math.random() + 1);
         return firstValue;
@@ -21,5 +16,4 @@ public class Dice extends MonopolyGame{
         secondValue = (int)(6 * Math.random() + 1);
         return secondValue;
     }
-
 }
