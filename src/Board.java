@@ -52,8 +52,5 @@ public class Board extends MonopolyGame{
         }
         this.squareList[0].setSquareName("GO"); //name the first square as GO square.
 
-        for (int i = 0; i < BOARD_SIZE; i++){
-            System.out.println("Square id: " +this.squareList[i].getSquareID() + " squarename: " +this.squareList[i].getSquareName() );
-        }
     }
 }

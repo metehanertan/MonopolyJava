@@ -8,7 +8,6 @@ public class TaxSquare extends Square {
         this.squareID = squareID;
         this.squareName = squareName;
         this.fine = fine;
-
     }
 
     public int getSquareID() {
