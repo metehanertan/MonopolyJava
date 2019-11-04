@@ -5,7 +5,6 @@ public class Piece extends MonopolyGame {
     private String pieceType; //type of the piece e.g. car.
     private Board board;
     private Square position;
-
     public Piece() {
     }
 
@@ -28,11 +27,13 @@ public class Piece extends MonopolyGame {
     }
 
     //move method.
-    public void move(int move) {
+    public void move(int move,int currentMoney,int goMoney) {
         int moving = getSquare().getSquareID() + move;
 
         if (moving >= 40) {
             moving = moving - 40;
+            currentMoney += goMoney;
+
         }
 
         this.position = board.getSquareList()[moving];
