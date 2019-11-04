@@ -69,7 +69,6 @@ public class MonopolyGame {
 
         }
 
-
         for (int i = 0; i < playerSize; i++) {
             System.out.print("Player : " + playerList[i].getPlayerName() + " -- ");
             System.out.println("Piece: " + pieceList[i].getPieceType());
