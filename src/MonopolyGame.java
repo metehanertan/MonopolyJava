@@ -6,6 +6,7 @@ public class MonopolyGame {
     private int playerSize, taxValue, startMoney, taxNumber;
     private Dice dice;
     private Piece[] pieceList;
+    private int goMoney;
 
 
     //Default constructor of MonopolyGame
@@ -20,6 +21,7 @@ public class MonopolyGame {
         this.taxNumber = taxNumber;
         this.board = new Board(taxNumber, taxValue);
         this.dice = new Dice();
+        this.goMoney = 200;
     }
 
     //Play method to play the game.
@@ -65,7 +67,7 @@ public class MonopolyGame {
                 secondDice = dice.getSecondValue();
                 diceValue = firstDice + secondDice;
 
-                playerList[i].getPiece().move(diceValue);
+                playerList[i].getPiece().move(diceValue,playerList[i].getMoney().getCurrentMoney(),goMoney);
                 System.out.println("\nFirst dice is : " + firstDice + " Second dice is : " + secondDice);
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
@@ -88,6 +90,8 @@ public class MonopolyGame {
                     i++;
                 }
             }
+
+
         }
 
         for (int i = 0; i < playerSize; i++) {
