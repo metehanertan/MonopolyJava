@@ -1,13 +1,17 @@
+import java.awt.*;
+
 public class MonopolyGame {
     private final String[] NAMES = {"ARDA", "EKIN", "MINEL", "METE", "HAMZA", "MELISA", "BARIS", "EYLUL"};
     private final String[] PIECES = {"DOG", "HAT", "BOOT", "THIMBLE", "CAT", "CAR", "SHIP", "HORSEMAN"};
     private Board board; //Board object
     private Player[] playerList; //Player array to create given number of players
+    private Player[] playerOldList;
     private int playerSize, taxValue, startMoney, taxNumber;
     private Dice dice;
     private Piece[] pieceList;
     private int goMoney;
-
+    private int cycle;
+    private int[] dices;
 
     //Default constructor of MonopolyGame
     public MonopolyGame() {
@@ -26,21 +30,45 @@ public class MonopolyGame {
 
     //Play method to play the game.
     public void Play() {
+        int diceValue;
+        int firstDice;
+        int secondDice;
 
         this.playerList = new Player[this.playerSize];
         this.pieceList = new Piece[this.playerSize];
+        this.playerOldList = new Player[this.playerSize];
+        this.dices = new int[this.playerSize];
 
         board.setSquareList();
 
         for (int i = 0; i < playerSize; i++) {
-            playerList[i] = new Player(NAMES[i], startMoney);
+            playerOldList[i] = new Player(NAMES[i], startMoney);
             pieceList[i] = new Piece(PIECES[i], this.board);
-            playerList[i].setPiece(pieceList[i]);
+            playerOldList[i].setPiece(pieceList[i]);
+            dices[i]= dice.getFirstValue() + dice.getSecondValue();
         }
 
-        int diceValue;
-        int firstDice;
-        int secondDice;
+        for (int i = 0; i < playerSize; i++) {
+            System.out.println(playerOldList[i].getPlayerName() + " rolled " + dices[i]+".");
+        }
+        System.out.println("----------------");
+
+        for (int i = 0; i < playerSize; i++) {
+            int biggest = 0;
+            int place = 0;
+
+            for (int a = 0; a < playerSize; a++) {
+                if (dices[a] >= biggest) {
+                    biggest = dices[a];
+                    place = a;
+                }
+            }
+            playerList[i] = playerOldList[place];
+            playerList[i].setPiece(pieceList[i]);
+            dices[place]= 0;
+
+        }
+
 
         for (int i = 0; i < playerSize; i++) {
             System.out.print("Player : " + playerList[i].getPlayerName() + " -- ");
@@ -52,7 +80,10 @@ public class MonopolyGame {
         System.out.println("Current = " + currentPlayerSize);
 
         while (check) {
+            cycle++;
             System.out.println("----------------");
+            System.out.println("Cycle: " + cycle + "\n");
+
             for (int i = 0; i < playerSize; ) {
 
                 if (playerList[i] == null) {
