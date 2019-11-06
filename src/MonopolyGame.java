@@ -28,16 +28,18 @@ public class MonopolyGame {
         this.goMoney = 200;
     }
 
+
+
     //Play method to play the game.
     public void Play() {
         int diceValue;
         int firstDice;
         int secondDice;
 
-        this.playerList = new Player[this.playerSize];
-        this.pieceList = new Piece[this.playerSize];
-        this.playerOldList = new Player[this.playerSize];
-        this.dices = new int[this.playerSize];
+        createPlayerList();
+        createPieceList();
+        createPlayerOldList();
+        createDices();
 
         board.setSquareList();
 
@@ -130,5 +132,25 @@ public class MonopolyGame {
                 System.out.println("\nWINNER : " + playerList[i].getPlayerName());
             }
         }
+    }
+
+    public void createPlayerList(){
+        this.playerList = new Player[this.playerSize];
+    }
+
+    public void createPieceList()
+    {
+        this.pieceList = new Piece[this.playerSize];
+
+    }
+
+    public void createPlayerOldList(){
+        this.playerOldList = new Player[this.playerSize];
+
+    }
+
+    public void createDices(){
+
+        this.dices = new int[this.playerSize];
     }
 }
