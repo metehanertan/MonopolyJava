@@ -1,4 +1,3 @@
-import java.awt.*;
 
 public class MonopolyGame {
     private final String[] NAMES = {"ARDA", "EKIN", "MINEL", "METE", "HAMZA", "MELISA", "BARIS", "EYLUL"};
@@ -70,7 +69,6 @@ public class MonopolyGame {
             dices[place]= 0;
 
         }
-
 
         for (int i = 0; i < playerSize; i++) {
             System.out.print("Player : " + playerList[i].getPlayerName() + " -- ");
