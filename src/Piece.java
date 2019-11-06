@@ -27,12 +27,12 @@ public class Piece extends MonopolyGame {
     }
 
     //move method.
-    public void move(int move,int currentMoney,int goMoney) {
+    public void move(int move,Player player,int goMoney) {
         int moving = getSquare().getSquareID() + move;
 
         if (moving >= 40) {
             moving = moving - 40;
-            currentMoney += goMoney;
+            player.getMoney().increaseMoney(goMoney);
 
         }
 

@@ -22,12 +22,10 @@ public class MonopolyGame {
         this.taxValue = taxValue;
         this.startMoney = startMoney;
         this.taxNumber = taxNumber;
-        this.board = new Board(taxNumber, taxValue);
+        this.board = new Board(this.taxNumber, this.taxValue);
         this.dice = new Dice();
-        this.goMoney = 200;
+        this.goMoney = 10;
     }
-
-
 
     //Play method to play the game.
     public void Play() {
@@ -49,31 +47,9 @@ public class MonopolyGame {
             dices[i]= dice.getFirstValue() + dice.getSecondValue();
         }
 
-        for (int i = 0; i < playerSize; i++) {
-            System.out.println(playerOldList[i].getPlayerName() + " rolled " + dices[i]+".");
-        }
-        System.out.println("----------------");
-
-        for (int i = 0; i < playerSize; i++) {
-            int biggest = 0;
-            int place = 0;
-
-            for (int a = 0; a < playerSize; a++) {
-                if (dices[a] >= biggest) {
-                    biggest = dices[a];
-                    place = a;
-                }
-            }
-            playerList[i] = playerOldList[place];
-            playerList[i].setPiece(pieceList[i]);
-            dices[place]= 0;
-
-        }
-
-        for (int i = 0; i < playerSize; i++) {
-            System.out.print("Player : " + playerList[i].getPlayerName() + " -- ");
-            System.out.println("Piece: " + pieceList[i].getPieceType());
-        }
+        printDiceRoll();
+        rollDice();
+        printPlayerandPiece();
 
         boolean check = true;
         int currentPlayerSize = playerSize;
@@ -98,7 +74,7 @@ public class MonopolyGame {
                 secondDice = dice.getSecondValue();
                 diceValue = firstDice + secondDice;
 
-                playerList[i].getPiece().move(diceValue,playerList[i].getMoney().getCurrentMoney(),goMoney);
+                playerList[i].getPiece().move(diceValue,playerList[i],goMoney);
                 System.out.println("\nFirst dice is : " + firstDice + " Second dice is : " + secondDice);
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
@@ -121,8 +97,6 @@ public class MonopolyGame {
                     i++;
                 }
             }
-
-
         }
 
         for (int i = 0; i < playerSize; i++) {
@@ -139,7 +113,6 @@ public class MonopolyGame {
     public void createPieceList()
     {
         this.pieceList = new Piece[this.playerSize];
-
     }
 
     public void createPlayerOldList(){
@@ -148,7 +121,37 @@ public class MonopolyGame {
     }
 
     public void createDices(){
-
         this.dices = new int[this.playerSize];
+    }
+
+    public void printDiceRoll(){
+        for (int i = 0; i < playerSize; i++) {
+            System.out.println(playerOldList[i].getPlayerName() + " rolled " + dices[i]+".");
+        }
+        System.out.println("----------------");
+    }
+
+    public void rollDice(){
+        for (int i = 0; i < playerSize; i++) {
+            int biggest = 0;
+            int place = 0;
+
+            for (int a = 0; a < playerSize; a++) {
+                if (dices[a] >= biggest) {
+                    biggest = dices[a];
+                    place = a;
+                }
+            }
+            playerList[i] = playerOldList[place];
+            playerList[i].setPiece(pieceList[i]);
+            dices[place]= 0;
+        }
+    }
+
+    public void printPlayerandPiece(){
+        for (int i = 0; i < playerSize; i++) {
+            System.out.print("Player : " + playerList[i].getPlayerName() + " -- ");
+            System.out.println("Piece: " + pieceList[i].getPieceType());
+        }
     }
 }
