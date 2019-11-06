@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        int playerSize = 5;
+        int playerSize = 8;
         int taxValue = 50;
         int startMoney = 200;
         int taxNumber = 6;

@@ -1,4 +1,3 @@
-import java.awt.*;
 
 public class MonopolyGame {
     private final String[] NAMES = {"ARDA", "EKIN", "MINEL", "METE", "HAMZA", "MELISA", "BARIS", "EYLUL"};
