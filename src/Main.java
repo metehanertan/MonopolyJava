@@ -22,12 +22,10 @@ public class Main {
         String startMoney = (String)jo.get("startMoney");
         String taxNumber = (String)jo.get("taxNumber");
 
-       int intPlayerSize = Integer.parseInt(playerSize);
+        int intPlayerSize = Integer.parseInt(playerSize);
         int intTaxValue = Integer.parseInt(taxValue);
         int intStartMoney = Integer.parseInt(startMoney);
         int intTaxNumber = Integer.parseInt(taxNumber);
-
-
 
         MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber); //Create MonopolyGame object with given parameters.
         monopolyGame.Play(); //Call the Play function of MonopolyGame to start the game.
