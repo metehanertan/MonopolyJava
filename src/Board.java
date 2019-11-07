@@ -1,5 +1,4 @@
 //Board Class to create a board.
-
 public class Board{
 
     private final int BOARD_SIZE = 40; //board size. it is fixed to 40.

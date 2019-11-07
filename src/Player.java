@@ -10,7 +10,7 @@ public class Player{
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
         this.playerName = playerName;
-        this.money = new Money(startMoney); //Create Money.
+        this.money = new Money(startMoney);
     }
 
 
@@ -53,7 +53,15 @@ public class Player{
         return playerName;
     }
 
-    //Setter method of turn
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+
+    public int getTurn() {
+        return this.turn;
+    }
+
     public void setTurn(int turn){
         this.turn = turn;
     }
