@@ -7,9 +7,6 @@ public class Board{
     private int taxNumber;
     private int taxValue;
 
-    public Board(){
-    }
-
     //Default constructor of Board Class.
     public Board(int taxNumber,int taxValue){
         this.squareList = new Square[BOARD_SIZE]; //set the square list's size to board size.

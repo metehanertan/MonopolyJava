@@ -5,8 +5,6 @@ public class Piece {
     private String pieceType; //type of the piece e.g. car.
     private Board board;
     private Square position;
-    public Piece() {
-    }
 
     //Constructor of Piece Class.
     public Piece(String pieceType, Board board) {
@@ -17,7 +15,6 @@ public class Piece {
 
     //getter method for piece.
     public String getPieceType() {
-
         return pieceType;
     }
 

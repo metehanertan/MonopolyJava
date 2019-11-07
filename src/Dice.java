@@ -4,9 +4,6 @@ public class Dice{
     private int secondValue;
     private int result;
 
-    public Dice(){
-    }
-
     public int getFirstValue(){
         firstValue = (int)(6 * Math.random() + 1);
         return firstValue;
@@ -16,5 +13,4 @@ public class Dice{
         secondValue = (int)(6 * Math.random() + 1);
         return secondValue;
     }
-
 }

@@ -12,10 +12,6 @@ public class MonopolyGame {
     private int cycle;
     private int[] dices;
 
-    //Default constructor of MonopolyGame
-    public MonopolyGame() {
-    }
-
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int taxValue, int startMoney, int taxNumber) {
         this.playerSize = playerSize;
@@ -44,12 +40,12 @@ public class MonopolyGame {
             playerOldList[i] = new Player(NAMES[i], startMoney);
             pieceList[i] = new Piece(PIECES[i], this.board);
             playerOldList[i].setPiece(pieceList[i]);
-            dices[i]= dice.getFirstValue() + dice.getSecondValue();
+            dices[i] = dice.getFirstValue() + dice.getSecondValue();
         }
 
         printDiceRoll();
         rollDice();
-        printPlayerandPiece();
+        printPlayerAndPiece();
 
         boolean check = true;
         int currentPlayerSize = playerSize;
@@ -67,14 +63,13 @@ public class MonopolyGame {
                     continue;
                 }
 
-                playerList[i].increaseTurnCounter();
                 playerList[i].reportBeforeRoll();
 
                 firstDice = dice.getFirstValue();
                 secondDice = dice.getSecondValue();
                 diceValue = firstDice + secondDice;
 
-                playerList[i].getPiece().move(diceValue,playerList[i],goMoney);
+                playerList[i].getPiece().move(diceValue, playerList[i], goMoney);
                 System.out.println("\nFirst dice is : " + firstDice + " Second dice is : " + secondDice);
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
@@ -106,32 +101,30 @@ public class MonopolyGame {
         }
     }
 
-    public void createPlayerList(){
+    public void createPlayerList() {
         this.playerList = new Player[this.playerSize];
     }
 
-    public void createPieceList()
-    {
+    public void createPieceList() {
         this.pieceList = new Piece[this.playerSize];
     }
 
-    public void createPlayerOldList(){
+    public void createPlayerOldList() {
         this.playerOldList = new Player[this.playerSize];
-
     }
 
-    public void createDices(){
+    public void createDices() {
         this.dices = new int[this.playerSize];
     }
 
-    public void printDiceRoll(){
+    public void printDiceRoll() {
         for (int i = 0; i < playerSize; i++) {
-            System.out.println(playerOldList[i].getPlayerName() + " rolled " + dices[i]+".");
+            System.out.println(playerOldList[i].getPlayerName() + " rolled " + dices[i] + ".");
         }
         System.out.println("----------------");
     }
 
-    public void rollDice(){
+    public void rollDice() {
         for (int i = 0; i < playerSize; i++) {
             int biggest = 0;
             int place = 0;
@@ -143,15 +136,32 @@ public class MonopolyGame {
                 }
             }
             playerList[i] = playerOldList[place];
+            playerList[i].setTurn(i + 1);
             playerList[i].setPiece(pieceList[i]);
-            dices[place]= 0;
+            dices[place] = 0;
         }
     }
 
-    public void printPlayerandPiece(){
+    public void printPlayerAndPiece() {
         for (int i = 0; i < playerSize; i++) {
             System.out.print("Player : " + playerList[i].getPlayerName() + " -- ");
             System.out.println("Piece: " + pieceList[i].getPieceType());
         }
+    }
+
+    public int getPlayerSize() {
+        return playerSize;
+    }
+
+    public int getTaxValue() {
+        return taxValue;
+    }
+
+    public int getTaxNumber() {
+        return taxNumber;
+    }
+
+    public int getStartMoney() {
+        return startMoney;
     }
 }

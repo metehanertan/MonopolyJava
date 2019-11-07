@@ -9,24 +9,19 @@ public class Player{
     private boolean inJail;
     private boolean isBankrupt;
     private String playerName;
-    private int turnCounter;
+    private int turn;
     private int cycleCounter;
-
-    //Default constructor
-    public Player() {
-    }
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
         this.playerName = playerName;
         this.money = new Money(startMoney);
-        this.turnCounter = 0;
         this.cycleCounter = 0;
     }
 
     public void reportBeforeRoll() {
         System.out.println("Player : " + this.playerName);
-        System.out.println("Turn : " + this.turnCounter);
+        System.out.println("Turn : " + this.turn);
         System.out.println("Current balance : " + this.money.getCurrentMoney());
         System.out.println("Location : Square " + this.piece.getSquare().getSquareID());
         System.out.println("Type of square : " + this.piece.getSquare().getSquareName());
@@ -73,11 +68,11 @@ public class Player{
         this.cycleCounter++;
     }
 
-    public int getTurnCounter() {
-        return this.turnCounter;
+    public int getTurn() {
+        return this.turn;
     }
 
-    public void increaseTurnCounter(){
-        this.turnCounter++;
+    public void setTurn(int turn){
+        this.turn = turn;
     }
 }
