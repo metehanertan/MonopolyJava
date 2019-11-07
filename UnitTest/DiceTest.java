@@ -6,13 +6,16 @@ public class DiceTest {
 
     Dice dice = new Dice();
 
+
     @Test
     public void getFirstValue() {
-        assertTrue(dice.getFirstValue()<=6 || dice.getFirstValue()>=1);
+        int firstValue = dice.getFirstValue();
+        assertTrue("Dice's first value is not between 1 and 6.", firstValue <= 6 && firstValue>=1);
     }
 
     @Test
     public void getSecondValue() {
-
+        int secondValue = dice.getSecondValue();
+        assertTrue("Dice's second value is not between 1 and 6.",secondValue <= 6 && secondValue >= 1);
     }
 }
