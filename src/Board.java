@@ -4,8 +4,8 @@ public class Board{
 
     private final int BOARD_SIZE = 40; //board size. it is fixed to 40.
     private Square[] squareList; //Square list to keep all squares on the board.
-    private int taxNumber;
-    private int taxValue;
+    private int taxNumber; //Number of tax squares on the board.
+    private int taxValue; //Amount of tax value.
 
     //Default constructor of Board Class.
     public Board(int taxNumber,int taxValue){
@@ -30,18 +30,18 @@ public class Board{
         int random, count = 0;
         while(true)
         {
-            random = (int) (Math.random() * 39 + 1 );
+            random = (int) (Math.random() * 39 + 1 ); //Generate random numbers between 0-39.
 
             if(count < taxNumber){
                 if(squareList[random] == null){
-                    squareList[random] = new TaxSquare(random,"TAX",taxValue);
+                    squareList[random] = new TaxSquare(random,"TAX",taxValue); //Create tax square.
                     count++;
                 }
             }
             else {
                 for(int i = 0; i < BOARD_SIZE; i++){
                     if(squareList[i] == null){
-                        squareList[i] = new NormalSquare(i,"NORMAL");
+                        squareList[i] = new NormalSquare(i,"NORMAL"); //Create normal square.
                     }
                 }
                 break;
