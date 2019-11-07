@@ -10,13 +10,11 @@ public class Player{
     private boolean isBankrupt;
     private String playerName;
     private int turn;
-    private int cycleCounter;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
         this.playerName = playerName;
         this.money = new Money(startMoney);
-        this.cycleCounter = 0;
     }
 
     public void reportBeforeRoll() {
@@ -60,13 +58,6 @@ public class Player{
         this.playerName = playerName;
     }
 
-    public int getCycleCounter() {
-        return cycleCounter;
-    }
-
-    public void increaseCycleCounter(){
-        this.cycleCounter++;
-    }
 
     public int getTurn() {
         return this.turn;
