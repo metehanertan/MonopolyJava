@@ -49,11 +49,10 @@ public class MonopolyGame {
 
         boolean check = true;
         int currentPlayerSize = playerSize;
-        System.out.println("Current = " + currentPlayerSize);
 
         while (check) {
             cycle++; //Increase cycle counter for each cycle.
-            System.out.println("----------------");
+            System.out.println("-----NEXT CYCLE-----");
             System.out.println("Cycle: " + cycle + "\n");
 
 
@@ -76,7 +75,9 @@ public class MonopolyGame {
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
 
-                System.out.println("***********");
+                if(i != playerSize -1){
+                    System.out.println("***********");
+                }
 
                 //Check if current square is tax square
                 if (playerList[i].getPiece().getSquare().getSquareName() == "TAX") {
@@ -107,7 +108,7 @@ public class MonopolyGame {
 
         for (int i = 0; i < playerSize; i++) {
             if (playerList[i] != null) {
-                System.out.println("\nWINNER : " + playerList[i].getPlayerName());
+                System.out.println("WINNER : " + playerList[i].getPlayerName());
             }
         }
     }
@@ -134,6 +135,7 @@ public class MonopolyGame {
 
     //Print dice values.
     public void printDiceRoll() {
+        System.out.println("Players roll dices to determine their turns.");
         for (int i = 0; i < playerSize; i++) {
             System.out.println(playerOldList[i].getPlayerName() + " rolled " + dices[i] + ".");
         }
