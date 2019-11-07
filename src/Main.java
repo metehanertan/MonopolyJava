@@ -10,23 +10,34 @@ import java.io.FileReader;
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
 
+        // Read JSON file for inputs
         JSONParser parser = new JSONParser();
-
         Object obj = parser.parse(new FileReader("input.json"));
         JSONObject jo = (JSONObject) obj;
 
+        // Read inputs as string
         String playerSize =(String)jo.get("playerSize");
         String taxValue = (String)jo.get("taxValue");
         String startMoney = (String)jo.get("startMoney");
         String taxNumber = (String)jo.get("taxNumber");
 
+        // Cast given strings to integers
         int intPlayerSize = Integer.parseInt(playerSize);
         int intTaxValue = Integer.parseInt(taxValue);
         int intStartMoney = Integer.parseInt(startMoney);
         int intTaxNumber = Integer.parseInt(taxNumber);
 
-        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber); //Create MonopolyGame object with given parameters.
-        monopolyGame.Play(); //Call the Play function of MonopolyGame to start the game.
+        // Check given player size
+        if(intPlayerSize >= 2 && intPlayerSize <= 8){
+            // Create MonopolyGame object with given parameters
+            MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber);
+            // Call the Play function of MonopolyGame to start the game
+            monopolyGame.Play();
+        }
+        else{
+            System.out.println("Player size should be from 2 to 8!");
+        }
+
 
     }
 }
