@@ -1,5 +1,5 @@
 //Player class.
-public class Player extends MonopolyGame {
+public class Player{
 
     private final int INITIAL_POSITION = 0; //initial position of each player.
     private int position; //current position of each player.

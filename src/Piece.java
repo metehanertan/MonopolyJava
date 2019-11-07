@@ -1,5 +1,5 @@
 //Piece class.
-public class Piece extends MonopolyGame {
+public class Piece {
 
     private final int INITIAL_POSITION = 0; //initial position of each player.
     private String pieceType; //type of the piece e.g. car.
