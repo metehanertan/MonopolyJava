@@ -2,7 +2,10 @@ public class Dice{
 
     private int firstValue; //First dice value
     private int secondValue; //Second dice value
-    private int result;
+
+    //Default constructor
+    public Dice(){
+    }
 
     //Getter method for first dice value
     public int getFirstValue(){
