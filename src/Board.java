@@ -1,6 +1,6 @@
 //Board Class to create a board.
 
-public class Board extends MonopolyGame{
+public class Board{
 
     private final int BOARD_SIZE = 40; //board size. it is fixed to 40.
     private Square[] squareList; //Square list to keep all squares on the board.

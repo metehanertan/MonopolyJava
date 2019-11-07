@@ -1,5 +1,5 @@
 //Money class.
-public class Money extends Player{
+public class Money{
 
     private int money; //money amount
 
