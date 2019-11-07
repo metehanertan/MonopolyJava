@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,7 +14,6 @@ public class Main {
 
         Object obj = parser.parse(new FileReader("input.json"));
         JSONObject jo = (JSONObject) obj;
-
 
         String playerSize =(String)jo.get("playerSize");
         String taxValue = (String)jo.get("taxValue");
