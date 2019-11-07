@@ -4,8 +4,8 @@ public class Player{
     private Piece piece; //Piece types
     private Money money; //Money amount
     private Square square; //Square object
-    private String playerName;
-    private int turn;
+    private String playerName; //Player name
+    private int turn; //Turn
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
@@ -48,20 +48,22 @@ public class Player{
         return this.money;
     }
 
-    //Getter method of Player Name
+    //Getter method of player Name
     public String getPlayerName() {
         return playerName;
     }
 
+    //Setter method of player name
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
-
+    //Getter method of turn
     public int getTurn() {
         return this.turn;
     }
 
+    //Setter method of turn
     public void setTurn(int turn){
         this.turn = turn;
     }
