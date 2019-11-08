@@ -13,7 +13,6 @@ public class PieceTest {
     Board board = new Board(0,0);
     Square square = new NormalSquare(squareID,squareName);
     Piece piece = new Piece(pieceName,board);
-    Player player = new Player(" Wirt ", 200);
 
 
     @Test
@@ -25,17 +24,6 @@ public class PieceTest {
     public void TestSetSquare() {
         piece.setSquare(this.square);
         assertEquals("Piece position set is not assigned properly.", this.square,piece.getSquare());
-    }
-
-    @Test
-    public void TestMove() {
-        piece.setSquare(square);
-        int move = 5;
-        int position = piece.getSquare().getSquareID() + move;
-        piece.move(move,player,200);
-        assertEquals("Piece move is not assigned properly.", position , piece.getSquare().getSquareID());
-
-
     }
 
 }
