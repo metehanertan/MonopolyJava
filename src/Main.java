@@ -27,17 +27,10 @@ public class Main {
         int intStartMoney = Integer.parseInt(startMoney);
         int intTaxNumber = Integer.parseInt(taxNumber);
 
-        // Check given player size
-        if(intPlayerSize >= 2 && intPlayerSize <= 8){
-            // Create MonopolyGame object with given parameters
-            MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber);
-            // Call the Play function of MonopolyGame to start the game
-            monopolyGame.Play();
-        }
-        else{
-            System.out.println("Player size should be from 2 to 8!");
-        }
-
+        // Create MonopolyGame object with given parameters
+        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber);
+        // Call the Play function of MonopolyGame to start the game
+        monopolyGame.Play();
 
     }
 }

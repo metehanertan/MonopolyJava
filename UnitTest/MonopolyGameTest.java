@@ -31,6 +31,11 @@ public class MonopolyGameTest {
         controlTaxNumber(mpGame, taxNumber);
     }
 
+    @Test
+    public void testEndGamePlayerNumber() {
+        controlEndGamePlayerNumber(mpGame);
+    }
+
     void controlPlayerSize(MonopolyGame mpGame, int playerSize) {
         assertEquals("Player size is not assigned properly.", mpGame.getPlayerSize(), playerSize);
     }
@@ -45,6 +50,18 @@ public class MonopolyGameTest {
 
     void controlTaxNumber(MonopolyGame mpGame, int taxNumber) {
         assertEquals("Tax number is not assigned properly.", mpGame.getTaxNumber(), taxNumber);
+    }
+
+    void controlEndGamePlayerNumber(MonopolyGame mpGame){
+        int currentPlayerSize = 0;
+        mpGame.Play();
+
+        for (int i = 0; i < mpGame.getPlayerSize(); i++) {
+            if (mpGame.getPlayerList()[i] != null) {
+                currentPlayerSize++;
+            }
+        }
+        assertEquals("At the end of the game, one player should remain, but not so.", currentPlayerSize, 1);
     }
 
 }
