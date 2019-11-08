@@ -14,6 +14,7 @@ public class MonopolyGame {
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int taxValue, int startMoney, int taxNumber) {
+        checkPlayerSize(playerSize);
         this.playerSize = playerSize;
         this.taxValue = taxValue;
         this.startMoney = startMoney;
@@ -169,6 +170,13 @@ public class MonopolyGame {
         }
     }
 
+    public void checkPlayerSize(int intPlayerSize){
+        if(intPlayerSize < 2 || intPlayerSize > 8){
+            System.out.println("Player size must be from 2 to 8.");
+            System.exit(1);
+        }
+    }
+
     //Getter method for player sizes.
     public int getPlayerSize() {
         return playerSize;
@@ -187,5 +195,9 @@ public class MonopolyGame {
     //Getter method for amount of start money.
     public int getStartMoney() {
         return startMoney;
+    }
+
+    public Player[] getPlayerList() {
+        return playerList;
     }
 }
