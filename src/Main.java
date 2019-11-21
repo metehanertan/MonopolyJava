@@ -20,15 +20,17 @@ public class Main {
         String taxValue = (String)jo.get("taxValue");
         String startMoney = (String)jo.get("startMoney");
         String taxNumber = (String)jo.get("taxNumber");
+        String goMoney = (String)jo.get("goMoney");
 
         // Cast given strings to integers
         int intPlayerSize = Integer.parseInt(playerSize);
         int intTaxValue = Integer.parseInt(taxValue);
         int intStartMoney = Integer.parseInt(startMoney);
         int intTaxNumber = Integer.parseInt(taxNumber);
+        int intGoMoney = Integer.parseInt(goMoney);
 
         // Create MonopolyGame object with given parameters
-        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber);
+        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber, intGoMoney);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 

@@ -8,8 +8,9 @@ public class MonopolyGameTest {
     int taxValue = 50;
     int startMoney = 200;
     int taxNumber = 6;
+    int goMoney = 5;
 
-    MonopolyGame mpGame = new MonopolyGame(playerSize, taxValue, startMoney, taxNumber);
+    MonopolyGame mpGame = new MonopolyGame(playerSize, taxValue, startMoney, taxNumber, goMoney);
 
     @Test
     public void testPlayerSize() {
