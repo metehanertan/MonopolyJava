@@ -13,7 +13,7 @@ public class MonopolyGame {
     private int[] dices; //Dice values array to order turns of players
 
     //Constructor of MonopolyGame Class calling from Main Class.
-    public MonopolyGame(int playerSize, int taxValue, int startMoney, int taxNumber) {
+    public MonopolyGame(int playerSize, int taxValue, int startMoney, int taxNumber, int goMoney) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
         this.taxValue = taxValue;
@@ -21,7 +21,7 @@ public class MonopolyGame {
         this.taxNumber = taxNumber;
         this.board = new Board(this.taxNumber, this.taxValue); //Create Board object.
         this.dice = new Dice(); //Create Dice object
-        this.goMoney = 10; //Assign GO money.
+        this.goMoney = goMoney; //Assign GO money.
     }
 
     //Play method to play the game.

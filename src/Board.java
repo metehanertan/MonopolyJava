@@ -46,7 +46,7 @@ public class Board{
                 break;
             }
         }
-        this.squareList[0].setSquareName("GO"); //name the first square as GO square.
+        this.squareList[0] = new GoSquare(0, "GO"); //set the first square as GoSquare.
 
     }
 }

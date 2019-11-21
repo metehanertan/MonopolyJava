@@ -9,7 +9,7 @@ public abstract class Square{
     abstract String getSquareName();
     // Set square name
     abstract void setSquareName(String squareName);
-    // Return fine
+
     abstract int getFine();
 
 }
