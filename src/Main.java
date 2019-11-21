@@ -46,15 +46,38 @@ public class Main {
 
         JSONArray jsonutilityName = (JSONArray) jo.get("utilityName");
         Iterator iterator5 = jsonutilityName.iterator();
-        String[] utilityName = {"","","","","",""};
+        String[] utilityName = {"",""};
 
-        JSONArray jsonutilityFine = (JSONArray) jo.get("utilityFine");
-        Iterator iterator6 = jsonutilityFine.iterator();
-        int[] utilityFine = {0,0,0,0,0,0};
+        JSONArray jsonutilityRate = (JSONArray) jo.get("utilityRate");
+        Iterator iterator6 = jsonutilityRate.iterator();
+        int[] utilityRate = {0,0};
 
         JSONArray jsonutilityPrice = (JSONArray) jo.get("utilityPrice");
         Iterator iterator7 = jsonutilityPrice.iterator();
-        int[] utilityPrice = {0,0,0,0,0,0};
+        int[] utilityPrice = {0,0};
+
+
+        JSONArray jsontransportName = (JSONArray) jo.get("transportName");
+        Iterator iterator8 = jsontransportName.iterator();
+        String[] transportName = {"","","","",""};
+
+
+        JSONArray jsontransportFine = (JSONArray) jo.get("transportFine");
+        Iterator iterator9 = jsontransportFine.iterator();
+        int[] transportFine = {0,0,0,0,0};
+
+        JSONArray jsontransportPrice = (JSONArray) jo.get("transportPrice");
+        Iterator iterator10 = jsontransportPrice.iterator();
+        int[] transportPrice = {0,0,0,0,0};
+
+
+        JSONArray jsontaxSquares= (JSONArray) jo.get("taxSquares");
+        Iterator iterator11 = jsontaxSquares.iterator();
+        String[] taxSquares = {"",""};
+
+        JSONArray jsontaxFine = (JSONArray) jo.get("taxFine");
+        Iterator iterator12 = jsontaxFine.iterator();
+        int[] taxFine = {0,0};
 
 
 
@@ -87,14 +110,43 @@ public class Main {
 
         while (iterator6.hasNext()) {
             int a = Integer.parseInt((String)iterator6.next());
-            utilityFine[i] = a;
-            System.out.println(utilityFine[i]);
+            utilityRate[i] = a;
+            System.out.println(utilityRate[i]);
         }
 
         while (iterator7.hasNext()) {
             int a = Integer.parseInt((String)iterator7.next());
             utilityPrice[i] = a;
             System.out.println(utilityPrice[i]);
+        }
+
+        while (iterator8.hasNext()) {
+            transportName[i] = (String) iterator8.next();
+            System.out.println(transportName[i]);
+        }
+
+
+        while (iterator9.hasNext()) {
+            int a = Integer.parseInt((String)iterator9.next());
+            transportFine[i] = a;
+            System.out.println(transportFine[i]);
+        }
+
+        while (iterator10.hasNext()) {
+            int a = Integer.parseInt((String)iterator10.next());
+            transportPrice[i] = a;
+            System.out.println(transportPrice[i]);
+        }
+
+        while (iterator11.hasNext()) {
+            taxSquares[i] = (String) iterator11.next();
+            System.out.println(taxSquares[i]);
+        }
+
+        while (iterator12.hasNext()) {
+            int a = Integer.parseInt((String)iterator12.next());
+            taxFine[i] = a;
+            System.out.println(taxFine[i]);
         }
 
 
