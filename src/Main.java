@@ -76,71 +76,61 @@ public class Main {
         int[] taxFine = {0, 0};
 
         while (iterator1.hasNext()) {
+            int a = Integer.parseInt((String) iterator3.next());
+            int b = Integer.parseInt((String) iterator4.next());
+
             properties[i] = (String) iterator1.next();
+            propertyFine[i] = a;
+            propertyPrice[i] = b;
+
             System.out.println(properties[i]);
+            System.out.println(propertyFine[i]);
+            System.out.println(propertyPrice[i]);
+
         }
 
-        while (iterator2.hasNext()) {
+       while (iterator2.hasNext()) {
             propertyColor[i] = (String) iterator2.next();
+
             System.out.println(propertyColor[i]);
         }
 
-        while (iterator3.hasNext()) {
-            int a = Integer.parseInt((String) iterator3.next());
-            propertyFine[i] = a;
-            System.out.println(propertyFine[i]);
-        }
 
-        while (iterator4.hasNext()) {
-            int a = Integer.parseInt((String) iterator4.next());
-            propertyPrice[i] = a;
-            System.out.println(propertyPrice[i]);
-        }
 
         while (iterator5.hasNext()) {
-            utilityName[i] = (String) iterator5.next();
-            System.out.println(utilityName[i]);
-        }
-
-        while (iterator6.hasNext()) {
             int a = Integer.parseInt((String) iterator6.next());
-            utilityRate[i] = a;
-            System.out.println(utilityRate[i]);
-        }
+            int b = Integer.parseInt((String) iterator7.next());
 
-        while (iterator7.hasNext()) {
-            int a = Integer.parseInt((String) iterator7.next());
-            utilityPrice[i] = a;
+            utilityName[i] = (String) iterator5.next();
+            utilityRate[i] = a;
+            utilityPrice[i] = b;
+
+            System.out.println(utilityName[i]);
+            System.out.println(utilityRate[i]);
             System.out.println(utilityPrice[i]);
         }
 
+
         while (iterator8.hasNext()) {
-            transportName[i] = (String) iterator8.next();
-            System.out.println(transportName[i]);
-        }
-
-        while (iterator9.hasNext()) {
             int a = Integer.parseInt((String) iterator9.next());
+            int b = Integer.parseInt((String) iterator10.next());
+            transportName[i] = (String) iterator8.next();
             transportFine[i] = a;
+            transportPrice[i] = b;
+            System.out.println(transportName[i]);
             System.out.println(transportFine[i]);
-        }
-
-        while (iterator10.hasNext()) {
-            int a = Integer.parseInt((String) iterator10.next());
-            transportPrice[i] = a;
             System.out.println(transportPrice[i]);
         }
 
-        while (iterator11.hasNext()) {
-            taxSquares[i] = (String) iterator11.next();
-            System.out.println(taxSquares[i]);
-        }
 
-        while (iterator12.hasNext()) {
+        while (iterator11.hasNext()) {
             int a = Integer.parseInt((String) iterator12.next());
             taxFine[i] = a;
+            taxSquares[i] = (String) iterator11.next();
+            System.out.println(taxSquares[i]);
             System.out.println(taxFine[i]);
         }
+
 
         // Cast given strings to integers
         int intPlayerSize = Integer.parseInt(playerSize);
