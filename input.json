@@ -2,5 +2,13 @@
 	"playerSize": "2",
 	"taxValue": "50",
 	"startMoney": "200",
-	"taxNumber" : "6"
+	"taxNumber" : "6",
+	"goMoney" : "10",
+	"propertyName" : ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q","R", "S", "T", "U", "V"],
+	"propertyColor" : ["Blue", "Brown", "Red", "Yellow", "Orange", "Green", "Black", "Gray"],
+	"propertyFine" : ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"],
+	"propertyPrice" : ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"],
+	"utilityName" : ["UA","UB","UC","UD","E","UF"],
+	"utilityFine" : ["10", "5", "10","10","5","10"],
+	"utilityPrice" : ["10", "5", "10","10","5","10"]
 }
