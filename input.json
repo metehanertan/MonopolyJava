@@ -13,7 +13,7 @@
 	"transportPrice" : ["20", "20", "20","20"],
 	"utilityName" : ["ELECTRIC", "WATER"],
 	"utilityPrice" : ["15", "15"],
-	"utilityRate" : ["1","2"],
+	"utilityRate" : ["1","1"],
 	"taxSquares" : ["INCOME TAX", "LUXURY TAX"],
 	"taxFine" : ["20", "10"]
 }
