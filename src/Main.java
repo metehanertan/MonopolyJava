@@ -89,12 +89,11 @@ public class Main {
 
         }
 
-       while (iterator2.hasNext()) {
+        while (iterator2.hasNext()) {
             propertyColor[i] = (String) iterator2.next();
 
             System.out.println(propertyColor[i]);
         }
-
 
 
         while (iterator5.hasNext()) {
@@ -140,7 +139,9 @@ public class Main {
         int intGoMoney = Integer.parseInt(goMoney);
 
         // Create MonopolyGame object with given parameters
-        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber, intGoMoney);
+        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber, intGoMoney,
+                properties, propertyFine, propertyPrice, propertyColor, utilityName,utilityRate,utilityPrice,transportName,
+                transportFine,transportPrice,taxFine,taxSquares);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 

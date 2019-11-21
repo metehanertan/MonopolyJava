@@ -5,12 +5,39 @@ public class Board {
     private Square[] squareList; //Square list to keep all squares on the board.
     private int taxNumber; //Number of tax squares on the board.
     private int taxValue; //Amount of tax value.
+    private String[] properties;
+    private int[] propertyFine;
+    private int[] propertyPrice;
+    private String[] propertyColor;
+    private String[] utilityName;
+    private int[] utilityRate;
+    private int[] utilityPrice;
+    private String[] transportName;
+    private int[] transportFine;
+    private int[] transportPrice;
+    private int[] taxFine;
+    private String[] taxSquares;
 
     //Default constructor of Board Class.
-    public Board(int taxNumber, int taxValue) {
+    public Board(int taxNumber, int taxValue, String[] properties,
+                 int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
+                 int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
+                 int[] transportPrice, int[] taxFine, String[] taxSquares) {
         this.squareList = new Square[BOARD_SIZE]; //set the square list's size to board size.
         this.taxNumber = taxNumber;
         this.taxValue = taxValue;
+        this.properties = properties;
+        this.propertyFine = propertyFine;
+        this.propertyColor = propertyColor;
+        this.propertyPrice = propertyPrice;
+        this.utilityName = utilityName;
+        this.utilityPrice = utilityPrice;
+        this.utilityRate = utilityRate;
+        this.transportFine = transportFine;
+        this.transportName = transportName;
+        this.transportPrice = transportPrice;
+        this.taxFine = taxFine;
+        this.taxSquares = taxSquares;
     }
 
     //getter method for board size.
