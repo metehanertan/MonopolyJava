@@ -27,52 +27,52 @@ public class Main {
         String taxNumber = (String) jo.get("taxNumber");
         String goMoney = (String) jo.get("goMoney");
 
-        JSONArray jsonproperties = (JSONArray) jo.get("propertyName");
-        Iterator iterator1 = jsonproperties.iterator();
+        JSONArray jsonProperties = (JSONArray) jo.get("propertyName");
+        Iterator iterator1 = jsonProperties.iterator();
         String[] properties = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
 
-        JSONArray jsonpropertyColor = (JSONArray) jo.get("propertyColor");
-        Iterator iterator2 = jsonpropertyColor.iterator();
+        JSONArray jsonPropertyColor = (JSONArray) jo.get("propertyColor");
+        Iterator iterator2 = jsonPropertyColor.iterator();
         String[] propertyColor = {"", "", "", "", "", "", "", ""};
 
-        JSONArray jsonpropertyFine = (JSONArray) jo.get("propertyFine");
-        Iterator iterator3 = jsonpropertyFine.iterator();
+        JSONArray jsonPropertyFine = (JSONArray) jo.get("propertyFine");
+        Iterator iterator3 = jsonPropertyFine.iterator();
         int[] propertyFine = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        JSONArray jsonpropertyPrice = (JSONArray) jo.get("propertyPrice");
-        Iterator iterator4 = jsonpropertyPrice.iterator();
+        JSONArray jsonPropertyPrice = (JSONArray) jo.get("propertyPrice");
+        Iterator iterator4 = jsonPropertyPrice.iterator();
         int[] propertyPrice = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        JSONArray jsonutilityName = (JSONArray) jo.get("utilityName");
-        Iterator iterator5 = jsonutilityName.iterator();
+        JSONArray jsonUtilityName = (JSONArray) jo.get("utilityName");
+        Iterator iterator5 = jsonUtilityName.iterator();
         String[] utilityName = {"", ""};
 
-        JSONArray jsonutilityRate = (JSONArray) jo.get("utilityRate");
-        Iterator iterator6 = jsonutilityRate.iterator();
+        JSONArray jsonUtilityRate = (JSONArray) jo.get("utilityRate");
+        Iterator iterator6 = jsonUtilityRate.iterator();
         int[] utilityRate = {0, 0};
 
-        JSONArray jsonutilityPrice = (JSONArray) jo.get("utilityPrice");
-        Iterator iterator7 = jsonutilityPrice.iterator();
+        JSONArray jsonUtilityPrice = (JSONArray) jo.get("utilityPrice");
+        Iterator iterator7 = jsonUtilityPrice.iterator();
         int[] utilityPrice = {0, 0};
 
-        JSONArray jsontransportName = (JSONArray) jo.get("transportName");
-        Iterator iterator8 = jsontransportName.iterator();
+        JSONArray jsonTransportName = (JSONArray) jo.get("transportName");
+        Iterator iterator8 = jsonTransportName.iterator();
         String[] transportName = {"", "", "", "", ""};
 
-        JSONArray jsontransportFine = (JSONArray) jo.get("transportFine");
-        Iterator iterator9 = jsontransportFine.iterator();
+        JSONArray jsonTransportFine = (JSONArray) jo.get("transportFine");
+        Iterator iterator9 = jsonTransportFine.iterator();
         int[] transportFine = {0, 0, 0, 0, 0};
 
-        JSONArray jsontransportPrice = (JSONArray) jo.get("transportPrice");
-        Iterator iterator10 = jsontransportPrice.iterator();
+        JSONArray jsonTransportPrice = (JSONArray) jo.get("transportPrice");
+        Iterator iterator10 = jsonTransportPrice.iterator();
         int[] transportPrice = {0, 0, 0, 0, 0};
 
-        JSONArray jsontaxSquares = (JSONArray) jo.get("taxSquares");
-        Iterator iterator11 = jsontaxSquares.iterator();
+        JSONArray jsonTaxSquares = (JSONArray) jo.get("taxSquares");
+        Iterator iterator11 = jsonTaxSquares.iterator();
         String[] taxSquares = {"", ""};
 
-        JSONArray jsontaxFine = (JSONArray) jo.get("taxFine");
-        Iterator iterator12 = jsontaxFine.iterator();
+        JSONArray jsonTaxFine = (JSONArray) jo.get("taxFine");
+        Iterator iterator12 = jsonTaxFine.iterator();
         int[] taxFine = {0, 0};
 
         while (iterator1.hasNext()) {
