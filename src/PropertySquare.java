@@ -6,7 +6,7 @@ public class PropertySquare extends Square {
     private int price;
     private String squareName;
     private String color;
-    private Player player;
+    private Player owner;
 
     // Constructor
     public PropertySquare(int squareID, String squareName, int fine, String color, int price) {
@@ -53,12 +53,12 @@ public class PropertySquare extends Square {
         this.color = color;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Player getOwner() {
+        return owner;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setOwner(Player player) {
+        this.owner = player;
     }
 
     public int getPrice() {

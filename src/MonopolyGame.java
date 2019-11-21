@@ -19,10 +19,10 @@ public class MonopolyGame {
                         int[] transportPrice, int[] taxFine, String[] taxSquares) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
-        this.taxValue = taxValue;
+    //    this.taxValue = taxValue;
         this.startMoney = startMoney;
-        this.taxNumber = taxNumber;
-        this.board = new Board(this.taxNumber, this.taxValue, properties, propertyFine, propertyPrice, propertyColor,
+    //    this.taxNumber = taxNumber;
+        this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
                 taxFine, taxSquares); //Create Board object.
         this.dice = new Dice(); //Create Dice object
@@ -41,7 +41,7 @@ public class MonopolyGame {
         createDices();
 
         board.setSquareList();
-
+/*
         for (int i = 0; i < playerSize; i++) {
             playerOldList[i] = new Player(NAMES[i], startMoney); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
@@ -116,7 +116,7 @@ public class MonopolyGame {
             if (playerList[i] != null) {
                 System.out.println("WINNER : " + playerList[i].getPlayerName());
             }
-        }
+        }*/
     }
 
     //Create player list.
