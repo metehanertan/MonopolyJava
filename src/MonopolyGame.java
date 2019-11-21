@@ -76,7 +76,7 @@ public class MonopolyGame {
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
 
-                if(i != playerSize -1){
+                if (i != playerSize - 1) {
                     System.out.println("***********");
                 }
 
@@ -170,8 +170,8 @@ public class MonopolyGame {
         }
     }
 
-    public void checkPlayerSize(int intPlayerSize){
-        if(intPlayerSize < 2 || intPlayerSize > 8){
+    public void checkPlayerSize(int intPlayerSize) {
+        if (intPlayerSize < 2 || intPlayerSize > 8) {
             System.out.println("Player size must be from 2 to 8.");
             System.exit(1);
         }

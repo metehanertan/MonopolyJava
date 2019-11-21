@@ -1,5 +1,5 @@
 //Player class.
-public class Player{
+public class Player {
 
     private Piece piece; //Piece types
     private Money money; //Money amount
@@ -24,7 +24,7 @@ public class Player{
     }
 
     //Print report about current player after roll the dice
-    public void reportAfterRoll(){
+    public void reportAfterRoll() {
         System.out.println();
         System.out.println("New location : Square " + this.piece.getSquare().getSquareID());
         System.out.println("Type of square : " + this.piece.getSquare().getSquareName());
@@ -44,7 +44,7 @@ public class Player{
     }
 
     //Getter method of Piece
-    public Money getMoney(){
+    public Money getMoney() {
         return this.money;
     }
 
@@ -64,7 +64,7 @@ public class Player{
     }
 
     //Setter method of turn
-    public void setTurn(int turn){
+    public void setTurn(int turn) {
         this.turn = turn;
     }
 }

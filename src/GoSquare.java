@@ -12,27 +12,30 @@ public class GoSquare extends Square {
     }
 
     // Return square id
-    public int getSquareID(){
+    public int getSquareID() {
         return squareID;
     }
+
     // Set square id
-    public void setSquareID(int squareID){
+    public void setSquareID(int squareID) {
         this.squareID = squareID;
     }
+
     // Return square name
-    public String getSquareName(){
+    public String getSquareName() {
         return squareName;
     }
+
     // Set square name
-    public void setSquareName(String squareName){
+    public void setSquareName(String squareName) {
         this.squareName = squareName;
     }
 
-    public int getFine(){
+    public int getFine() {
         return FINE;
     }
 
-    public void passGoMoney(int money, Player player){
+    public void passGoMoney(int money, Player player) {
         player.getMoney().increaseMoney(money);
     }
 

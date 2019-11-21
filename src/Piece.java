@@ -30,7 +30,7 @@ public class Piece {
         //Check GO square. If player pass from the GO square, increase money amount with given parameter.
         if (moving >= 40) {
             moving = moving - 40;
-           // player.getMoney().increaseMoney(goMoney);
+            // player.getMoney().increaseMoney(goMoney);
             GoSquare gos = new GoSquare(0, "GO");
             gos.passGoMoney(goMoney, player);
 
