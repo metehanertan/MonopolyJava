@@ -3,8 +3,6 @@ public class Board {
 
     private final int BOARD_SIZE = 40; //board size. it is fixed to 40.
     private Square[] squareList; //Square list to keep all squares on the board.
-    private int taxNumber; //Number of tax squares on the board.
-    private int taxValue; //Amount of tax value.
     private String[] properties;
     private int[] propertyFine;
     private int[] propertyPrice;
@@ -19,13 +17,11 @@ public class Board {
     private String[] taxSquares;
 
     //Default constructor of Board Class.
-    public Board(int taxNumber, int taxValue, String[] properties,
+    public Board(String[] properties,
                  int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                  int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                  int[] transportPrice, int[] taxFine, String[] taxSquares) {
         this.squareList = new Square[BOARD_SIZE]; //set the square list's size to board size.
-        this.taxNumber = taxNumber;
-        this.taxValue = taxValue;
         this.properties = properties;
         this.propertyFine = propertyFine;
         this.propertyColor = propertyColor;
@@ -53,25 +49,62 @@ public class Board {
     //set the square list
     public void setSquareList() {
 
-        int random, count = 0;
-        while (true) {
-            random = (int) (Math.random() * 39 + 1); //Generate random numbers between 0-39.
+        int id = 0;
+        int propertyIndex = 0;
+        int colorIndex = 0;
+        int colorCount = 0;
+        int transportIndex = 0;
+        int utilityIndex = 0;
+        int taxIndex = 0;
 
-            if (count < taxNumber) {
-                if (squareList[random] == null) {
-                    squareList[random] = new TaxSquare(random, "TAX", taxValue); //Create tax square.
-                    count++;
-                }
+        while (true) {
+
+            if (id == 0) {
+                this.squareList[id] = new GoSquare(0, "GO"); //set the first square as GoSquare.
+            } else if (id == 2 || id == 7 || id == 17 || id == 22 || id == 33 || id == 36) {
+                this.squareList[id] = new NormalSquare(id, "NORMAL");
+            } else if (id == 4 || id == 38) {
+                this.squareList[id] = new TaxSquare(id, taxSquares[taxIndex], taxFine[taxIndex]);
+                taxIndex++;
+            } else if (id == 10) {
+                //Jail
+                this.squareList[id] = new NormalSquare(id, "NORMAL");
+            } else if (id == 20) {
+                //Free Parking
+                this.squareList[id] = new NormalSquare(id, "NORMAL");
+            } else if (id == 5 || id == 15 || id == 25 || id == 35) {
+                //Transports
+                this.squareList[id] = new NormalSquare(id, "NORMAL");
+                transportIndex++;
+            } else if (id == 12 || id == 28) {
+                this.squareList[id] = new Utility(id, utilityName[utilityIndex],
+                        utilityRate[utilityIndex], utilityPrice[utilityIndex]);
+                utilityIndex++;
+            } else if (id == 30) {
+                //GO TO JAIL
+                this.squareList[id] = new NormalSquare(id, "NORMAL");
             } else {
-                for (int i = 0; i < BOARD_SIZE; i++) {
-                    if (squareList[i] == null) {
-                        squareList[i] = new NormalSquare(i, "NORMAL"); //Create normal square.
-                    }
+                this.squareList[id] = new PropertySquare(id, properties[propertyIndex], propertyFine[propertyIndex],
+                        propertyColor[colorIndex], propertyPrice[propertyIndex]);
+                propertyIndex++;
+                colorCount++;
+                if (colorCount == 3) {
+                    colorIndex++;
+                    colorCount = 0;
                 }
+            }
+
+            id++;
+
+            if(id == 40){
                 break;
             }
         }
-        this.squareList[0] = new GoSquare(0, "GO"); //set the first square as GoSquare.
+
+        for(Square i : squareList){
+            System.out.print(i.getSquareID());
+            System.out.println(" : " + i.getSquareName());
+        }
 
     }
 }

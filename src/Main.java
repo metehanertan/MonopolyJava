@@ -82,20 +82,20 @@ public class Main {
             properties[i] = (String) iterator1.next();
             propertyFine[i] = a;
             propertyPrice[i] = b;
-
-            System.out.println(properties[i]);
-            System.out.println(propertyFine[i]);
-            System.out.println(propertyPrice[i]);
+            i++;
+            //       System.out.println(properties[i]);
+            //        System.out.println(propertyFine[i]);
+            //         System.out.println(propertyPrice[i]);
 
         }
-
+        i = 0;
         while (iterator2.hasNext()) {
             propertyColor[i] = (String) iterator2.next();
-
-            System.out.println(propertyColor[i]);
+            i++;
+            //     System.out.println(propertyColor[i]);
         }
 
-
+        i = 0;
         while (iterator5.hasNext()) {
             int a = Integer.parseInt((String) iterator6.next());
             int b = Integer.parseInt((String) iterator7.next());
@@ -103,33 +103,34 @@ public class Main {
             utilityName[i] = (String) iterator5.next();
             utilityRate[i] = a;
             utilityPrice[i] = b;
-
-            System.out.println(utilityName[i]);
-            System.out.println(utilityRate[i]);
-            System.out.println(utilityPrice[i]);
+            i++;
+            //     System.out.println(utilityName[i]);
+            //    System.out.println(utilityRate[i]);
+            //     System.out.println(utilityPrice[i]);
         }
 
-
+        i = 0;
         while (iterator8.hasNext()) {
             int a = Integer.parseInt((String) iterator9.next());
             int b = Integer.parseInt((String) iterator10.next());
             transportName[i] = (String) iterator8.next();
             transportFine[i] = a;
             transportPrice[i] = b;
-            System.out.println(transportName[i]);
-            System.out.println(transportFine[i]);
-            System.out.println(transportPrice[i]);
+            i++;
+            //     System.out.println(transportName[i]);
+            //     System.out.println(transportFine[i]);
+            //     System.out.println(transportPrice[i]);
         }
 
-
+        i = 0;
         while (iterator11.hasNext()) {
             int a = Integer.parseInt((String) iterator12.next());
             taxFine[i] = a;
             taxSquares[i] = (String) iterator11.next();
-            System.out.println(taxSquares[i]);
-            System.out.println(taxFine[i]);
+            i++;
+            //      System.out.println(taxSquares[i]);
+            //    System.out.println(taxFine[i]);
         }
-
 
         // Cast given strings to integers
         int intPlayerSize = Integer.parseInt(playerSize);
@@ -140,8 +141,8 @@ public class Main {
 
         // Create MonopolyGame object with given parameters
         MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber, intGoMoney,
-                properties, propertyFine, propertyPrice, propertyColor, utilityName,utilityRate,utilityPrice,transportName,
-                transportFine,transportPrice,taxFine,taxSquares);
+                properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
+                transportFine, transportPrice, taxFine, taxSquares);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 
