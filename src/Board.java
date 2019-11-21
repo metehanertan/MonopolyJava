@@ -68,13 +68,13 @@ public class Board {
                 taxIndex++;
             } else if (id == 10) {
                 //Jail
-                this.squareList[id] = new NormalSquare(id, "NORMAL");
+                this.squareList[id] = new JailSquare(id, "JAIL");
             } else if (id == 20) {
                 //Free Parking
-                this.squareList[id] = new NormalSquare(id, "NORMAL");
+                this.squareList[id] = new FreeParkingSquare(id, "FREEPARKING");
             } else if (id == 5 || id == 15 || id == 25 || id == 35) {
                 //Transports
-                this.squareList[id] = new NormalSquare(id, "NORMAL");
+                this.squareList[id] = new TransportSquare(id, "TRANSPORT",transportFine[transportIndex]);
                 transportIndex++;
             } else if (id == 12 || id == 28) {
                 this.squareList[id] = new Utility(id, utilityName[utilityIndex],
