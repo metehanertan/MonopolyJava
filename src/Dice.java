@@ -9,13 +9,22 @@ public class Dice {
 
     //Getter method for first dice value
     public int getFirstValue() {
-        firstValue = (int) (6 * Math.random() + 1);
         return firstValue;
     }
 
     //Getter method for second dice value
     public int getSecondValue() {
-        secondValue = (int) (6 * Math.random() + 1);
         return secondValue;
+    }
+
+    public void rollDice(){
+        this.firstValue = (int) (6 * Math.random() + 1);
+        this.secondValue = (int) (6 * Math.random() + 1);
+    }
+
+    public int getTotal(){
+        int total;
+        total = this.firstValue + this.secondValue;
+        return total;
     }
 }
