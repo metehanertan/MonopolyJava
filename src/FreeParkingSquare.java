@@ -6,31 +6,30 @@ public class FreeParkingSquare extends Square {
     public FreeParkingSquare(int id, String name){
         this.squareID = id;
         this.squareName = name;
-
     }
 
     @Override
-    int getSquareID() {
+    public int getSquareID() {
         return this.squareID;
     }
 
     @Override
-    void setSquareID(int squareID) {
-
+    public void setSquareID(int squareID) {
+        this.squareID = squareID;
     }
 
     @Override
-    String getSquareName() {
+    public String getSquareName() {
         return this.squareName;
     }
 
     @Override
-    void setSquareName(String squareName) {
-
+    public void setSquareName(String squareName) {
+        this.squareName = squareName;
     }
 
     @Override
-    int getFine() {
+    public int getFine() {
         return 0;
     }
 }
