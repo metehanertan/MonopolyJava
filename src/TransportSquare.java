@@ -3,36 +3,40 @@ public class TransportSquare extends Square {
     private int squareID;
     private String squareName;
     private int transportFine;
+    private Player owner;
 
     public TransportSquare(int id,String name,int fine){
         this.squareID = id;
         this.squareName = name;
         this.transportFine = fine;
-
     }
 
     @Override
-    int getSquareID() {
+    public int getSquareID() {
         return this.squareID;
     }
 
     @Override
-    void setSquareID(int squareID) {
-
+    public void setSquareID(int squareID) {
+        this.squareID = squareID;
     }
 
     @Override
-    String getSquareName() {
+    public String getSquareName() {
         return this.squareName;
     }
 
     @Override
-    void setSquareName(String squareName) {
-
+    public void setSquareName(String squareName) {
+        this.squareName = squareName;
     }
 
     @Override
-    int getFine() {
+    public int getFine() {
         return 0;
+    }
+
+    public void setOwner(Player player){
+        this.owner = player;
     }
 }
