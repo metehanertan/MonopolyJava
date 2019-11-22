@@ -5,7 +5,7 @@ public class MonopolyGame {
     private Board board; //Board object
     private Player[] playerList; //Player array to create given number of players
     private Player[] playerOldList; //Not ordered player list
-    private int playerSize, taxValue, startMoney, taxNumber;
+    private int playerSize, threshold, startMoney, taxNumber;
     private Dice dice; //Dice object
     private Dice buyingDice;
     private Piece[] pieceList; //Piece array which contains Piece objects.
@@ -14,20 +14,21 @@ public class MonopolyGame {
     private int[] dices; //Dice values array to order turns of players
 
     //Constructor of MonopolyGame Class calling from Main Class.
-    public MonopolyGame(int playerSize, int taxValue, int startMoney, int taxNumber, int goMoney, String[] properties,
+    public MonopolyGame(int playerSize, int threshold, int startMoney, int taxNumber, int goMoney, String[] properties,
                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                         int[] transportPrice, int[] taxFine, String[] taxSquares) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
-    //    this.taxValue = taxValue;
+            this.threshold = threshold;
         this.startMoney = startMoney;
-    //    this.taxNumber = taxNumber;
+        //    this.taxNumber = taxNumber;
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
                 taxFine, taxSquares); //Create Board object.
         this.dice = new Dice(); //Create Dice object
         this.goMoney = goMoney; //Assign GO money.
+        this.buyingDice = new Dice(); //Dice for buying chance
     }
 
     //Play method to play the game.
@@ -58,6 +59,8 @@ public class MonopolyGame {
         boolean check = true;
         int currentPlayerSize = playerSize;
 
+        Square tempSqaure;
+
         while (check) {
             cycle++; //Increase cycle counter for each cycle.
             System.out.println("-----NEXT CYCLE-----");
@@ -73,6 +76,7 @@ public class MonopolyGame {
 
                 playerList[i].reportBeforeRoll();
 
+                dice.rollDice();
                 firstDice = dice.getFirstValue(); //Roll first dice
                 secondDice = dice.getSecondValue(); //Roll second dice
                 diceValue = firstDice + secondDice; //Add dice values to move the player.
@@ -82,7 +86,92 @@ public class MonopolyGame {
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
 
-                //if()
+                tempSqaure = playerList[i].getPiece().getSquare();
+
+                if (tempSqaure instanceof PropertySquare) {
+
+                    if (((PropertySquare) tempSqaure).getHasOwner()) {
+
+                        if (((PropertySquare) tempSqaure).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
+                            continue;
+                        } else {
+                            playerList[i].getMoney().decreaseMoney(tempSqaure.getFine());
+                            ((PropertySquare) tempSqaure).getOwner().getMoney().increaseMoney(tempSqaure.getFine());
+                        }
+                    } else {
+
+                        buyingDice.rollDice();
+                        int buyingDiceValue = buyingDice.getTotal();
+
+                        //treshold değeri inputtan alınacak!!!!!
+                        if (buyingDiceValue > threshold) {
+                            ((PropertySquare) tempSqaure).setOwner(playerList[i]);
+                        } else {
+                            continue;
+                        }
+                    }
+
+
+                } else if (tempSqaure instanceof TransportSquare) {
+
+                    //ownerı varsa --- birden fazla transport olması durumu control edilecek arraylist!!
+                    if (((TransportSquare) tempSqaure).getHasOwner()) {
+
+                        if (((TransportSquare) tempSqaure).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
+
+                            continue;
+                        } else {
+                            playerList[i].getMoney().decreaseMoney(tempSqaure.getFine());
+                            ((TransportSquare) tempSqaure).getOwner().getMoney().increaseMoney(tempSqaure.getFine());
+                        }
+                    }
+
+                    //ownerı yoksa
+                    else {
+
+                        buyingDice.rollDice();
+                        int buyingDiceValue = buyingDice.getTotal();
+
+                        //treshold değeri inputtan alınacak!!!!!
+                        if (buyingDiceValue > threshold) {
+                            ((TransportSquare) tempSqaure).setOwner(playerList[i]);
+                        } else {
+                            continue;
+                        }
+                    }
+
+
+
+                } else if (tempSqaure instanceof UtilitySquare) {
+
+                    //ownerı varsa
+                    if (((UtilitySquare) tempSqaure).getHasOwner()) {
+
+                        if (((UtilitySquare) tempSqaure).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
+
+                            continue;
+                        } else {
+                            playerList[i].getMoney().decreaseMoney(tempSqaure.getFine());
+                            ((UtilitySquare) tempSqaure).getOwner().getMoney().increaseMoney(tempSqaure.getFine());
+                        }
+                    }
+
+                    //ownerı yoksa
+                    else {
+
+                        buyingDice.rollDice();
+                        int buyingDiceValue = buyingDice.getTotal();
+
+                        //treshold değeri inputtan alınacak!!!!!
+                        if (buyingDiceValue > threshold) {
+                            ((UtilitySquare) tempSqaure).setOwner(playerList[i]);
+                        } else {
+                            continue;
+                        }
+                    }
+
+                }
+
 
                 if (i != playerSize - 1) {
                     System.out.println("***********");
@@ -91,7 +180,7 @@ public class MonopolyGame {
                 //Check if current square is tax square
                 if (playerList[i].getPiece().getSquare().getSquareName() == "TAX") {
 
-                    playerList[i].getMoney().decreaseMoney(taxValue);//Decrease money with amount of tax value.
+                   // playerList[i].getMoney().decreaseMoney(taxValue);//Decrease money with amount of tax value.
 
                     //If current money of the current player is less than or equal to zero, player exits from the game.
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
@@ -191,9 +280,9 @@ public class MonopolyGame {
     }
 
     //Getter method for tax value.
-    public int getTaxValue() {
+   /* public int getTaxValue() {
         return taxValue;
-    }
+    }*/
 
     //Getteer method for number of tax squares.
     public int getTaxNumber() {

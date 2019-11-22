@@ -77,7 +77,7 @@ public class Board {
                 this.squareList[id] = new TransportSquare(id, "TRANSPORT",transportFine[transportIndex]);
                 transportIndex++;
             } else if (id == 12 || id == 28) {
-                this.squareList[id] = new Utility(id, utilityName[utilityIndex],
+                this.squareList[id] = new UtilitySquare(id, utilityName[utilityIndex],
                         utilityRate[utilityIndex], utilityPrice[utilityIndex]);
                 utilityIndex++;
             } else if (id == 30) {

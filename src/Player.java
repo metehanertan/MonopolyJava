@@ -6,6 +6,7 @@ public class Player {
     private Square square; //Square object
     private String playerName; //Player name
     private int turn; //Turn
+    private boolean isInJail;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {

@@ -39,6 +39,10 @@ public class TransportSquare extends Square {
         return 0;
     }
 
+    public Player getOwner(){
+        return this.owner;
+    }
+
     public void setOwner(Player player){
         this.owner = player;
         this.hasOwner = true;
@@ -51,4 +55,6 @@ public class TransportSquare extends Square {
     public void setHasOwner(boolean hasOwner) {
         this.hasOwner = hasOwner;
     }
+
+
 }

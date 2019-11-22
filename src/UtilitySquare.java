@@ -1,4 +1,4 @@
-public class Utility extends Square {
+public class UtilitySquare extends Square {
 
     // Create necessary variables
     private int squareID;
@@ -10,7 +10,7 @@ public class Utility extends Square {
     private boolean hasOwner;
 
     // Constructor
-    public Utility(int squareID, String utilityName, int rate, int price) {
+    public UtilitySquare(int squareID, String utilityName, int rate, int price) {
         this.squareID = squareID;
         this.utilityName = utilityName;
         this.rate = rate;

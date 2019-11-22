@@ -57,6 +57,7 @@ public class PropertySquare extends Square {
     }
 
     public Player getOwner() {
+
         return owner;
     }
 
