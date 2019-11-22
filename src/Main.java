@@ -22,7 +22,7 @@ public class Main {
 
         // Read inputs as string
         String playerSize = (String) jo.get("playerSize");
-        String taxValue = (String) jo.get("taxValue");
+        String threshold = (String) jo.get("threshold");
         String startMoney = (String) jo.get("startMoney");
         String taxNumber = (String) jo.get("taxNumber");
         String goMoney = (String) jo.get("goMoney");
@@ -134,13 +134,13 @@ public class Main {
 
         // Cast given strings to integers
         int intPlayerSize = Integer.parseInt(playerSize);
-        int intTaxValue = Integer.parseInt(taxValue);
+        int intThreshold = Integer.parseInt(threshold);
         int intStartMoney = Integer.parseInt(startMoney);
         int intTaxNumber = Integer.parseInt(taxNumber);
         int intGoMoney = Integer.parseInt(goMoney);
 
         // Create MonopolyGame object with given parameters
-        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intTaxValue, intStartMoney, intTaxNumber, intGoMoney,
+        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intTaxNumber, intGoMoney,
                 properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
                 transportFine, transportPrice, taxFine, taxSquares);
         // Call the Play function of MonopolyGame to start the game
