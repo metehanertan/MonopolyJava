@@ -8,6 +8,8 @@ public class PropertySquare extends Square {
     private String color;
     private Player owner;
 
+    private boolean hasOwner;
+
     // Constructor
     public PropertySquare(int squareID, String squareName, int fine, String color, int price) {
         this.squareID = squareID;
@@ -15,6 +17,7 @@ public class PropertySquare extends Square {
         this.color = color;
         this.fine = fine;
         this.price = price;
+        this.hasOwner = false;
     }
 
     // Return square id
@@ -59,6 +62,7 @@ public class PropertySquare extends Square {
 
     public void setOwner(Player player) {
         this.owner = player;
+        this.hasOwner = true;
     }
 
     public int getPrice() {
@@ -67,6 +71,14 @@ public class PropertySquare extends Square {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public boolean getHasOwner() {
+        return hasOwner;
+    }
+
+    public void setHasOwner(boolean hasOwner) {
+        this.hasOwner = hasOwner;
     }
 
 }

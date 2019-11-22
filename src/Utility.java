@@ -7,12 +7,15 @@ public class Utility extends Square {
     private Player owner;
     private int price;
 
+    private boolean hasOwner;
+
     // Constructor
     public Utility(int squareID, String utilityName, int rate, int price) {
         this.squareID = squareID;
         this.utilityName = utilityName;
         this.rate = rate;
         this.price = price;
+        this.hasOwner = false;
     }
 
     // Return square id
@@ -51,6 +54,7 @@ public class Utility extends Square {
 
     public void setOwner(Player owner) {
         this.owner = owner;
+        this.hasOwner = true;
     }
 
     public int getPrice() {
@@ -61,5 +65,12 @@ public class Utility extends Square {
         this.price = price;
     }
 
+    public boolean getHasOwner() {
+        return hasOwner;
+    }
+
+    public void setHasOwner(boolean hasOwner) {
+        this.hasOwner = hasOwner;
+    }
 
 }

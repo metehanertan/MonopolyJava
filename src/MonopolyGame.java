@@ -7,6 +7,7 @@ public class MonopolyGame {
     private Player[] playerOldList; //Not ordered player list
     private int playerSize, taxValue, startMoney, taxNumber;
     private Dice dice; //Dice object
+    private Dice buyingDice;
     private Piece[] pieceList; //Piece array which contains Piece objects.
     private int goMoney; //Given money amount while passing through GO square
     private int cycle; //Cycle counter
@@ -31,6 +32,7 @@ public class MonopolyGame {
 
     //Play method to play the game.
     public void Play() {
+
         int diceValue;
         int firstDice;
         int secondDice;
@@ -41,7 +43,7 @@ public class MonopolyGame {
         createDices();
 
         board.setSquareList();
-/*
+
         for (int i = 0; i < playerSize; i++) {
             playerOldList[i] = new Player(NAMES[i], startMoney); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
@@ -50,7 +52,7 @@ public class MonopolyGame {
         }
 
         printDiceRoll();
-        rollDice();
+        rollDiceBeginning();
         printPlayerAndPiece();
 
         boolean check = true;
@@ -60,7 +62,6 @@ public class MonopolyGame {
             cycle++; //Increase cycle counter for each cycle.
             System.out.println("-----NEXT CYCLE-----");
             System.out.println("Cycle: " + cycle + "\n");
-
 
             //Check players.
             for (int i = 0; i < playerSize; ) {
@@ -80,6 +81,8 @@ public class MonopolyGame {
                 System.out.println("\nFirst dice is : " + firstDice + " Second dice is : " + secondDice);
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
+
+                //if()
 
                 if (i != playerSize - 1) {
                     System.out.println("***********");
@@ -116,7 +119,7 @@ public class MonopolyGame {
             if (playerList[i] != null) {
                 System.out.println("WINNER : " + playerList[i].getPlayerName());
             }
-        }*/
+        }
     }
 
     //Create player list.
@@ -149,7 +152,7 @@ public class MonopolyGame {
     }
 
     //Roll the dice for turn order and set the turn order of players from biggest to smallest.
-    public void rollDice() {
+    public void rollDiceBeginning() {
         for (int i = 0; i < playerSize; i++) {
             int biggest = 0;
             int place = 0;
