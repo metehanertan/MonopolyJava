@@ -52,7 +52,7 @@ public class MonopolyGame {
             playerOldList[i] = new Player(NAMES[i], startMoney); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
             playerOldList[i].setPiece(pieceList[i]); //Set players' pieces'.
-            dices[i] = dice.getFirstValue() + dice.getSecondValue(); //Roll dices for each player to set the turn order.
+            dices[i] = dice.getFirstRandomValue() + dice.getSecondRandomValue(); //Roll dices for each player to set the turn order.
         }
 
         printDiceRoll();
@@ -93,15 +93,37 @@ public class MonopolyGame {
                     choiceDice.rollDice();
                     if (choiceDice.getTotal() > 8) {
                         playerList[i].getMoney().decreaseMoney(jailFine);
+
+                        if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                            playerList[i] = null;
+                            currentPlayerSize--;
+
+                            //If only one player left in the game, finish the game.
+                            if (currentPlayerSize == 1) {
+                                check = false;
+                                break;
+                            }
+                        }
+
                     } else {
                         // Check the player how many turns in the jail
                         if (jailTurnCount <= 3) {
                             if (firstDice != secondDice) {
                                 jailTurnCount++;
-                                continue;
+                                break;
                             }
                         } else {
                             playerList[i].getMoney().decreaseMoney(jailFine);
+                            if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                playerList[i] = null;
+                                currentPlayerSize--;
+
+                                //If only one player left in the game, finish the game.
+                                if (currentPlayerSize == 1) {
+                                    check = false;
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -121,6 +143,16 @@ public class MonopolyGame {
                             continue;
                         } else {
                             playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                            if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                playerList[i] = null;
+                                currentPlayerSize--;
+
+                                //If only one player left in the game, finish the game.
+                                if (currentPlayerSize == 1) {
+                                    check = false;
+                                    break;
+                                }
+                            }
                             ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     } else {
@@ -129,10 +161,8 @@ public class MonopolyGame {
                         int choiceDiceValue = choiceDice.getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
-                        if (choiceDiceValue > threshold) {
+                        if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((PropertySquare) tempSquare).getPrice()) {
                             ((PropertySquare) tempSquare).setOwner(playerList[i]);
-                        } else {
-                            continue;
                         }
                     }
 
@@ -147,6 +177,16 @@ public class MonopolyGame {
                             continue;
                         } else {
                             playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                            if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                playerList[i] = null;
+                                currentPlayerSize--;
+
+                                //If only one player left in the game, finish the game.
+                                if (currentPlayerSize == 1) {
+                                    check = false;
+                                    break;
+                                }
+                            }
                             ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     }
@@ -158,10 +198,8 @@ public class MonopolyGame {
                         int choiceDiceValue = choiceDice.getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
-                        if (choiceDiceValue > threshold) {
+                        if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((TransportSquare) tempSquare).getPrice()) {
                             ((TransportSquare) tempSquare).setOwner(playerList[i]);
-                        } else {
-                            continue;
                         }
                     }
 
@@ -175,6 +213,16 @@ public class MonopolyGame {
                             continue;
                         } else {
                             playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                            if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                playerList[i] = null;
+                                currentPlayerSize--;
+
+                                //If only one player left in the game, finish the game.
+                                if (currentPlayerSize == 1) {
+                                    check = false;
+                                    break;
+                                }
+                            }
                             ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     }
@@ -186,10 +234,8 @@ public class MonopolyGame {
                         int choiceDiceValue = choiceDice.getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
-                        if (choiceDiceValue > threshold) {
+                        if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((UtilitySquare) tempSquare).getPrice()) {
                             ((UtilitySquare) tempSquare).setOwner(playerList[i]);
-                        } else {
-                            continue;
                         }
                     }
                 }
@@ -203,24 +249,6 @@ public class MonopolyGame {
 
                 if (i != playerSize - 1) {
                     System.out.println("***********");
-                }
-
-                //Check if current square is tax square
-                if (playerList[i].getPiece().getSquare().getSquareName() == "TAX") {
-
-                    // playerList[i].getMoney().decreaseMoney(taxValue);//Decrease money with amount of tax value.
-
-                    //If current money of the current player is less than or equal to zero, player exits from the game.
-                    if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        playerList[i] = null;
-                        currentPlayerSize--;
-
-                        //If only one player left in the game, finish the game.
-                        if (currentPlayerSize == 1) {
-                            check = false;
-                            break;
-                        }
-                    }
                 }
 
                 //Check if dices are equal each other.
