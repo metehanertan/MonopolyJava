@@ -13,6 +13,5 @@ public abstract class Square {
     // Set square name
     abstract void setSquareName(String squareName);
 
-    abstract int getFine();
 
 }
