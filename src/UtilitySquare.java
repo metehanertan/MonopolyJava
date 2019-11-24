@@ -38,11 +38,17 @@ public class UtilitySquare extends Square {
         this.utilityName = squareName;
     }
 
-    @Override
-    int getFine() {
+
+    int getFine(int diceValue) {
         // RATE X ZAR
-        return rate;
+        int fine = rate * diceValue;
+        return fine;
     }
+
+
+
+
+
 
     public int getRate() {
         return rate;

@@ -28,6 +28,7 @@ public class Main {
         String goMoney = (String) jo.get("goMoney");
         String jailFine = (String) jo.get("jailFine");
 
+
         JSONArray jsonProperties = (JSONArray) jo.get("propertyName");
         Iterator iterator1 = jsonProperties.iterator();
         String[] properties = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
@@ -132,6 +133,7 @@ public class Main {
         int intTaxNumber = Integer.parseInt(taxNumber);
         int intGoMoney = Integer.parseInt(goMoney);
         int intJailFine = Integer.parseInt(jailFine);
+
 
         // Create MonopolyGame object with given parameters
         MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intTaxNumber, intGoMoney,

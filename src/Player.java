@@ -11,6 +11,9 @@ public class Player {
     private boolean isInJail;
     private int jailTurnCounter;
     private ArrayList<Square> properties;
+    private int transportCount;
+    private int utilityCount;
+
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
@@ -18,6 +21,8 @@ public class Player {
         this.money = new Money(startMoney);
         this.properties = new ArrayList<Square>();
         this.isInJail = false;
+        this.transportCount = 0;
+        this.utilityCount = 0;
     }
 
 
@@ -105,6 +110,28 @@ public class Player {
 
     public void addProperty(Square property){
         this.properties.add(property);
+    }
+
+    public int getTransportCount(){
+        return transportCount;
+    }
+    public void setTransportCount(int transportCount){
+        this.transportCount = transportCount;
+    }
+
+    public int getUtilityCount(){
+        return utilityCount;
+    }
+    public void setUtilityCount(int utilityCount){
+        this.utilityCount = utilityCount;
+    }
+
+    public void increaseTransportCounter(){
+        this.transportCount++;
+    }
+
+    public void increseUtilityCounter(){
+        this.utilityCount++;
     }
 
 }
