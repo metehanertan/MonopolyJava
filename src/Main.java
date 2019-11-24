@@ -26,6 +26,7 @@ public class Main {
         String startMoney = (String) jo.get("startMoney");
         String taxNumber = (String) jo.get("taxNumber");
         String goMoney = (String) jo.get("goMoney");
+        String jailFine = (String) jo.get("jailFine");
 
         JSONArray jsonProperties = (JSONArray) jo.get("propertyName");
         Iterator iterator1 = jsonProperties.iterator();
@@ -138,11 +139,12 @@ public class Main {
         int intStartMoney = Integer.parseInt(startMoney);
         int intTaxNumber = Integer.parseInt(taxNumber);
         int intGoMoney = Integer.parseInt(goMoney);
+        int intJailFine = Integer.parseInt(jailFine);
 
         // Create MonopolyGame object with given parameters
         MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intTaxNumber, intGoMoney,
                 properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares);
+                transportFine, transportPrice, taxFine, taxSquares, intJailFine);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 

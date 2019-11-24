@@ -7,20 +7,21 @@ public class MonopolyGame {
     private Player[] playerOldList; //Not ordered player list
     private int playerSize, threshold, startMoney, taxNumber;
     private Dice dice; //Dice object
-    private Dice buyingDice;
+    private Dice choiceDice;
     private Piece[] pieceList; //Piece array which contains Piece objects.
     private int goMoney; //Given money amount while passing through GO square
     private int cycle; //Cycle counter
     private int[] dices; //Dice values array to order turns of players
+    private int jailFine;
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int threshold, int startMoney, int taxNumber, int goMoney, String[] properties,
                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
-                        int[] transportPrice, int[] taxFine, String[] taxSquares) {
+                        int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
-            this.threshold = threshold;
+        this.threshold = threshold;
         this.startMoney = startMoney;
         //    this.taxNumber = taxNumber;
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
@@ -28,7 +29,8 @@ public class MonopolyGame {
                 taxFine, taxSquares); //Create Board object.
         this.dice = new Dice(); //Create Dice object
         this.goMoney = goMoney; //Assign GO money.
-        this.buyingDice = new Dice(); //Dice for buying chance
+        this.choiceDice = new Dice(); //Dice for buying chance
+        this.jailFine = jailFine;
     }
 
     //Play method to play the game.
@@ -37,6 +39,7 @@ public class MonopolyGame {
         int diceValue;
         int firstDice;
         int secondDice;
+        int jailTurnCount = 0;
 
         createPlayerList();
         createPieceList();
@@ -59,7 +62,7 @@ public class MonopolyGame {
         boolean check = true;
         int currentPlayerSize = playerSize;
 
-        Square tempSqaure;
+        Square tempSquare;
 
         while (check) {
             cycle++; //Increase cycle counter for each cycle.
@@ -81,94 +84,119 @@ public class MonopolyGame {
                 secondDice = dice.getSecondValue(); //Roll second dice
                 diceValue = firstDice + secondDice; //Add dice values to move the player.
 
+                tempSquare = playerList[i].getPiece().getSquare();
+
+                // If player in the jail
+                if (tempSquare instanceof JailSquare) {
+
+                    // Check if player wants to pay fine and go out to jail
+                    choiceDice.rollDice();
+                    if (choiceDice.getTotal() > 8) {
+                        playerList[i].getMoney().decreaseMoney(jailFine);
+                    } else {
+                        // Check the player how many turns in the jail
+                        if (jailTurnCount <= 3) {
+                            if (firstDice != secondDice) {
+                                jailTurnCount++;
+                                continue;
+                            }
+                        } else {
+                            playerList[i].getMoney().decreaseMoney(jailFine);
+                        }
+                    }
+                }
+
                 playerList[i].getPiece().move(diceValue, playerList[i], goMoney); //Move the player according to dice values.
                 System.out.println("\nFirst dice is : " + firstDice + " Second dice is : " + secondDice);
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
 
-                tempSqaure = playerList[i].getPiece().getSquare();
+                tempSquare = playerList[i].getPiece().getSquare();
 
-                if (tempSqaure instanceof PropertySquare) {
+                if (tempSquare instanceof PropertySquare) {
 
-                    if (((PropertySquare) tempSqaure).getHasOwner()) {
+                    if (((PropertySquare) tempSquare).getHasOwner()) {
 
-                        if (((PropertySquare) tempSqaure).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
+                        if (((PropertySquare) tempSquare).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
                             continue;
                         } else {
-                            playerList[i].getMoney().decreaseMoney(tempSqaure.getFine());
-                            ((PropertySquare) tempSqaure).getOwner().getMoney().increaseMoney(tempSqaure.getFine());
+                            playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                            ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     } else {
 
-                        buyingDice.rollDice();
-                        int buyingDiceValue = buyingDice.getTotal();
+                        choiceDice.rollDice();
+                        int choiceDiceValue = choiceDice.getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
-                        if (buyingDiceValue > threshold) {
-                            ((PropertySquare) tempSqaure).setOwner(playerList[i]);
+                        if (choiceDiceValue > threshold) {
+                            ((PropertySquare) tempSquare).setOwner(playerList[i]);
                         } else {
                             continue;
                         }
                     }
 
 
-                } else if (tempSqaure instanceof TransportSquare) {
+                } else if (tempSquare instanceof TransportSquare) {
 
                     //ownerı varsa --- birden fazla transport olması durumu control edilecek arraylist!!
-                    if (((TransportSquare) tempSqaure).getHasOwner()) {
+                    if (((TransportSquare) tempSquare).getHasOwner()) {
 
-                        if (((TransportSquare) tempSqaure).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
+                        if (((TransportSquare) tempSquare).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
 
                             continue;
                         } else {
-                            playerList[i].getMoney().decreaseMoney(tempSqaure.getFine());
-                            ((TransportSquare) tempSqaure).getOwner().getMoney().increaseMoney(tempSqaure.getFine());
+                            playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                            ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     }
 
                     //ownerı yoksa
                     else {
 
-                        buyingDice.rollDice();
-                        int buyingDiceValue = buyingDice.getTotal();
+                        choiceDice.rollDice();
+                        int choiceDiceValue = choiceDice.getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
-                        if (buyingDiceValue > threshold) {
-                            ((TransportSquare) tempSqaure).setOwner(playerList[i]);
+                        if (choiceDiceValue > threshold) {
+                            ((TransportSquare) tempSquare).setOwner(playerList[i]);
                         } else {
                             continue;
                         }
                     }
 
-
-
-                } else if (tempSqaure instanceof UtilitySquare) {
+                } else if (tempSquare instanceof UtilitySquare) {
 
                     //ownerı varsa
-                    if (((UtilitySquare) tempSqaure).getHasOwner()) {
+                    if (((UtilitySquare) tempSquare).getHasOwner()) {
 
-                        if (((UtilitySquare) tempSqaure).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
+                        if (((UtilitySquare) tempSquare).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
 
                             continue;
                         } else {
-                            playerList[i].getMoney().decreaseMoney(tempSqaure.getFine());
-                            ((UtilitySquare) tempSqaure).getOwner().getMoney().increaseMoney(tempSqaure.getFine());
+                            playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                            ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     }
 
                     //ownerı yoksa
                     else {
 
-                        buyingDice.rollDice();
-                        int buyingDiceValue = buyingDice.getTotal();
+                        choiceDice.rollDice();
+                        int choiceDiceValue = choiceDice.getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
-                        if (buyingDiceValue > threshold) {
-                            ((UtilitySquare) tempSqaure).setOwner(playerList[i]);
+                        if (choiceDiceValue > threshold) {
+                            ((UtilitySquare) tempSquare).setOwner(playerList[i]);
                         } else {
                             continue;
                         }
                     }
+                }
+                if (tempSquare instanceof GoToJailSquare) {
+
+                    playerList[i].getPiece().setSquare(board.getSquareList()[10]);
+                    jailTurnCount = 0;
 
                 }
 
@@ -180,7 +208,7 @@ public class MonopolyGame {
                 //Check if current square is tax square
                 if (playerList[i].getPiece().getSquare().getSquareName() == "TAX") {
 
-                   // playerList[i].getMoney().decreaseMoney(taxValue);//Decrease money with amount of tax value.
+                    // playerList[i].getMoney().decreaseMoney(taxValue);//Decrease money with amount of tax value.
 
                     //If current money of the current player is less than or equal to zero, player exits from the game.
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {

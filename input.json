@@ -4,6 +4,7 @@
 	"startMoney": "200",
 	"taxNumber" : "6",
 	"goMoney" : "10",
+	"jailFine": "50",
 	"propertyName" : ["KADIKÖY", "TAKSİM", "KARAKÖY", "ÇANAKKALE", "4.LEVENT", "BAĞDAT CADDESİ", "ACIBADEM", "EMİNÖNÜ", "FATİH", "BURSA", "ESKİŞEHİR", "ANKARA", "BEŞİKTAŞ", "OSMANBEY", "HALKALI", "GÖZTEPE", "ERENKÖY","BEYLİKDÜZÜ", "BEYOĞLU", "ŞİŞLİ", "BEYKOZ", "ÜMRANİYE"],
 	"propertyColor" : ["Blue", "Brown", "Red", "Yellow", "Orange", "Green", "Black", "Gray"],
 	"propertyFine" : ["3","3","5","5","6","7","7","8","9","9","10","11","11","12","13","13","14","15","15","16","18","20"],
