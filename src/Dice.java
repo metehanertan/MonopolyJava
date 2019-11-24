@@ -27,4 +27,13 @@ public class Dice {
         total = this.firstValue + this.secondValue;
         return total;
     }
+
+    public int getFirstRandomValue(){
+        this.firstValue = (int) (6 * Math.random() + 1);
+        return firstValue;
+    }
+    public int getSecondRandomValue(){
+        this.secondValue = (int) (6 * Math.random() + 1);
+        return secondValue;
+    }
 }
