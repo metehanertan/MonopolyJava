@@ -89,38 +89,34 @@ public class MonopolyGame {
                 // If player in the jail
                 if (tempSquare instanceof JailSquare) {
 
-                    // Check if player wants to pay fine and go out to jail
-                    choiceDice.rollDice();
-                    if (choiceDice.getTotal() > 8) {
-                        playerList[i].getMoney().decreaseMoney(jailFine);
+                    if (firstDice != secondDice) {
 
-                        if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                            playerList[i] = null;
-                            currentPlayerSize--;
+                        // Check if player wants to pay fine and go out to jail
+                        choiceDice.rollDice();
 
-                            //If only one player left in the game, finish the game.
-                            if (currentPlayerSize == 1) {
-                                check = false;
-                                break;
-                            }
-                        }
+                        if (choiceDice.getTotal() > 8) {
 
-                    } else {
-                        // Check the player how many turns in the jail
-                        if (jailTurnCount <= 3) {
-                            if (firstDice != secondDice) {
-                                jailTurnCount++;
-                                break;
+                            if (playerList[i].getMoney().getCurrentMoney() > jailFine) {
+
+                                playerList[i].getMoney().decreaseMoney(jailFine);
+
                             }
                         } else {
-                            playerList[i].getMoney().decreaseMoney(jailFine);
-                            if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                playerList[i] = null;
-                                currentPlayerSize--;
+                            // Check the player how many turns in the jail
+                            if (jailTurnCount < 3) {
+                                jailTurnCount++;
+                                i++;
+                                break;
+                            } else {
+                                playerList[i].getMoney().decreaseMoney(jailFine);
+                                if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                    playerList[i] = null;
+                                    currentPlayerSize--;
 
-                                //If only one player left in the game, finish the game.
-                                if (currentPlayerSize == 1) {
-                                    check = false;
+                                    //If only one player left in the game, finish the game.
+                                    if (currentPlayerSize == 1) {
+                                        check = false;
+                                    }
                                     break;
                                 }
                             }
@@ -139,19 +135,20 @@ public class MonopolyGame {
 
                     if (((PropertySquare) tempSquare).getHasOwner()) {
 
-                        if (((PropertySquare) tempSquare).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
-                            continue;
-                        } else {
+                        if (((PropertySquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
+
                             playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+
                             if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
                                 playerList[i] = null;
                                 currentPlayerSize--;
 
                                 //If only one player left in the game, finish the game.
                                 if (currentPlayerSize == 1) {
                                     check = false;
-                                    break;
                                 }
+                                break;
                             }
                             ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
@@ -166,26 +163,25 @@ public class MonopolyGame {
                         }
                     }
 
-
                 } else if (tempSquare instanceof TransportSquare) {
 
                     //ownerı varsa --- birden fazla transport olması durumu control edilecek arraylist!!
                     if (((TransportSquare) tempSquare).getHasOwner()) {
 
-                        if (((TransportSquare) tempSquare).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
+                        if (((TransportSquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
 
-                            continue;
-                        } else {
                             playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
                             if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
                                 playerList[i] = null;
                                 currentPlayerSize--;
 
                                 //If only one player left in the game, finish the game.
                                 if (currentPlayerSize == 1) {
                                     check = false;
-                                    break;
+
                                 }
+                                break;
                             }
                             ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
@@ -208,20 +204,19 @@ public class MonopolyGame {
                     //ownerı varsa
                     if (((UtilitySquare) tempSquare).getHasOwner()) {
 
-                        if (((UtilitySquare) tempSquare).getOwner().getPlayerName() == playerList[i].getPlayerName()) {
+                        if (((UtilitySquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
 
-                            continue;
-                        } else {
                             playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
                             if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
                                 playerList[i] = null;
                                 currentPlayerSize--;
 
                                 //If only one player left in the game, finish the game.
                                 if (currentPlayerSize == 1) {
                                     check = false;
-                                    break;
                                 }
+                                break;
                             }
                             ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }

@@ -1,5 +1,5 @@
 {
-	"playerSize": "2",
+	"playerSize": "5",
 	"taxValue": "50",
 	"startMoney": "200",
 	"taxNumber" : "6",
@@ -16,5 +16,6 @@
 	"utilityPrice" : ["15", "15"],
 	"utilityRate" : ["1","1"],
 	"taxSquares" : ["INCOME TAX", "LUXURY TAX"],
-	"taxFine" : ["20", "10"]
+	"taxFine" : ["20", "10"],
+	"threshold": "8"
 }
