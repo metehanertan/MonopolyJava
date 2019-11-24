@@ -82,7 +82,7 @@ public class Board {
                 utilityIndex++;
             } else if (id == 30) {
                 //GO TO JAIL
-                this.squareList[id] = new NormalSquare(id, "NORMAL");
+                this.squareList[id] = new GoToJailSquare(id, "GOTOJAIL");
             } else {
                 this.squareList[id] = new PropertySquare(id, properties[propertyIndex], propertyFine[propertyIndex],
                         propertyColor[colorIndex], propertyPrice[propertyIndex]);

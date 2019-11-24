@@ -84,16 +84,14 @@ public class Main {
             propertyFine[i] = a;
             propertyPrice[i] = b;
             i++;
-            //       System.out.println(properties[i]);
-            //        System.out.println(propertyFine[i]);
-            //         System.out.println(propertyPrice[i]);
+
 
         }
         i = 0;
         while (iterator2.hasNext()) {
             propertyColor[i] = (String) iterator2.next();
             i++;
-            //     System.out.println(propertyColor[i]);
+
         }
 
         i = 0;
@@ -105,9 +103,7 @@ public class Main {
             utilityRate[i] = a;
             utilityPrice[i] = b;
             i++;
-            //     System.out.println(utilityName[i]);
-            //    System.out.println(utilityRate[i]);
-            //     System.out.println(utilityPrice[i]);
+
         }
 
         i = 0;
@@ -118,9 +114,6 @@ public class Main {
             transportFine[i] = a;
             transportPrice[i] = b;
             i++;
-            //     System.out.println(transportName[i]);
-            //     System.out.println(transportFine[i]);
-            //     System.out.println(transportPrice[i]);
         }
 
         i = 0;
@@ -129,8 +122,7 @@ public class Main {
             taxFine[i] = a;
             taxSquares[i] = (String) iterator11.next();
             i++;
-            //      System.out.println(taxSquares[i]);
-            //    System.out.println(taxFine[i]);
+
         }
 
         // Cast given strings to integers
