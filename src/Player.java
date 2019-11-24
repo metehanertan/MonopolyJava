@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //Player class.
 public class Player {
 
@@ -7,11 +9,15 @@ public class Player {
     private String playerName; //Player name
     private int turn; //Turn
     private boolean isInJail;
+    private int jailTurnCounter;
+    private ArrayList<Square> properties;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
         this.playerName = playerName;
         this.money = new Money(startMoney);
+        this.properties = new ArrayList<Square>();
+        this.isInJail = false;
     }
 
 
@@ -68,4 +74,37 @@ public class Player {
     public void setTurn(int turn) {
         this.turn = turn;
     }
+
+    public boolean isInJail() {
+        return isInJail;
+    }
+
+    public void setInJail(boolean inJail) {
+        isInJail = inJail;
+    }
+
+    public int getJailTurnCounter() {
+        return jailTurnCounter;
+    }
+
+    public void setJailTurnCounter(int jailTurnCounter) {
+        this.jailTurnCounter = jailTurnCounter;
+    }
+
+    public ArrayList<Square> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(ArrayList<Square> properties) {
+        this.properties = properties;
+    }
+
+    public void increaseJailTurnCounter(){
+        this.jailTurnCounter++;
+    }
+
+    public void addProperty(Square property){
+        this.properties.add(property);
+    }
+
 }

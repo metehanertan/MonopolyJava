@@ -39,7 +39,6 @@ public class MonopolyGame {
         int diceValue;
         int firstDice;
         int secondDice;
-        int jailTurnCount = 0;
 
         createPlayerList();
         createPieceList();
@@ -99,16 +98,18 @@ public class MonopolyGame {
                             if (playerList[i].getMoney().getCurrentMoney() > jailFine) {
 
                                 playerList[i].getMoney().decreaseMoney(jailFine);
+                                playerList[i].setInJail(false);
 
                             }
                         } else {
                             // Check the player how many turns in the jail
-                            if (jailTurnCount < 3) {
-                                jailTurnCount++;
+                            if (playerList[i].getJailTurnCounter() < 3) {
+                                playerList[i].increaseJailTurnCounter();
                                 i++;
                                 break;
                             } else {
                                 playerList[i].getMoney().decreaseMoney(jailFine);
+
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
                                     playerList[i] = null;
                                     currentPlayerSize--;
@@ -119,8 +120,12 @@ public class MonopolyGame {
                                     }
                                     break;
                                 }
+
+                                playerList[i].setInJail(false);
                             }
                         }
+                    } else {
+                        playerList[i].setInJail(false);
                     }
                 }
 
@@ -132,25 +137,23 @@ public class MonopolyGame {
                 tempSquare = playerList[i].getPiece().getSquare();
 
                 if (tempSquare instanceof PropertySquare) {
-
                     if (((PropertySquare) tempSquare).getHasOwner()) {
-
                         if (((PropertySquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
+                            if (!(((PropertySquare) tempSquare).getOwner().isInJail())) {
+                                playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                                if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                    ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
+                                    playerList[i] = null;
+                                    currentPlayerSize--;
 
-                            playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
-
-                            if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
-                                playerList[i] = null;
-                                currentPlayerSize--;
-
-                                //If only one player left in the game, finish the game.
-                                if (currentPlayerSize == 1) {
-                                    check = false;
+                                    //If only one player left in the game, finish the game.
+                                    if (currentPlayerSize == 1) {
+                                        check = false;
+                                    }
+                                    break;
                                 }
-                                break;
+                                ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                             }
-                            ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     } else {
 
@@ -160,87 +163,87 @@ public class MonopolyGame {
                         //treshold değeri inputtan alınacak!!!!!
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((PropertySquare) tempSquare).getPrice()) {
                             ((PropertySquare) tempSquare).setOwner(playerList[i]);
+                            playerList[i].addProperty(tempSquare);
                         }
                     }
 
                 } else if (tempSquare instanceof TransportSquare) {
-
                     //ownerı varsa --- birden fazla transport olması durumu control edilecek arraylist!!
                     if (((TransportSquare) tempSquare).getHasOwner()) {
-
                         if (((TransportSquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
+                            if (!(((PropertySquare) tempSquare).getOwner().isInJail())) {
+                                playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
 
-                            playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
-                            if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
-                                playerList[i] = null;
-                                currentPlayerSize--;
+                                if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                    ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
+                                    playerList[i] = null;
+                                    currentPlayerSize--;
 
-                                //If only one player left in the game, finish the game.
-                                if (currentPlayerSize == 1) {
-                                    check = false;
-
+                                    //If only one player left in the game, finish the game.
+                                    if (currentPlayerSize == 1) {
+                                        check = false;
+                                    }
+                                    break;
                                 }
-                                break;
+                                ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                             }
-                            ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     }
 
                     //ownerı yoksa
                     else {
-
                         choiceDice.rollDice();
                         int choiceDiceValue = choiceDice.getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((TransportSquare) tempSquare).getPrice()) {
                             ((TransportSquare) tempSquare).setOwner(playerList[i]);
+                            playerList[i].addProperty(tempSquare);
                         }
                     }
 
                 } else if (tempSquare instanceof UtilitySquare) {
-
                     //ownerı varsa
                     if (((UtilitySquare) tempSquare).getHasOwner()) {
-
                         if (((UtilitySquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
+                            if (!(((PropertySquare) tempSquare).getOwner().isInJail())) {
+                                playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
 
-                            playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
-                            if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
-                                playerList[i] = null;
-                                currentPlayerSize--;
+                                if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                    ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
+                                    playerList[i] = null;
+                                    currentPlayerSize--;
 
-                                //If only one player left in the game, finish the game.
-                                if (currentPlayerSize == 1) {
-                                    check = false;
+                                    //If only one player left in the game, finish the game.
+                                    if (currentPlayerSize == 1) {
+                                        check = false;
+                                    }
+                                    break;
                                 }
-                                break;
+                                ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                             }
-                            ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
                         }
                     }
 
                     //ownerı yoksa
                     else {
-
                         choiceDice.rollDice();
                         int choiceDiceValue = choiceDice.getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((UtilitySquare) tempSquare).getPrice()) {
                             ((UtilitySquare) tempSquare).setOwner(playerList[i]);
+                            playerList[i].addProperty(tempSquare);
                         }
                     }
                 }
                 if (tempSquare instanceof GoToJailSquare) {
 
                     playerList[i].getPiece().setSquare(board.getSquareList()[10]);
-                    jailTurnCount = 0;
+                    playerList[i].setJailTurnCounter(0);
+                    playerList[i].setInJail(true);
 
                 }
-
 
                 if (i != playerSize - 1) {
                     System.out.println("***********");
