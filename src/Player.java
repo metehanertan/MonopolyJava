@@ -40,7 +40,7 @@ public class Player {
         System.out.println();
         System.out.println("New location : Square " + this.piece.getSquare().getSquareID());
         System.out.println("Type of square : " + this.piece.getSquare().getSquareName());
-        System.out.println("The amount of tax : " + this.piece.getSquare().getFine());
+        //System.out.println("The amount of tax : " + this.piece.getSquare().getFine());
         System.out.println("Current balance : " + this.money.getCurrentMoney());
         System.out.println();
     }

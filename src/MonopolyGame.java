@@ -141,9 +141,9 @@ public class MonopolyGame {
                     if (((PropertySquare) tempSquare).getHasOwner()) {
                         if (((PropertySquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
                             if (!(((PropertySquare) tempSquare).getOwner().isInJail())) {
-                                playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                                playerList[i].getMoney().decreaseMoney(((PropertySquare) tempSquare).getFine());
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                    ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
+                                    ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(((PropertySquare) tempSquare).getFine() + playerList[i].getMoney().getCurrentMoney());
                                     playerList[i] = null;
                                     currentPlayerSize--;
 
@@ -154,7 +154,7 @@ public class MonopolyGame {
                                     }
 
                                 }
-                                ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
+                                ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(((PropertySquare) tempSquare).getFine());
                             }
                         }
                     } else {
@@ -176,7 +176,7 @@ public class MonopolyGame {
 
 
                             if (!(((TransportSquare) tempSquare).getOwner().isInJail())) {
-                                int tempFine = ((TransportSquare) tempSquare).getOwner().getTransportCount() * tempSquare.getFine();
+                                int tempFine = ((TransportSquare) tempSquare).getOwner().getTransportCount() * ((TransportSquare) tempSquare).getFine();
                                 playerList[i].getMoney().decreaseMoney(tempFine);
 
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
@@ -191,7 +191,7 @@ public class MonopolyGame {
                                     }
 
                                 }
-                                ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
+                                ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(((TransportSquare) tempSquare).getFine());
                             }
                         }
                     }
@@ -215,11 +215,11 @@ public class MonopolyGame {
                         if (((UtilitySquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
                             if (!(((UtilitySquare) tempSquare).getOwner().isInJail())) {
 
-                                int tempFine = ((TransportSquare) tempSquare).getOwner().getTransportCount() * ((UtilitySquare) tempSquare).getFine(diceValue);
+                                int tempFine = ((UtilitySquare) tempSquare).getOwner().getUtilityCount() * ((UtilitySquare) tempSquare).getFine(diceValue);
                                 playerList[i].getMoney().decreaseMoney(tempFine);
 
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                    ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
+                                    ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
                                     playerList[i] = null;
                                     currentPlayerSize--;
 
@@ -230,7 +230,7 @@ public class MonopolyGame {
                                     }
 
                                 }
-                                ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempSquare.getFine());
+                                ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempFine);
                             }
                         }
                     }
@@ -257,7 +257,7 @@ public class MonopolyGame {
                 }
 
                 if(tempSquare instanceof TaxSquare){
-                    playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+                    playerList[i].getMoney().decreaseMoney(((TaxSquare) tempSquare).getFine());
 
                     if(playerList[i].getMoney().getCurrentMoney() <= 0){
                         playerList[i] = null;
