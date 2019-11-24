@@ -38,7 +38,7 @@ public class TransportSquare extends Square {
         this.squareName = squareName;
     }
 
-    @Override
+
     public int getFine() {
         return this.transportFine;
     }

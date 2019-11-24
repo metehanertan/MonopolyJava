@@ -28,7 +28,7 @@ public class FreeParkingSquare extends Square {
         this.squareName = squareName;
     }
 
-    @Override
+
     public int getFine() {
         return 0;
     }
