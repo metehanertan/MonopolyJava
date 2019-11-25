@@ -13,7 +13,26 @@ import java.util.Iterator;
 //Main class to play the game
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
-        FileReader fileReader = new FileReader();
+        FileReaderJson fileReader = new FileReaderJson();
+
+        int intPlayerSize = fileReader.getIntPlayerSize();
+        int intThreshold = fileReader.getIntThreshold();
+        int intStartMoney = fileReader.getIntStartMoney();
+        int intTaxNumber = fileReader.getIntTaxNumber();
+        int intGoMoney = fileReader.getIntGoMoney();
+        int intJailFine = fileReader.getIntJailFine();
+        String[] properties = fileReader.getProperties();
+        String[] propertyColor = fileReader.getPropertyColor();
+        int[] propertyFine = fileReader.getPropertyFine();
+        int[] propertyPrice = fileReader.getPropertyPrice();
+        String[] utilityName = fileReader.getUtilityName();
+        int[] utilityRate = fileReader.getUtilityRate();
+        int[] utilityPrice = fileReader.getUtilityPrice();
+        String[] transportName = fileReader.getTransportName();
+        int[] transportFine = fileReader.getTransportFine();
+        int[] transportPrice = fileReader.getTransportPrice();
+        String[] taxSquares = fileReader.getTaxSquares();
+        int[] taxFine = fileReader.getTaxFine();
 
 
         // Create MonopolyGame object with given parameters

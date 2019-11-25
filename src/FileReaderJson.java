@@ -2,10 +2,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class FileReader {
+public class FileReaderJson {
 
     private int intPlayerSize;
     private int intThreshold;
@@ -27,14 +29,13 @@ public class FileReader {
     private int[] taxFine = {0, 0};
 
 
-    public FileReader() throws IOException, ParseException {
+
+    public FileReaderJson() throws IOException, ParseException {
         int i = 0;
 
-        // Read JSON file for inputs
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new java.io.FileReader("input.json"));
         JSONObject jo = (JSONObject) obj;
-
         // Read inputs as string
         String playerSize = (String) jo.get("playerSize");
         String threshold = (String) jo.get("threshold");
