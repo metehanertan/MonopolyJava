@@ -134,4 +134,11 @@ public class Player {
         this.utilityCount++;
     }
 
+    public void emptyOwnedSquares(){
+        for(int i=0; i < properties.size();i++){
+            ((PropertySquare)properties.get(i)).setOwner(null);
+        }
+    }
+
+
 }

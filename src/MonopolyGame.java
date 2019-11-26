@@ -260,6 +260,7 @@ public class MonopolyGame {
                     playerList[i].getMoney().decreaseMoney(((TaxSquare) tempSquare).getFine());
 
                     if(playerList[i].getMoney().getCurrentMoney() <= 0){
+                        playerList[i].emptyOwnedSquares();
                         playerList[i] = null;
                         currentPlayerSize--;
 
