@@ -139,15 +139,31 @@ public class Player {
     }
 
     public void emptyOwnedSquares() {
+
+
         for (int i = 0; i < properties.size(); i++) {
 
-            if(properties.get(i) instanceof PropertySquare){
-            ((PropertySquare) properties.get(i)).setOwner(null);
-            }else if(properties.get(i) instanceof TransportSquare){
-                ((TransportSquare) transportList.get(i)).setOwner(null);
+            if (properties.get(i) instanceof PropertySquare) {
+                ((PropertySquare) properties.get(i)).setOwner(null);
+                ((PropertySquare) properties.get(i)).setHasOwner(false);
 
-            }else if(properties.get(i) instanceof UtilitySquare){
-                ((UtilitySquare) utilityList.get(i)).setOwner(null);
+            }
+        }
+
+        for (int k = 0; k < transportList.size(); k++) {
+
+            if (transportList.get(k) instanceof TransportSquare) {
+
+                ((TransportSquare) transportList.get(k)).setOwner(null);
+                ((TransportSquare) transportList.get(k)).setHasOwner(false);
+
+            }
+        }
+
+        for (int j = 0; j < utilityList.size(); j++) {
+            if (utilityList.get(j) instanceof UtilitySquare) {
+                ((UtilitySquare) utilityList.get(j)).setOwner(null);
+                ((UtilitySquare) utilityList.get(j)).setHasOwner(false);
 
             }
         }
