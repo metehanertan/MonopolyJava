@@ -6,8 +6,6 @@ public class MonopolyGame {
     private Player[] playerList; //Player array to create given number of players
     private Player[] playerOldList; //Not ordered player list
     private int playerSize, threshold, startMoney;
-    private Dice dice; //Dice object
-    private Dice choiceDice;
     private Piece[] pieceList; //Piece array which contains Piece objects.
     private int goMoney; //Given money amount while passing through GO square
     private int cycle; //Cycle counter
@@ -27,9 +25,7 @@ public class MonopolyGame {
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
                 taxFine, taxSquares,goToJailNumber); //Create Board object.
-        this.dice = new Dice(); //Create Dice object
         this.goMoney = goMoney; //Assign GO money.
-        this.choiceDice = new Dice(); //Dice for buying chance
         this.jailFine = jailFine;
         this.goToJailNumber = goToJailNumber;
 
@@ -53,7 +49,7 @@ public class MonopolyGame {
             playerOldList[i] = new Player(NAMES[i], startMoney); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
             playerOldList[i].setPiece(pieceList[i]); //Set players' pieces'.
-            dices[i] = dice.getFirstRandomValue() + dice.getSecondRandomValue(); //Roll dices for each player to set the turn order.
+            dices[i] = playerOldList[i].getMoveDice().getFirstRandomValue() + playerOldList[i].getMoveDice().getSecondRandomValue(); //Roll dices for each player to set the turn order.
         }
 
         printDiceRoll();
@@ -80,9 +76,9 @@ public class MonopolyGame {
 
                 playerList[i].reportBeforeRoll();
 
-                dice.rollDice();
-                firstDice = dice.getFirstValue(); //Roll first dice
-                secondDice = dice.getSecondValue(); //Roll second dice
+                playerList[i].getMoveDice().rollDice();
+                firstDice = playerList[i].getMoveDice().getFirstValue(); //Roll first dice
+                secondDice = playerList[i].getMoveDice().getSecondValue(); //Roll second dice
                 diceValue = firstDice + secondDice; //Add dice values to move the player.
 
                 tempSquare = playerList[i].getPiece().getSquare();
@@ -93,9 +89,9 @@ public class MonopolyGame {
                     if (firstDice != secondDice) {
 
                         // Check if player wants to pay fine and go out to jail
-                        choiceDice.rollDice();
+                        playerList[i].getChoiceDice().rollDice();
 
-                        if (choiceDice.getTotal() > 8) {
+                        if (playerList[i].getChoiceDice().getTotal() > 8) {
 
                             if (playerList[i].getMoney().getCurrentMoney() > jailFine) {
 
@@ -113,6 +109,7 @@ public class MonopolyGame {
                                 playerList[i].getMoney().decreaseMoney(jailFine);
 
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                                    System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
                                     playerList[i] = null;
                                     currentPlayerSize--;
 
@@ -145,6 +142,7 @@ public class MonopolyGame {
                                 playerList[i].getMoney().decreaseMoney(((PropertySquare) tempSquare).getFine());
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
                                     ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(((PropertySquare) tempSquare).getFine() + playerList[i].getMoney().getCurrentMoney());
+                                    System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
                                     playerList[i] = null;
                                     currentPlayerSize--;
 
@@ -160,8 +158,8 @@ public class MonopolyGame {
                         }
                     } else {
 
-                        choiceDice.rollDice();
-                        int choiceDiceValue = choiceDice.getTotal();
+                        playerList[i].getChoiceDice().rollDice();
+                        int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((PropertySquare) tempSquare).getPrice()) {
@@ -182,6 +180,7 @@ public class MonopolyGame {
 
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
                                     ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
+                                    System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
                                     playerList[i] = null;
                                     currentPlayerSize--;
 
@@ -199,8 +198,8 @@ public class MonopolyGame {
 
                     //ownerı yoksa
                     else {
-                        choiceDice.rollDice();
-                        int choiceDiceValue = choiceDice.getTotal();
+                        playerList[i].getChoiceDice().rollDice();
+                        int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((TransportSquare) tempSquare).getPrice()) {
@@ -221,6 +220,7 @@ public class MonopolyGame {
 
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
                                     ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
+                                    System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
                                     playerList[i] = null;
                                     currentPlayerSize--;
 
@@ -238,8 +238,8 @@ public class MonopolyGame {
 
                     //ownerı yoksa
                     else {
-                        choiceDice.rollDice();
-                        int choiceDiceValue = choiceDice.getTotal();
+                        playerList[i].getChoiceDice().rollDice();
+                        int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((UtilitySquare) tempSquare).getPrice()) {
                             ((UtilitySquare) tempSquare).setOwner(playerList[i]);
@@ -261,6 +261,7 @@ public class MonopolyGame {
 
                     if(playerList[i].getMoney().getCurrentMoney() <= 0){
                         playerList[i].emptyOwnedSquares();
+                        System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
                         playerList[i] = null;
                         currentPlayerSize--;
 

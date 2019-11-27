@@ -13,7 +13,8 @@ public class Player {
     private ArrayList<Square> properties;
     private ArrayList<Square> transportList;
     private ArrayList<Square> utilityList;
-
+    private Dice moveDice;
+    private Dice choiceDice;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
@@ -23,6 +24,8 @@ public class Player {
         this.utilityList = new ArrayList<Square>();
         this.transportList = new ArrayList<Square>();
         this.isInJail = false;
+        this.moveDice = new Dice();
+        this.choiceDice = new Dice();
     }
 
 
@@ -169,5 +172,28 @@ public class Player {
         }
     }
 
+    public Dice getMoveDice() {
+        return moveDice;
+    }
+
+    public void setMoveDice(Dice moveDice) {
+        this.moveDice = moveDice;
+    }
+
+    public Dice getChoiceDice() {
+        return choiceDice;
+    }
+
+    public void setChoiceDice(Dice choiceDice) {
+        this.choiceDice = choiceDice;
+    }
+
+    public void rollMoveDice(){
+        this.moveDice.rollDice();
+    }
+
+    public void rollChoiceDice(){
+        this.choiceDice.rollDice();
+    }
 
 }
