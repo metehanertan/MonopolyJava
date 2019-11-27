@@ -17,5 +17,6 @@
 	"utilityRate" : ["1","1"],
 	"taxSquares" : ["INCOME TAX", "LUXURY TAX"],
 	"taxFine" : ["20", "10"],
-	"threshold": "8"
+	"threshold": "8",
+	"goToJailNumber": "3"
 }

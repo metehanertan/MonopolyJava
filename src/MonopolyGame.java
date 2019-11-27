@@ -13,24 +13,25 @@ public class MonopolyGame {
     private int cycle; //Cycle counter
     private int[] dices; //Dice values array to order turns of players
     private int jailFine;
-
+    private int goToJailNumber;
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int threshold, int startMoney, int taxNumber, int goMoney, String[] properties,
                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
-                        int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine) {
+                        int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine,int goToJailNumber) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
         this.threshold = threshold;
         this.startMoney = startMoney;
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
-                taxFine, taxSquares); //Create Board object.
+                taxFine, taxSquares,goToJailNumber); //Create Board object.
         this.dice = new Dice(); //Create Dice object
         this.goMoney = goMoney; //Assign GO money.
         this.choiceDice = new Dice(); //Dice for buying chance
         this.jailFine = jailFine;
+        this.goToJailNumber = goToJailNumber;
 
     }
 
@@ -368,4 +369,5 @@ public class MonopolyGame {
     public Player[] getPlayerList() {
         return playerList;
     }
+
 }

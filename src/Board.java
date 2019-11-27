@@ -15,12 +15,13 @@ public class Board {
     private int[] transportPrice;
     private int[] taxFine;
     private String[] taxSquares;
+    private int goToJailNumber;
 
     //Default constructor of Board Class.
     public Board(String[] properties,
                  int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                  int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
-                 int[] transportPrice, int[] taxFine, String[] taxSquares) {
+                 int[] transportPrice, int[] taxFine, String[] taxSquares,int goToJailNumber) {
         this.squareList = new Square[BOARD_SIZE]; //set the square list's size to board size.
         this.properties = properties;
         this.propertyFine = propertyFine;
@@ -34,6 +35,7 @@ public class Board {
         this.transportPrice = transportPrice;
         this.taxFine = taxFine;
         this.taxSquares = taxSquares;
+        this.goToJailNumber = goToJailNumber;
     }
 
     //getter method for board size.
@@ -98,6 +100,17 @@ public class Board {
 
             if(id == 40){
                 break;
+            }
+        }
+
+
+        while(true){
+            int rand = (int) (Math.random()*38)+1;
+            if (goToJailNumber==1){
+                break;
+            } else if(squareList[rand] instanceof PropertySquare || squareList[rand] instanceof TransportSquare || squareList[rand] instanceof UtilitySquare){
+                this.squareList[rand] = new GoToJailSquare(rand, "GOTOJAIL");
+                goToJailNumber--;
             }
         }
 
