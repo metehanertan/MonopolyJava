@@ -27,6 +27,7 @@ public class FileReaderJson {
     private int[] transportPrice = {0, 0, 0, 0, 0};
     private String[] taxSquares = {"", ""};
     private int[] taxFine = {0, 0};
+    private int intGoToJailNumber;
 
 
 
@@ -43,6 +44,7 @@ public class FileReaderJson {
         String taxNumber = (String) jo.get("taxNumber");
         String goMoney = (String) jo.get("goMoney");
         String jailFine = (String) jo.get("jailFine");
+        String goToJailNumber = (String) jo.get("goToJailNumber");
 
 
         JSONArray jsonProperties = (JSONArray) jo.get("propertyName");
@@ -149,6 +151,7 @@ public class FileReaderJson {
          this.intTaxNumber = Integer.parseInt(taxNumber);
          this.intGoMoney = Integer.parseInt(goMoney);
          this.intJailFine = Integer.parseInt(jailFine);
+         this.intGoToJailNumber = Integer.parseInt(goToJailNumber);
     }
 
     public int getIntPlayerSize() {
@@ -221,5 +224,9 @@ public class FileReaderJson {
 
     public String[] getUtilityName() {
         return utilityName;
+    }
+
+    public int getIntGoToJailNumber() {
+        return intGoToJailNumber;
     }
 }
