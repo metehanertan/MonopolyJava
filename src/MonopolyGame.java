@@ -204,7 +204,7 @@ public class MonopolyGame {
                         //treshold değeri inputtan alınacak!!!!!
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((TransportSquare) tempSquare).getPrice()) {
                             ((TransportSquare) tempSquare).setOwner(playerList[i]);
-                            playerList[i].increaseTransportCounter();
+                            playerList[i].addTransportLister(tempSquare);
                             playerList[i].addProperty(tempSquare);
                         }
                     }
@@ -240,10 +240,9 @@ public class MonopolyGame {
                         choiceDice.rollDice();
                         int choiceDiceValue = choiceDice.getTotal();
 
-                        //treshold değeri inputtan alınacak!!!!!
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((UtilitySquare) tempSquare).getPrice()) {
                             ((UtilitySquare) tempSquare).setOwner(playerList[i]);
-                            playerList[i].increseUtilityCounter();
+                            playerList[i].addUtilityList( tempSquare);
                             playerList[i].addProperty(tempSquare);
                         }
                     }

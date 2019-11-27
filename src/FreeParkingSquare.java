@@ -29,6 +29,8 @@ public class FreeParkingSquare extends Square {
     }
 
 
+
+
     public int getFine() {
         return 0;
     }

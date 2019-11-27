@@ -31,6 +31,8 @@ public class GoSquare extends Square {
         this.squareName = squareName;
     }
 
+
+
     public int getFine() {
         return FINE;
     }

@@ -11,8 +11,8 @@ public class Player {
     private boolean isInJail;
     private int jailTurnCounter;
     private ArrayList<Square> properties;
-    private int transportCount;
-    private int utilityCount;
+    private ArrayList<Square> transportList;
+    private ArrayList<Square> utilityList;
 
 
     //Constructor of Player Class with given parameters.
@@ -20,9 +20,9 @@ public class Player {
         this.playerName = playerName;
         this.money = new Money(startMoney);
         this.properties = new ArrayList<Square>();
+        this.utilityList = new ArrayList<Square>();
+        this.transportList = new ArrayList<Square>();
         this.isInJail = false;
-        this.transportCount = 0;
-        this.utilityCount = 0;
     }
 
 
@@ -104,39 +104,52 @@ public class Player {
         this.properties = properties;
     }
 
-    public void increaseJailTurnCounter(){
+    public void increaseJailTurnCounter() {
         this.jailTurnCounter++;
     }
 
-    public void addProperty(Square property){
+    public void addProperty(Square property) {
         this.properties.add(property);
     }
 
-    public int getTransportCount(){
-        return transportCount;
-    }
-    public void setTransportCount(int transportCount){
-        this.transportCount = transportCount;
+    public int getTransportCount() {
+        return transportList.size();
     }
 
-    public int getUtilityCount(){
-        return utilityCount;
-    }
-    public void setUtilityCount(int utilityCount){
-        this.utilityCount = utilityCount;
+    public void settransportList(ArrayList<Square> transportList) {
+        this.transportList = transportList;
     }
 
-    public void increaseTransportCounter(){
-        this.transportCount++;
+    public int getUtilityCount() {
+        return utilityList.size();
     }
 
-    public void increseUtilityCounter(){
-        this.utilityCount++;
+    public void setUtilityList(ArrayList<Square> utilityList) {
+        this.utilityList = utilityList;
     }
 
-    public void emptyOwnedSquares(){
-        for(int i=0; i < properties.size();i++){
-            ((PropertySquare)properties.get(i)).setOwner(null);
+    public void addTransportLister(Square transportSquare) {
+
+        this.transportList.add(transportSquare);
+    }
+
+    public void addUtilityList(Square utilitySquare) {
+
+        this.utilityList.add(utilitySquare);
+    }
+
+    public void emptyOwnedSquares() {
+        for (int i = 0; i < properties.size(); i++) {
+
+            if(properties.get(i) instanceof PropertySquare){
+            ((PropertySquare) properties.get(i)).setOwner(null);
+            }else if(properties.get(i) instanceof TransportSquare){
+                ((TransportSquare) transportList.get(i)).setOwner(null);
+
+            }else if(properties.get(i) instanceof UtilitySquare){
+                ((UtilitySquare) utilityList.get(i)).setOwner(null);
+
+            }
         }
     }
 

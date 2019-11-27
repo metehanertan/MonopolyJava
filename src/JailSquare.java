@@ -30,6 +30,7 @@ public class JailSquare extends Square {
     }
 
 
+
     public int getFine() {
         return 0;
     }
