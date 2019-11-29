@@ -12,6 +12,7 @@ public class MonopolyGame {
     private int[] dices; //Dice values array to order turns of players
     private int jailFine;
     private int goToJailNumber;
+    private int currentPlayerSize;
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
@@ -28,7 +29,7 @@ public class MonopolyGame {
         this.goMoney = goMoney; //Assign GO money.
         this.jailFine = jailFine;
         this.goToJailNumber = goToJailNumber;
-
+        this.currentPlayerSize = playerSize;
     }
 
     //Play method to play the game.
@@ -57,7 +58,7 @@ public class MonopolyGame {
         printPlayerAndPiece();
 
         boolean check = true;
-        int currentPlayerSize = playerSize;
+        boolean gameFinish;
 
         Square tempSquare;
 
@@ -91,7 +92,7 @@ public class MonopolyGame {
                         // Check if player wants to pay fine and go out to jail
                         playerList[i].rollChoiceDice();
 
-                        if (playerList[i].getChoiceDice().getTotal() > 8) {
+                        if (playerList[i].getChoiceDice().getTotal() > threshold) {
 
                             if (playerList[i].getMoney().getCurrentMoney() > jailFine) {
 
@@ -136,140 +137,39 @@ public class MonopolyGame {
                 tempSquare = playerList[i].getPiece().getSquare();
 
                 if (tempSquare instanceof PropertySquare) {
-                    if (((PropertySquare) tempSquare).getHasOwner()) {
-                        if (!((PropertySquare) tempSquare).getOwner().getPlayerName().equals(playerList[i].getPlayerName())) {
-                            if (!(((PropertySquare) tempSquare).getOwner().isInJail())) {
-                                playerList[i].getMoney().decreaseMoney(((PropertySquare) tempSquare).getFine());
-                                if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                    ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(((PropertySquare) tempSquare).getFine() + playerList[i].getMoney().getCurrentMoney());
-                                    System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
-                                    playerList[i] = null;
-                                    currentPlayerSize--;
+                    gameFinish = propertySquareActions((PropertySquare) tempSquare, i);
 
-                                    //If only one player left in the game, finish the game.
-                                    if (currentPlayerSize == 1) {
-                                        check = false;
-                                        break;
-                                    }
-
-                                }
-                                ((PropertySquare) tempSquare).getOwner().getMoney().increaseMoney(((PropertySquare) tempSquare).getFine());
-                            }
-                        }
-                    } else {
-
-                        playerList[i].rollChoiceDice();
-                        int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
-
-                        //treshold değeri inputtan alınacak!!!!!
-                        if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((PropertySquare) tempSquare).getPrice()) {
-                            ((PropertySquare) tempSquare).setOwner(playerList[i]);
-                            playerList[i].addProperty(tempSquare);
-                        }
+                    if(gameFinish){
+                        check = false;
+                        break;
                     }
-
                 } else if (tempSquare instanceof TransportSquare) {
-                    //ownerı varsa
-                    if (((TransportSquare) tempSquare).getHasOwner()) {
-                        if (!((TransportSquare) tempSquare).getOwner().getPlayerName().equals(playerList[i].getPlayerName())) {
+                    gameFinish = transportSquareActions((TransportSquare) tempSquare, i);
 
-
-                            if (!(((TransportSquare) tempSquare).getOwner().isInJail())) {
-                                int tempFine = ((TransportSquare) tempSquare).getOwner().getTransportCount() * ((TransportSquare) tempSquare).getFine();
-                                playerList[i].getMoney().decreaseMoney(tempFine);
-
-                                if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                    ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
-                                    System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
-                                    playerList[i] = null;
-                                    currentPlayerSize--;
-
-                                    //If only one player left in the game, finish the game.
-                                    if (currentPlayerSize == 1) {
-                                        check = false;
-                                        break;
-                                    }
-
-                                }
-                                ((TransportSquare) tempSquare).getOwner().getMoney().increaseMoney(((TransportSquare) tempSquare).getFine());
-                            }
-                        }
+                    if(gameFinish){
+                        check = false;
+                        break;
                     }
-
-                    //ownerı yoksa
-                    else {
-                        playerList[i].rollChoiceDice();
-                        int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
-
-                        //treshold değeri inputtan alınacak!!!!!
-                        if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((TransportSquare) tempSquare).getPrice()) {
-                            ((TransportSquare) tempSquare).setOwner(playerList[i]);
-                            playerList[i].addTransportLister(tempSquare);
-                            playerList[i].addProperty(tempSquare);
-                        }
-                    }
-
                 } else if (tempSquare instanceof UtilitySquare) {
-                    //ownerı varsa
-                    if (((UtilitySquare) tempSquare).getHasOwner()) {
-                        if (!((UtilitySquare) tempSquare).getOwner().getPlayerName().equals(playerList[i].getPlayerName())) {
-                            if (!(((UtilitySquare) tempSquare).getOwner().isInJail())) {
+                    gameFinish = utilitySquareActions((UtilitySquare) tempSquare, i);
 
-                                int tempFine = ((UtilitySquare) tempSquare).getOwner().getUtilityCount() * ((UtilitySquare) tempSquare).getFine(diceValue);
-                                playerList[i].getMoney().decreaseMoney(tempFine);
-
-                                if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                    ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
-                                    System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
-                                    playerList[i] = null;
-                                    currentPlayerSize--;
-
-                                    //If only one player left in the game, finish the game.
-                                    if (currentPlayerSize == 1) {
-                                        check = false;
-                                        break;
-                                    }
-
-                                }
-                                ((UtilitySquare) tempSquare).getOwner().getMoney().increaseMoney(tempFine);
-                            }
-                        }
-                    }
-
-                    //ownerı yoksa
-                    else {
-                        playerList[i].rollChoiceDice();
-                        int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
-
-                        if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((UtilitySquare) tempSquare).getPrice()) {
-                            ((UtilitySquare) tempSquare).setOwner(playerList[i]);
-                            playerList[i].addUtilityList( tempSquare);
-                            playerList[i].addProperty(tempSquare);
-                        }
+                    if(gameFinish){
+                        check = false;
+                        break;
                     }
                 }
                 if (tempSquare instanceof GoToJailSquare) {
-
                     playerList[i].getPiece().setSquare(board.getSquareList()[10]);
                     playerList[i].setJailTurnCounter(0);
                     playerList[i].setInJail(true);
-
                 }
 
                 if(tempSquare instanceof TaxSquare){
-                    playerList[i].getMoney().decreaseMoney(((TaxSquare) tempSquare).getFine());
+                    gameFinish = taxSquareActions((TaxSquare) tempSquare, i);
 
-                    if(playerList[i].getMoney().getCurrentMoney() <= 0){
-                        playerList[i].emptyOwnedSquares();
-                        System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
-                        playerList[i] = null;
-                        currentPlayerSize--;
-
-                        if (currentPlayerSize == 1) {
-                            check = false;
-                            break;
-                        }
-
+                    if(gameFinish){
+                        check = false;
+                        break;
                     }
                 }
 
@@ -289,6 +189,134 @@ public class MonopolyGame {
                 System.out.println("WINNER : " + playerList[i].getPlayerName());
             }
         }
+    }
+
+    private boolean transportSquareActions(TransportSquare tempSquare, int i){
+        //ownerı varsa
+        if (tempSquare.getHasOwner()) {
+            if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
+
+                if (!(tempSquare.getOwner().isInJail())) {
+                    int tempFine = tempSquare.getOwner().getTransportCount() * tempSquare.getFine();
+                    playerList[i].getMoney().decreaseMoney(tempFine);
+
+                    if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                        tempSquare.getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
+                        System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
+                        playerList[i] = null;
+                        currentPlayerSize--;
+
+                        //If only one player left in the game, finish the game.
+                        if (currentPlayerSize == 1) {
+                            return true;
+                        }
+                    }
+                    tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine());
+                }
+            }
+        }
+
+        //ownerı yoksa
+        else {
+            playerList[i].rollChoiceDice();
+            int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
+
+            //treshold değeri inputtan alınacak!!!!!
+            if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
+                tempSquare.setOwner(playerList[i]);
+                playerList[i].addTransportLister(tempSquare);
+                playerList[i].addProperty(tempSquare);
+            }
+        }
+        return false;
+    }
+
+    private boolean utilitySquareActions(UtilitySquare tempSquare, int i){
+        //ownerı varsa
+        if (tempSquare.getHasOwner()) {
+            if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
+                if (!(tempSquare.getOwner().isInJail())) {
+
+                    int tempFine = tempSquare.getOwner().getUtilityCount() * tempSquare.getFine(playerList[i].getMoveDice().getTotal());
+                    playerList[i].getMoney().decreaseMoney(tempFine);
+
+                    if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                        tempSquare.getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
+                        System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
+                        playerList[i] = null;
+                        currentPlayerSize--;
+
+                        //If only one player left in the game, finish the game.
+                        if (currentPlayerSize == 1) {
+                            return true;
+                        }
+                    }
+                    tempSquare.getOwner().getMoney().increaseMoney(tempFine);
+                }
+            }
+        }
+
+        //ownerı yoksa
+        else {
+            playerList[i].rollChoiceDice();
+            int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
+
+            if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
+                tempSquare.setOwner(playerList[i]);
+                playerList[i].addUtilityList( tempSquare);
+                playerList[i].addProperty(tempSquare);
+            }
+        }
+        return false;
+    }
+
+    private boolean propertySquareActions(PropertySquare tempSquare, int i){
+        if (tempSquare.getHasOwner()) {
+            if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
+                if (!(tempSquare.getOwner().isInJail())) {
+                    playerList[i].getMoney().decreaseMoney(((PropertySquare) tempSquare).getFine());
+                    if (playerList[i].getMoney().getCurrentMoney() <= 0) {
+                        tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
+                        System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
+                        playerList[i] = null;
+                        currentPlayerSize--;
+
+                        //If only one player left in the game, finish the game.
+                        if (currentPlayerSize == 1) {
+                            return true;
+                        }
+                    }
+                    tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine());
+                }
+            }
+        } else {
+
+            playerList[i].rollChoiceDice();
+            int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
+
+            //treshold değeri inputtan alınacak!!!!!
+            if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
+               tempSquare.setOwner(playerList[i]);
+                playerList[i].addProperty(tempSquare);
+            }
+        }
+        return false;
+    }
+
+    private boolean taxSquareActions(TaxSquare tempSquare, int i){
+        playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+
+        if(playerList[i].getMoney().getCurrentMoney() <= 0){
+            playerList[i].emptyOwnedSquares();
+            System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
+            playerList[i] = null;
+            currentPlayerSize--;
+
+            if (currentPlayerSize == 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     //Create player list.
