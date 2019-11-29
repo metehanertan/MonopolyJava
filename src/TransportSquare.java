@@ -9,13 +9,12 @@ public class TransportSquare extends Square {
 
     private boolean hasOwner;
 
-    public TransportSquare(int id,String name,int fine){
+    public TransportSquare(int id, String name, int fine, int price) {
         this.squareID = id;
         this.squareName = name;
         this.transportFine = fine;
         this.hasOwner = false;
         this.price = price;
-
     }
 
     @Override
@@ -43,11 +42,11 @@ public class TransportSquare extends Square {
         return this.transportFine;
     }
 
-    public Player getOwner(){
+    public Player getOwner() {
         return this.owner;
     }
 
-    public void setOwner(Player player){
+    public void setOwner(Player player) {
         this.owner = player;
         this.hasOwner = true;
     }
@@ -59,6 +58,7 @@ public class TransportSquare extends Square {
     public void setHasOwner(boolean hasOwner) {
         this.hasOwner = hasOwner;
     }
+
     public int getPrice() {
         return price;
     }
