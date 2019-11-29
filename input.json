@@ -2,7 +2,6 @@
 	"playerSize": "5",
 	"taxValue": "50",
 	"startMoney": "200",
-	"taxNumber" : "6",
 	"goMoney" : "10",
 	"jailFine": "50",
 	"propertyName" : ["KADIKÖY", "TAKSİM", "KARAKÖY", "ÇANAKKALE", "4.LEVENT", "BAĞDAT CADDESİ", "ACIBADEM", "EMİNÖNÜ", "FATİH", "BURSA", "ESKİŞEHİR", "ANKARA", "BEŞİKTAŞ", "OSMANBEY", "HALKALI", "GÖZTEPE", "ERENKÖY","BEYLİKDÜZÜ", "BEYOĞLU", "ŞİŞLİ", "BEYKOZ", "ÜMRANİYE"],

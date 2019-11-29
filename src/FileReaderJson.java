@@ -12,7 +12,6 @@ public class FileReaderJson {
     private int intPlayerSize;
     private int intThreshold;
     private int intStartMoney;
-    private int intTaxNumber;
     private int intGoMoney;
     private int intJailFine;
     private String[] properties = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};;
@@ -29,71 +28,56 @@ public class FileReaderJson {
     private int[] taxFine = {0, 0};
     private int intGoToJailNumber;
 
-
-
     public FileReaderJson() throws IOException, ParseException {
         int i = 0;
 
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new java.io.FileReader("input.json"));
         JSONObject jo = (JSONObject) obj;
+
         // Read inputs as string
         String playerSize = (String) jo.get("playerSize");
         String threshold = (String) jo.get("threshold");
         String startMoney = (String) jo.get("startMoney");
-        String taxNumber = (String) jo.get("taxNumber");
         String goMoney = (String) jo.get("goMoney");
         String jailFine = (String) jo.get("jailFine");
         String goToJailNumber = (String) jo.get("goToJailNumber");
 
-
         JSONArray jsonProperties = (JSONArray) jo.get("propertyName");
         Iterator iterator1 = jsonProperties.iterator();
-
 
         JSONArray jsonPropertyColor = (JSONArray) jo.get("propertyColor");
         Iterator iterator2 = jsonPropertyColor.iterator();
 
-
         JSONArray jsonPropertyFine = (JSONArray) jo.get("propertyFine");
         Iterator iterator3 = jsonPropertyFine.iterator();
-
 
         JSONArray jsonPropertyPrice = (JSONArray) jo.get("propertyPrice");
         Iterator iterator4 = jsonPropertyPrice.iterator();
 
-
         JSONArray jsonUtilityName = (JSONArray) jo.get("utilityName");
         Iterator iterator5 = jsonUtilityName.iterator();
-
 
         JSONArray jsonUtilityRate = (JSONArray) jo.get("utilityRate");
         Iterator iterator6 = jsonUtilityRate.iterator();
 
-
         JSONArray jsonUtilityPrice = (JSONArray) jo.get("utilityPrice");
         Iterator iterator7 = jsonUtilityPrice.iterator();
-
 
         JSONArray jsonTransportName = (JSONArray) jo.get("transportName");
         Iterator iterator8 = jsonTransportName.iterator();
 
-
         JSONArray jsonTransportFine = (JSONArray) jo.get("transportFine");
         Iterator iterator9 = jsonTransportFine.iterator();
-
 
         JSONArray jsonTransportPrice = (JSONArray) jo.get("transportPrice");
         Iterator iterator10 = jsonTransportPrice.iterator();
 
-
         JSONArray jsonTaxSquares = (JSONArray) jo.get("taxSquares");
         Iterator iterator11 = jsonTaxSquares.iterator();
 
-
         JSONArray jsonTaxFine = (JSONArray) jo.get("taxFine");
         Iterator iterator12 = jsonTaxFine.iterator();
-
 
         while (iterator1.hasNext()) {
             int a = Integer.parseInt((String) iterator3.next());
@@ -103,14 +87,12 @@ public class FileReaderJson {
             this.propertyFine[i] = a;
             this.propertyPrice[i] = b;
             i++;
-
-
         }
+
         i = 0;
         while (iterator2.hasNext()) {
             this.propertyColor[i] = (String) iterator2.next();
             i++;
-
         }
 
         i = 0;
@@ -122,7 +104,6 @@ public class FileReaderJson {
             this.utilityRate[i] = a;
             this.utilityPrice[i] = b;
             i++;
-
         }
 
         i = 0;
@@ -141,14 +122,12 @@ public class FileReaderJson {
             this.taxFine[i] = a;
             this.taxSquares[i] = (String) iterator11.next();
             i++;
-
         }
 
         // Cast given strings to integers
          this.intPlayerSize = Integer.parseInt(playerSize);
          this.intThreshold = Integer.parseInt(threshold);
          this.intStartMoney = Integer.parseInt(startMoney);
-         this.intTaxNumber = Integer.parseInt(taxNumber);
          this.intGoMoney = Integer.parseInt(goMoney);
          this.intJailFine = Integer.parseInt(jailFine);
          this.intGoToJailNumber = Integer.parseInt(goToJailNumber);
@@ -164,10 +143,6 @@ public class FileReaderJson {
 
     public int getIntStartMoney() {
         return intStartMoney;
-    }
-
-    public int getIntTaxNumber() {
-        return intTaxNumber;
     }
 
     public int getIntGoMoney() {

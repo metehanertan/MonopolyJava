@@ -18,7 +18,6 @@ public class Main {
         int intPlayerSize = fileReader.getIntPlayerSize();
         int intThreshold = fileReader.getIntThreshold();
         int intStartMoney = fileReader.getIntStartMoney();
-        int intTaxNumber = fileReader.getIntTaxNumber();
         int intGoMoney = fileReader.getIntGoMoney();
         int intJailFine = fileReader.getIntJailFine();
         String[] properties = fileReader.getProperties();
@@ -37,7 +36,7 @@ public class Main {
 
 
         // Create MonopolyGame object with given parameters
-        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intTaxNumber, intGoMoney,
+        MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intGoMoney,
                 properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
                 transportFine, transportPrice, taxFine, taxSquares, intJailFine,intGoToJailNumber);
         // Call the Play function of MonopolyGame to start the game

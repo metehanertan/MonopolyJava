@@ -68,16 +68,6 @@ public class Player {
         return playerName;
     }
 
-    //Setter method of player name
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    //Getter method of turn
-    public int getTurn() {
-        return this.turn;
-    }
-
     //Setter method of turn
     public void setTurn(int turn) {
         this.turn = turn;
@@ -103,10 +93,6 @@ public class Player {
         return properties;
     }
 
-    public void setProperties(ArrayList<Square> properties) {
-        this.properties = properties;
-    }
-
     public void increaseJailTurnCounter() {
         this.jailTurnCounter++;
     }
@@ -119,16 +105,8 @@ public class Player {
         return transportList.size();
     }
 
-    public void settransportList(ArrayList<Square> transportList) {
-        this.transportList = transportList;
-    }
-
     public int getUtilityCount() {
         return utilityList.size();
-    }
-
-    public void setUtilityList(ArrayList<Square> utilityList) {
-        this.utilityList = utilityList;
     }
 
     public void addTransportLister(Square transportSquare) {
@@ -176,16 +154,8 @@ public class Player {
         return moveDice;
     }
 
-    public void setMoveDice(Dice moveDice) {
-        this.moveDice = moveDice;
-    }
-
     public Dice getChoiceDice() {
         return choiceDice;
-    }
-
-    public void setChoiceDice(Dice choiceDice) {
-        this.choiceDice = choiceDice;
     }
 
     public void rollMoveDice(){

@@ -14,7 +14,7 @@ public class MonopolyGame {
     private int goToJailNumber;
 
     //Constructor of MonopolyGame Class calling from Main Class.
-    public MonopolyGame(int playerSize, int threshold, int startMoney, int taxNumber, int goMoney, String[] properties,
+    public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                         int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine,int goToJailNumber) {
@@ -76,7 +76,7 @@ public class MonopolyGame {
 
                 playerList[i].reportBeforeRoll();
 
-                playerList[i].getMoveDice().rollDice();
+                playerList[i].rollMoveDice();
                 firstDice = playerList[i].getMoveDice().getFirstValue(); //Roll first dice
                 secondDice = playerList[i].getMoveDice().getSecondValue(); //Roll second dice
                 diceValue = firstDice + secondDice; //Add dice values to move the player.
@@ -89,7 +89,7 @@ public class MonopolyGame {
                     if (firstDice != secondDice) {
 
                         // Check if player wants to pay fine and go out to jail
-                        playerList[i].getChoiceDice().rollDice();
+                        playerList[i].rollChoiceDice();
 
                         if (playerList[i].getChoiceDice().getTotal() > 8) {
 
@@ -137,7 +137,7 @@ public class MonopolyGame {
 
                 if (tempSquare instanceof PropertySquare) {
                     if (((PropertySquare) tempSquare).getHasOwner()) {
-                        if (((PropertySquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
+                        if (!((PropertySquare) tempSquare).getOwner().getPlayerName().equals(playerList[i].getPlayerName())) {
                             if (!(((PropertySquare) tempSquare).getOwner().isInJail())) {
                                 playerList[i].getMoney().decreaseMoney(((PropertySquare) tempSquare).getFine());
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
@@ -158,7 +158,7 @@ public class MonopolyGame {
                         }
                     } else {
 
-                        playerList[i].getChoiceDice().rollDice();
+                        playerList[i].rollChoiceDice();
                         int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
@@ -171,7 +171,7 @@ public class MonopolyGame {
                 } else if (tempSquare instanceof TransportSquare) {
                     //ownerı varsa
                     if (((TransportSquare) tempSquare).getHasOwner()) {
-                        if (((TransportSquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
+                        if (!((TransportSquare) tempSquare).getOwner().getPlayerName().equals(playerList[i].getPlayerName())) {
 
 
                             if (!(((TransportSquare) tempSquare).getOwner().isInJail())) {
@@ -198,7 +198,7 @@ public class MonopolyGame {
 
                     //ownerı yoksa
                     else {
-                        playerList[i].getChoiceDice().rollDice();
+                        playerList[i].rollChoiceDice();
                         int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
                         //treshold değeri inputtan alınacak!!!!!
@@ -212,7 +212,7 @@ public class MonopolyGame {
                 } else if (tempSquare instanceof UtilitySquare) {
                     //ownerı varsa
                     if (((UtilitySquare) tempSquare).getHasOwner()) {
-                        if (((UtilitySquare) tempSquare).getOwner().getPlayerName() != playerList[i].getPlayerName()) {
+                        if (!((UtilitySquare) tempSquare).getOwner().getPlayerName().equals(playerList[i].getPlayerName())) {
                             if (!(((UtilitySquare) tempSquare).getOwner().isInJail())) {
 
                                 int tempFine = ((UtilitySquare) tempSquare).getOwner().getUtilityCount() * ((UtilitySquare) tempSquare).getFine(diceValue);
@@ -238,7 +238,7 @@ public class MonopolyGame {
 
                     //ownerı yoksa
                     else {
-                        playerList[i].getChoiceDice().rollDice();
+                        playerList[i].rollChoiceDice();
                         int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
                         if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > ((UtilitySquare) tempSquare).getPrice()) {
@@ -278,9 +278,7 @@ public class MonopolyGame {
                 }
 
                 //Check if dices are equal each other.
-                if (firstDice == secondDice) {
-                    continue;
-                } else {
+                if (firstDice != secondDice) {
                     i++;
                 }
             }
@@ -294,27 +292,27 @@ public class MonopolyGame {
     }
 
     //Create player list.
-    public void createPlayerList() {
+    private void createPlayerList() {
         this.playerList = new Player[this.playerSize];
     }
 
     //Create piece list.
-    public void createPieceList() {
+    private void createPieceList() {
         this.pieceList = new Piece[this.playerSize];
     }
 
     //Create first player list.
-    public void createPlayerOldList() {
+    private void createPlayerOldList() {
         this.playerOldList = new Player[this.playerSize];
     }
 
     //Create dices.
-    public void createDices() {
+    private void createDices() {
         this.dices = new int[this.playerSize];
     }
 
     //Print dice values.
-    public void printDiceRoll() {
+    private void printDiceRoll() {
         System.out.println("Players roll dices to determine their turns.");
         for (int i = 0; i < playerSize; i++) {
             System.out.println(playerOldList[i].getPlayerName() + " rolled " + dices[i] + ".");
@@ -323,7 +321,7 @@ public class MonopolyGame {
     }
 
     //Roll the dice for turn order and set the turn order of players from biggest to smallest.
-    public void rollDiceBeginning() {
+    private void rollDiceBeginning() {
         for (int i = 0; i < playerSize; i++) {
             int biggest = 0;
             int place = 0;
@@ -342,33 +340,17 @@ public class MonopolyGame {
     }
 
     //Print Player name and Piece name.
-    public void printPlayerAndPiece() {
+    private void printPlayerAndPiece() {
         for (int i = 0; i < playerSize; i++) {
             System.out.print("Player : " + playerList[i].getPlayerName() + " -- ");
             System.out.println("Piece: " + pieceList[i].getPieceType());
         }
     }
 
-    public void checkPlayerSize(int intPlayerSize) {
+    private void checkPlayerSize(int intPlayerSize) {
         if (intPlayerSize < 2 || intPlayerSize > 8) {
             System.out.println("Player size must be from 2 to 8.");
             System.exit(1);
         }
     }
-
-    //Getter method for player sizes.
-    public int getPlayerSize() {
-        return playerSize;
-    }
-
-
-    //Getter method for amount of start money.
-    public int getStartMoney() {
-        return startMoney;
-    }
-
-    public Player[] getPlayerList() {
-        return playerList;
-    }
-
 }
