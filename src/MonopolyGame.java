@@ -1,7 +1,9 @@
 
 public class MonopolyGame {
-    private final String[] NAMES = {"ARDA", "EKIN", "MINEL", "METE", "HAMZA", "MELISA", "BARIS", "EYLUL"}; //String array which contains name of players
-    private final String[] PIECES = {"DOG", "HAT", "BOOT", "THIMBLE", "CAT", "CAR", "SHIP", "HORSEMAN"}; //String array which contains piece types of players
+    //String array which contains name of players
+    private final String[] NAMES = {"ARDA", "EKIN", "MINEL", "METE", "HAMZA", "MELISA", "BARIS", "EYLUL"};
+    //String array which contains piece types of players
+    private final String[] PIECES = {"DOG", "HAT", "BOOT", "THIMBLE", "CAT", "CAR", "SHIP", "HORSEMAN"};
     private Board board; //Board object
     private Player[] playerList; //Player array to create given number of players
     private Player[] playerOldList; //Not ordered player list
@@ -18,14 +20,14 @@ public class MonopolyGame {
     public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
-                        int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine,int goToJailNumber) {
+                        int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
         this.threshold = threshold;
         this.startMoney = startMoney;
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
-                taxFine, taxSquares,goToJailNumber); //Create Board object.
+                taxFine, taxSquares, goToJailNumber); //Create Board object.
         this.goMoney = goMoney; //Assign GO money.
         this.jailFine = jailFine;
         this.goToJailNumber = goToJailNumber;
@@ -50,7 +52,9 @@ public class MonopolyGame {
             playerOldList[i] = new Player(NAMES[i], startMoney); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
             playerOldList[i].setPiece(pieceList[i]); //Set players' pieces'.
-            dices[i] = playerOldList[i].getMoveDice().getFirstRandomValue() + playerOldList[i].getMoveDice().getSecondRandomValue(); //Roll dices for each player to set the turn order.
+            //Roll dices for each player to set the turn order.
+            dices[i] = playerOldList[i].getMoveDice().getFirstRandomValue()
+                    + playerOldList[i].getMoveDice().getSecondRandomValue();
         }
 
         printDiceRoll();
@@ -97,6 +101,8 @@ public class MonopolyGame {
                             if (playerList[i].getMoney().getCurrentMoney() > jailFine) {
 
                                 playerList[i].getMoney().decreaseMoney(jailFine);
+                                System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'" + jailFine
+                                        + "$\' TO THE BANK FOR GO OUT FROM JAIL***");
                                 playerList[i].setInJail(false);
 
                             }
@@ -108,9 +114,11 @@ public class MonopolyGame {
                                 break;
                             } else {
                                 playerList[i].getMoney().decreaseMoney(jailFine);
-
+                                System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'" + jailFine
+                                        + "$\' TO THE BANK FOR GO OUT FROM JAIL***");
                                 if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                    System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
+                                    System.out.println("!!! " + playerList[i].getPlayerName()
+                                            + "  has gone bankrupt!!!\n");
                                     playerList[i] = null;
                                     currentPlayerSize--;
 
@@ -129,7 +137,8 @@ public class MonopolyGame {
                     }
                 }
 
-                playerList[i].getPiece().move(diceValue, playerList[i], goMoney); //Move the player according to dice values.
+                //Move the player according to dice values.
+                playerList[i].getPiece().move(diceValue, playerList[i], goMoney);
                 System.out.println("\nFirst dice is : " + firstDice + " Second dice is : " + secondDice);
                 System.out.println("Sum of dices is " + diceValue);
                 playerList[i].reportAfterRoll();
@@ -139,21 +148,21 @@ public class MonopolyGame {
                 if (tempSquare instanceof PropertySquare) {
                     gameFinish = propertySquareActions((PropertySquare) tempSquare, i);
 
-                    if(gameFinish){
+                    if (gameFinish) {
                         check = false;
                         break;
                     }
                 } else if (tempSquare instanceof TransportSquare) {
                     gameFinish = transportSquareActions((TransportSquare) tempSquare, i);
 
-                    if(gameFinish){
+                    if (gameFinish) {
                         check = false;
                         break;
                     }
                 } else if (tempSquare instanceof UtilitySquare) {
                     gameFinish = utilitySquareActions((UtilitySquare) tempSquare, i);
 
-                    if(gameFinish){
+                    if (gameFinish) {
                         check = false;
                         break;
                     }
@@ -164,10 +173,10 @@ public class MonopolyGame {
                     playerList[i].setInJail(true);
                 }
 
-                if(tempSquare instanceof TaxSquare){
+                if (tempSquare instanceof TaxSquare) {
                     gameFinish = taxSquareActions((TaxSquare) tempSquare, i);
 
-                    if(gameFinish){
+                    if (gameFinish) {
                         check = false;
                         break;
                     }
@@ -191,7 +200,7 @@ public class MonopolyGame {
         }
     }
 
-    private boolean transportSquareActions(TransportSquare tempSquare, int i){
+    private boolean transportSquareActions(TransportSquare tempSquare, int i) {
         //ownerı varsa
         if (tempSquare.getHasOwner()) {
             if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
@@ -201,7 +210,11 @@ public class MonopolyGame {
                     playerList[i].getMoney().decreaseMoney(tempFine);
 
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
+                        tempSquare.getOwner().getMoney().increaseMoney(tempFine
+                                + playerList[i].getMoney().getCurrentMoney());
+                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
+                                + (tempFine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
+                                + tempSquare.getOwner().getPlayerName() + "***");
                         System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
                         playerList[i] = null;
                         currentPlayerSize--;
@@ -210,6 +223,9 @@ public class MonopolyGame {
                         if (currentPlayerSize == 1) {
                             return true;
                         }
+                    } else {
+                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'" + tempFine
+                                + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
                     }
                     tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine());
                 }
@@ -226,22 +242,29 @@ public class MonopolyGame {
                 tempSquare.setOwner(playerList[i]);
                 playerList[i].addTransportLister(tempSquare);
                 playerList[i].addProperty(tempSquare);
+                System.out.println("***" + playerList[i].getPlayerName() + " BOUGHT " + tempSquare.getSquareName()
+                        + "***");
             }
         }
         return false;
     }
 
-    private boolean utilitySquareActions(UtilitySquare tempSquare, int i){
+    private boolean utilitySquareActions(UtilitySquare tempSquare, int i) {
         //ownerı varsa
         if (tempSquare.getHasOwner()) {
             if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
                 if (!(tempSquare.getOwner().isInJail())) {
 
-                    int tempFine = tempSquare.getOwner().getUtilityCount() * tempSquare.getFine(playerList[i].getMoveDice().getTotal());
+                    int tempFine = tempSquare.getOwner().getUtilityCount()
+                            * tempSquare.getFine(playerList[i].getMoveDice().getTotal());
                     playerList[i].getMoney().decreaseMoney(tempFine);
 
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
+                        tempSquare.getOwner().getMoney().increaseMoney(tempFine
+                                + playerList[i].getMoney().getCurrentMoney());
+                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
+                                + (tempFine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
+                                + tempSquare.getOwner().getPlayerName() + "***");
                         System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
                         playerList[i] = null;
                         currentPlayerSize--;
@@ -250,6 +273,9 @@ public class MonopolyGame {
                         if (currentPlayerSize == 1) {
                             return true;
                         }
+                    } else {
+                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
+                                + tempFine + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
                     }
                     tempSquare.getOwner().getMoney().increaseMoney(tempFine);
                 }
@@ -263,20 +289,28 @@ public class MonopolyGame {
 
             if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
                 tempSquare.setOwner(playerList[i]);
-                playerList[i].addUtilityList( tempSquare);
+                playerList[i].addUtilityList(tempSquare);
                 playerList[i].addProperty(tempSquare);
+                System.out.println("***" + playerList[i].getPlayerName() + " BOUGHT "
+                        + tempSquare.getSquareName() + "***");
             }
         }
         return false;
     }
 
-    private boolean propertySquareActions(PropertySquare tempSquare, int i){
+    private boolean propertySquareActions(PropertySquare tempSquare, int i) {
         if (tempSquare.getHasOwner()) {
             if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
                 if (!(tempSquare.getOwner().isInJail())) {
-                    playerList[i].getMoney().decreaseMoney(((PropertySquare) tempSquare).getFine());
+                    playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney());
+                        tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine()
+                                + playerList[i].getMoney().getCurrentMoney());
+                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
+                                + (tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
+                                + tempSquare.getOwner().getPlayerName() + "***");
+
                         System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
                         playerList[i] = null;
                         currentPlayerSize--;
@@ -285,6 +319,9 @@ public class MonopolyGame {
                         if (currentPlayerSize == 1) {
                             return true;
                         }
+                    } else {
+                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
+                                + tempSquare.getFine() + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
                     }
                     tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine());
                 }
@@ -296,18 +333,22 @@ public class MonopolyGame {
 
             //treshold değeri inputtan alınacak!!!!!
             if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
-               tempSquare.setOwner(playerList[i]);
+                tempSquare.setOwner(playerList[i]);
                 playerList[i].addProperty(tempSquare);
+                System.out.println("***" + playerList[i].getPlayerName() + " BOUGHT "
+                        + tempSquare.getSquareName() + "***");
             }
         }
         return false;
     }
 
-    private boolean taxSquareActions(TaxSquare tempSquare, int i){
+    private boolean taxSquareActions(TaxSquare tempSquare, int i) {
         playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
 
-        if(playerList[i].getMoney().getCurrentMoney() <= 0){
+        if (playerList[i].getMoney().getCurrentMoney() <= 0) {
             playerList[i].emptyOwnedSquares();
+            System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
+                    + tempSquare.getFine() + "$\' TO BANK***");
             System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
             playerList[i] = null;
             currentPlayerSize--;

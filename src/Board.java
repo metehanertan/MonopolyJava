@@ -76,7 +76,8 @@ public class Board {
                 this.squareList[id] = new FreeParkingSquare(id, "FREEPARKING");
             } else if (id == 5 || id == 15 || id == 25 || id == 35) {
                 //Transports
-                this.squareList[id] = new TransportSquare(id, "TRANSPORT",transportFine[transportIndex]);
+                this.squareList[id] = new TransportSquare(id, transportName[transportIndex],
+                        transportFine[transportIndex],transportPrice[transportIndex]);
                 transportIndex++;
             } else if (id == 12 || id == 28) {
                 this.squareList[id] = new UtilitySquare(id, utilityName[utilityIndex],
@@ -116,8 +117,13 @@ public class Board {
 
         for(Square i : squareList){
             System.out.print(i.getSquareID());
-            System.out.println(" : " + i.getSquareName());
+            System.out.print(" : " + i.getSquareName());
+            if(i instanceof PropertySquare){
+                System.out.println(" Color : " + ((PropertySquare) i).getColor());
+            }
+            else{
+                System.out.println();
+            }
         }
-
     }
 }
