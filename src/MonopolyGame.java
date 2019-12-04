@@ -302,13 +302,20 @@ public class MonopolyGame {
         if (tempSquare.getHasOwner()) {
             if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
                 if (!(tempSquare.getOwner().isInJail())) {
-                    playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
+
+                    int fine = ((PropertySquare) tempSquare).getFine();
+                    if(playerList[i].hasItAll((PropertySquare) tempSquare,board)){
+                        fine = 2*fine;
+                        System.out.println("Player "+  tempSquare.getOwner().getPlayerName() +" has all "+ tempSquare.getColor()+" colors.");
+                    }
+
+                    playerList[i].getMoney().decreaseMoney(fine);
 
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine()
+                        tempSquare.getOwner().getMoney().increaseMoney(fine
                                 + playerList[i].getMoney().getCurrentMoney());
                         System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + (tempSquare.getFine() + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
+                                + (fine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
                                 + tempSquare.getOwner().getPlayerName() + "***");
 
                         System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
@@ -321,9 +328,9 @@ public class MonopolyGame {
                         }
                     } else {
                         System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + tempSquare.getFine() + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
+                                + fine + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
                     }
-                    tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine());
+                    tempSquare.getOwner().getMoney().increaseMoney(fine);
                 }
             }
         } else {

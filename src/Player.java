@@ -166,4 +166,44 @@ public class Player {
         this.choiceDice.rollDice();
     }
 
+    public boolean hasItAll(PropertySquare square, Board board) {
+        PropertySquare tempProp;
+        for (int i = 0; i < 5;) {
+
+            if( square.getSquareID()+i >= 40 ){
+                i++;
+                continue;
+            }
+
+            if (board.getSquareList()[square.getSquareID() + i] instanceof PropertySquare) {
+                tempProp = (PropertySquare) board.getSquareList()[square.getSquareID() + i];
+                if (tempProp.getColor().equals(square.getColor())) {
+                    if(tempProp.getHasOwner()){
+                        if (!tempProp.getOwner().equals(square.getOwner())) {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            if( square.getSquareID()-i <= 0 ){
+                i++;
+                continue;
+            }
+
+            if (board.getSquareList()[square.getSquareID() - i] instanceof PropertySquare) {
+                tempProp = (PropertySquare) board.getSquareList()[square.getSquareID() - i];
+                if (tempProp.getColor().equals(square.getColor())) {
+                    if(tempProp.getHasOwner()){
+                        if (!tempProp.getOwner().equals(square.getOwner())) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            i++;
+        }
+        return true;
+    }
+
 }
