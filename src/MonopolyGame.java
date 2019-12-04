@@ -207,6 +207,12 @@ public class MonopolyGame {
 
                 if (!(tempSquare.getOwner().isInJail())) {
                     int tempFine = tempSquare.getOwner().getTransportCount() * tempSquare.getFine();
+
+                    while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
+                        if (!playerList[i].sellCheapest())
+                            break;
+                    }
+
                     playerList[i].getMoney().decreaseMoney(tempFine);
 
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
@@ -257,6 +263,12 @@ public class MonopolyGame {
 
                     int tempFine = tempSquare.getOwner().getUtilityCount()
                             * tempSquare.getFine(playerList[i].getMoveDice().getTotal());
+
+                    while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
+                        if (!playerList[i].sellCheapest())
+                            break;
+                    }
+
                     playerList[i].getMoney().decreaseMoney(tempFine);
 
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
@@ -303,19 +315,25 @@ public class MonopolyGame {
             if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
                 if (!(tempSquare.getOwner().isInJail())) {
 
-                    int fine = ((PropertySquare) tempSquare).getFine();
-                    if(playerList[i].hasItAll((PropertySquare) tempSquare,board)){
-                        fine = 2*fine;
-                        System.out.println("Player "+  tempSquare.getOwner().getPlayerName() +" has all "+ tempSquare.getColor()+" colors.");
+                    int tempFine = ((PropertySquare) tempSquare).getFine();
+                    if (playerList[i].hasItAll((PropertySquare) tempSquare, board)) {
+                        tempFine = 2 * tempFine;
+                        System.out.println("Player " + tempSquare.getOwner().getPlayerName() + " has all " + tempSquare.getColor() + " colors.");
                     }
 
-                    playerList[i].getMoney().decreaseMoney(fine);
+
+                    while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
+                        if (!playerList[i].sellCheapest())
+                            break;
+                    }
+
+                    playerList[i].getMoney().decreaseMoney(tempFine);
 
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(fine
+                        tempSquare.getOwner().getMoney().increaseMoney(tempFine
                                 + playerList[i].getMoney().getCurrentMoney());
                         System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + (fine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
+                                + (tempFine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
                                 + tempSquare.getOwner().getPlayerName() + "***");
 
                         System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
@@ -328,9 +346,9 @@ public class MonopolyGame {
                         }
                     } else {
                         System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + fine + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
+                                + tempFine + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
                     }
-                    tempSquare.getOwner().getMoney().increaseMoney(fine);
+                    tempSquare.getOwner().getMoney().increaseMoney(tempFine);
                 }
             }
         } else {
