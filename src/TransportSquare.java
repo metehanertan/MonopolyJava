@@ -1,4 +1,4 @@
-public class TransportSquare extends Square {
+public class TransportSquare extends PurchasableSquare {
 
     private int squareID;
     private String squareName;

@@ -1,4 +1,4 @@
-public class PropertySquare extends Square {
+public class PropertySquare extends PurchasableSquare {
 
     // Create necessary variables
     private int squareID;
@@ -57,7 +57,6 @@ public class PropertySquare extends Square {
     }
 
     public Player getOwner() {
-
         return owner;
     }
 

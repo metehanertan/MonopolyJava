@@ -10,9 +10,9 @@ public class Player {
     private int turn; //Turn
     private boolean isInJail;
     private int jailTurnCounter;
-    private ArrayList<Square> properties;
-    private ArrayList<Square> transportList;
-    private ArrayList<Square> utilityList;
+    private ArrayList<PurchasableSquare> properties;
+    private ArrayList<PurchasableSquare> transportList;
+    private ArrayList<PurchasableSquare> utilityList;
     private Dice moveDice;
     private Dice choiceDice;
 
@@ -20,9 +20,9 @@ public class Player {
     public Player(String playerName, int startMoney) {
         this.playerName = playerName;
         this.money = new Money(startMoney);
-        this.properties = new ArrayList<Square>();
-        this.utilityList = new ArrayList<Square>();
-        this.transportList = new ArrayList<Square>();
+        this.properties = new ArrayList<PurchasableSquare>();
+        this.utilityList = new ArrayList<PurchasableSquare>();
+        this.transportList = new ArrayList<PurchasableSquare>();
         this.isInJail = false;
         this.moveDice = new Dice();
         this.choiceDice = new Dice();
@@ -89,7 +89,7 @@ public class Player {
         this.jailTurnCounter = jailTurnCounter;
     }
 
-    public ArrayList<Square> getProperties() {
+    public ArrayList<PurchasableSquare> getProperties() {
         return properties;
     }
 
@@ -97,7 +97,7 @@ public class Player {
         this.jailTurnCounter++;
     }
 
-    public void addProperty(Square property) {
+    public void addProperty(PurchasableSquare property) {
         this.properties.add(property);
     }
 
@@ -109,12 +109,12 @@ public class Player {
         return utilityList.size();
     }
 
-    public void addTransportLister(Square transportSquare) {
+    public void addTransportLister(PurchasableSquare transportSquare) {
 
         this.transportList.add(transportSquare);
     }
 
-    public void addUtilityList(Square utilitySquare) {
+    public void addUtilityList(PurchasableSquare utilitySquare) {
 
         this.utilityList.add(utilitySquare);
     }
@@ -158,19 +158,19 @@ public class Player {
         return choiceDice;
     }
 
-    public void rollMoveDice(){
+    public void rollMoveDice() {
         this.moveDice.rollDice();
     }
 
-    public void rollChoiceDice(){
+    public void rollChoiceDice() {
         this.choiceDice.rollDice();
     }
 
     public boolean hasItAll(PropertySquare square, Board board) {
         PropertySquare tempProp;
-        for (int i = 0; i < 5;) {
+        for (int i = 0; i < 5; ) {
 
-            if( square.getSquareID()+i >= 40 ){
+            if (square.getSquareID() + i >= 40) {
                 i++;
                 continue;
             }
@@ -178,7 +178,7 @@ public class Player {
             if (board.getSquareList()[square.getSquareID() + i] instanceof PropertySquare) {
                 tempProp = (PropertySquare) board.getSquareList()[square.getSquareID() + i];
                 if (tempProp.getColor().equals(square.getColor())) {
-                    if(tempProp.getHasOwner()){
+                    if (tempProp.getHasOwner()) {
                         if (!tempProp.getOwner().equals(square.getOwner())) {
                             return false;
                         }
@@ -186,7 +186,7 @@ public class Player {
                 }
             }
 
-            if( square.getSquareID()-i <= 0 ){
+            if (square.getSquareID() - i <= 0) {
                 i++;
                 continue;
             }
@@ -194,7 +194,7 @@ public class Player {
             if (board.getSquareList()[square.getSquareID() - i] instanceof PropertySquare) {
                 tempProp = (PropertySquare) board.getSquareList()[square.getSquareID() - i];
                 if (tempProp.getColor().equals(square.getColor())) {
-                    if(tempProp.getHasOwner()){
+                    if (tempProp.getHasOwner()) {
                         if (!tempProp.getOwner().equals(square.getOwner())) {
                             return false;
                         }
@@ -203,6 +203,27 @@ public class Player {
             }
             i++;
         }
+        return true;
+    }
+
+    public boolean sellCheapest() {
+
+        if (properties.size() == 0) {
+            return false;
+        }
+
+        PurchasableSquare tempSquare = properties.get(0);
+
+        for (int i = 1; i < properties.size(); i++) {
+            if (tempSquare.getPrice() > properties.get(i).getPrice()) {
+                tempSquare = properties.get(i);
+            }
+        }
+
+        money.increaseMoney(tempSquare.getPrice());
+        tempSquare.setOwner(null);
+        tempSquare.setHasOwner(false);
+        properties.remove(tempSquare);
         return true;
     }
 

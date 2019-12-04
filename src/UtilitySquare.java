@@ -1,4 +1,4 @@
-public class UtilitySquare extends Square {
+public class UtilitySquare extends PurchasableSquare {
 
     // Create necessary variables
     private int squareID;
@@ -6,6 +6,7 @@ public class UtilitySquare extends Square {
     private int rate;
     private Player owner;
     private int price;
+    private int fine;
 
     private boolean hasOwner;
 
@@ -38,17 +39,13 @@ public class UtilitySquare extends Square {
         this.utilityName = squareName;
     }
 
+    public int getFine(){return fine;}
 
-    int getFine(int diceValue) {
+    public int getFine(int diceValue) {
         // RATE X ZAR
-        int fine = rate * diceValue;
+        this.fine = rate * diceValue;
         return fine;
     }
-
-
-
-
-
 
     public int getRate() {
         return rate;
