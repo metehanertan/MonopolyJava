@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class MonopolyGameTest {
@@ -28,6 +30,33 @@ public class MonopolyGameTest {
             properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
             transportFine, transportPrice, taxFine, taxSquares, jailFine, goToJailNumber);
 
+    @Test
+    public void testPlayerMoneys(){
+        monopolyGame.Play();
+        Player[] playerList = monopolyGame.getPlayerOldList();
+        ArrayList<Player> nonBankruptPlayers = new ArrayList<>();
+        for (int i = 0; i < playerSize; i++){
+            if(playerList[i].getMoney().getCurrentMoney() > 0){
+                nonBankruptPlayers.add(playerList[i]);
+            }
+        }
+
+        Player richestPlayer = new Player("Temp", 0);
+        for (int i = 0; i < nonBankruptPlayers.size(); i++){
+            if(nonBankruptPlayers.get(i).getMoney().getCurrentMoney() > richestPlayer.getMoney().getCurrentMoney()){
+                richestPlayer = nonBankruptPlayers.get(i);
+            }
+        }
+
+        Player winnerPlayer = new Player("Temp", 0);
+        for (int i = 0; i < playerSize; i++){
+            if(monopolyGame.getPlayerList()[i] != null){
+                winnerPlayer = monopolyGame.getPlayerList()[i];
+            }
+        }
+
+        assertEquals("Winner player is not richest player.", richestPlayer, winnerPlayer);
+    }
 
 
 
