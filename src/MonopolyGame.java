@@ -5,6 +5,8 @@ public class MonopolyGame {
     //String array which contains piece types of players
     private final String[] PIECES = {"DOG", "HAT", "BOOT", "THIMBLE", "CAT", "CAR", "SHIP", "HORSEMAN"};
     private Board board; //Board object
+
+
     private Player[] playerList; //Player array to create given number of players
     private Player[] playerOldList; //Not ordered player list
     private int playerSize, threshold, startMoney;
@@ -447,4 +449,13 @@ public class MonopolyGame {
             System.exit(1);
         }
     }
+
+    public Player[] getPlayerOldList() {
+        return playerOldList;
+    }
+
+    public Player[] getPlayerList() {
+        return playerList;
+    }
+
 }

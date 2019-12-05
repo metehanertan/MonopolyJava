@@ -70,7 +70,7 @@ public class PlayerTest {
         for(int i = 0; i < squares.length; i++){
             if(squares[i] instanceof PropertySquare && ((PropertySquare)squares[i]).getColor() == color){
                 ((PropertySquare)squares[i]).setOwner(player);
-                System.out.println("Player owns: " + squares[i].getSquareName() + ", color: "+ ((PropertySquare)squares[i]).getColor());
+                System.out.println("Player owns: " + squares[i].getSquareName() + ", square ID: " + squares[i].getSquareID() +  ", color: "+ ((PropertySquare)squares[i]).getColor());
                 a = i;
                 break;
             }
