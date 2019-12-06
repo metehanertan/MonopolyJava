@@ -167,37 +167,46 @@ public class Player {
     }
 
     public boolean hasItAll(PropertySquare square, Board board) {
+
         PropertySquare tempProp;
-        for (int i = 0; i < 5; ) {
+        int tempIdPos;
+        int tempIdNeg;
+        for (int i = 1; i <= 5; ) {
 
             if (square.getSquareID() + i >= 40) {
-                i++;
-                continue;
+                tempIdPos = square.getSquareID() + i - 40;
+            } else {
+                tempIdPos = square.getSquareID() + i;
             }
 
-            if (board.getSquareList()[square.getSquareID() + i] instanceof PropertySquare) {
-                tempProp = (PropertySquare) board.getSquareList()[square.getSquareID() + i];
+            if (board.getSquareList()[tempIdPos] instanceof PropertySquare) {
+                tempProp = (PropertySquare) board.getSquareList()[tempIdPos];
                 if (tempProp.getColor().equals(square.getColor())) {
                     if (tempProp.getHasOwner()) {
-                        if (!tempProp.getOwner().equals(square.getOwner())) {
+                        if (!(tempProp.getOwner().equals(square.getOwner()))) {
                             return false;
                         }
+                    }else{
+                        return false;
                     }
                 }
             }
 
-            if (square.getSquareID() - i <= 0) {
-                i++;
-                continue;
+            if (square.getSquareID() - i < 0) {
+                tempIdNeg = square.getSquareID() - i + 40;
+            } else {
+                tempIdNeg = square.getSquareID() - i;
             }
 
-            if (board.getSquareList()[square.getSquareID() - i] instanceof PropertySquare) {
-                tempProp = (PropertySquare) board.getSquareList()[square.getSquareID() - i];
+            if (board.getSquareList()[tempIdNeg] instanceof PropertySquare) {
+                tempProp = (PropertySquare) board.getSquareList()[tempIdNeg];
                 if (tempProp.getColor().equals(square.getColor())) {
                     if (tempProp.getHasOwner()) {
-                        if (!tempProp.getOwner().equals(square.getOwner())) {
+                        if (!(tempProp.getOwner().equals(square.getOwner()))) {
                             return false;
                         }
+                    }else{
+                        return false;
                     }
                 }
             }
