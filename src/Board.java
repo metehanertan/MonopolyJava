@@ -131,7 +131,12 @@ public class Board {
         //Place GO TO JAIL squares with the given input value of go to jail.
         while (true) {
             int rand = (int) (Math.random() * 38) + 1;
-            if (goToJailNumber == 1) {
+            if(goToJailNumber == 0){
+                System.out.println("goToJailNumber can be at least 1, the variable was set to 1.");
+                goToJailNumber = 1;
+                break;
+            }
+            else if (goToJailNumber == 1) {
                 break;
             } else if (squareList[rand] instanceof PropertySquare || squareList[rand] instanceof TransportSquare || squareList[rand] instanceof UtilitySquare) {
                 this.squareList[rand] = new GoToJailSquare(rand, "GOTOJAIL");
