@@ -1,14 +1,17 @@
+// This class represents Jail Square on the board
 public class JailSquare extends Square {
 
+    // Create necessary variables
     private int squareID;
     private String squareName;
 
-    public JailSquare(int id,String name){
+    // Constructor
+    public JailSquare(int id, String name) {
         this.squareID = id;
         this.squareName = name;
     }
 
-
+    // Getter and setter methods of the class
     @Override
     public int getSquareID() {
         return this.squareID;
@@ -29,9 +32,4 @@ public class JailSquare extends Square {
         this.squareName = squareName;
     }
 
-
-
-    public int getFine() {
-        return 0;
-    }
 }

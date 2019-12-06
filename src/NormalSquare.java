@@ -32,10 +32,4 @@ public class NormalSquare extends Square {
         this.squareName = squareName;
     }
 
-
-
-    public int getFine() {
-        return FINE;
-    }
-
 }

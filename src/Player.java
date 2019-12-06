@@ -73,6 +73,7 @@ public class Player {
         this.turn = turn;
     }
 
+    // Some getter and setter methods
     public boolean isInJail() {
         return isInJail;
     }
@@ -109,16 +110,19 @@ public class Player {
         return utilityList.size();
     }
 
+    // Add new properties to the transportList
     public void addTransportLister(PurchasableSquare transportSquare) {
 
         this.transportList.add(transportSquare);
     }
 
+    // Add new properties to the utilityList
     public void addUtilityList(PurchasableSquare utilitySquare) {
 
         this.utilityList.add(utilitySquare);
     }
 
+    // If player goes to bankrupt, this method empty his properties
     public void emptyOwnedSquares() {
 
 
@@ -150,6 +154,7 @@ public class Player {
         }
     }
 
+    // Some getter and setter methods
     public Dice getMoveDice() {
         return moveDice;
     }
@@ -166,6 +171,7 @@ public class Player {
         this.choiceDice.rollDice();
     }
 
+    // Check if player has all same property colors
     public boolean hasItAll(PropertySquare square, Board board) {
 
         PropertySquare tempProp;
@@ -186,7 +192,7 @@ public class Player {
                         if (!(tempProp.getOwner().equals(square.getOwner()))) {
                             return false;
                         }
-                    }else{
+                    } else {
                         return false;
                     }
                 }
@@ -205,7 +211,7 @@ public class Player {
                         if (!(tempProp.getOwner().equals(square.getOwner()))) {
                             return false;
                         }
-                    }else{
+                    } else {
                         return false;
                     }
                 }
@@ -215,6 +221,7 @@ public class Player {
         return true;
     }
 
+    // Sell the cheapest property
     public boolean sellCheapest() {
 
         if (properties.size() == 0) {

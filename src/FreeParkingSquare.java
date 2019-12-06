@@ -1,13 +1,17 @@
+// This class represents Free Park square on the board
 public class FreeParkingSquare extends Square {
 
+    // Create necessary variables
     private int squareID;
     private String squareName;
 
-    public FreeParkingSquare(int id, String name){
+    // Constructor
+    public FreeParkingSquare(int id, String name) {
         this.squareID = id;
         this.squareName = name;
     }
 
+    // Getter and setter methods of the class
     @Override
     public int getSquareID() {
         return this.squareID;
@@ -28,10 +32,4 @@ public class FreeParkingSquare extends Square {
         this.squareName = squareName;
     }
 
-
-
-
-    public int getFine() {
-        return 0;
-    }
 }

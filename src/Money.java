@@ -23,5 +23,4 @@ public class Money {
         this.money -= decrease;
     }
 
-
 }

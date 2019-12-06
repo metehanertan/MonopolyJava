@@ -1,8 +1,8 @@
 {
-	"playerSize": "5",
+	"playerSize": "8",
 	"taxValue": "50",
-	"startMoney": "200",
-	"goMoney" : "10",
+	"startMoney": "2000",
+	"goMoney" : "30",
 	"jailFine": "50",
 	"propertyName" : ["KADIKÖY", "TAKSİM", "KARAKÖY", "ÇANAKKALE", "4.LEVENT", "BAĞDAT CADDESİ", "ACIBADEM", "EMİNÖNÜ", "FATİH", "BURSA", "ESKİŞEHİR", "ANKARA", "BEŞİKTAŞ", "OSMANBEY", "HALKALI", "GÖZTEPE", "ERENKÖY","BEYLİKDÜZÜ", "BEYOĞLU", "ŞİŞLİ", "BEYKOZ", "ÜMRANİYE"],
 	"propertyColor" : ["Blue", "Brown", "Red", "Yellow", "Orange", "Green", "Black", "Gray"],

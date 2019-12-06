@@ -1,3 +1,4 @@
+// This class represents the utility squares on the board
 public class UtilitySquare extends PurchasableSquare {
 
     // Create necessary variables
@@ -39,11 +40,15 @@ public class UtilitySquare extends PurchasableSquare {
         this.utilityName = squareName;
     }
 
-    public int getFine(){return fine;}
-
+    // Calculate the exact fine for utilities
     public int getFine(int diceValue) {
-        // RATE X ZAR
+        // RATE X DICE
         this.fine = rate * diceValue;
+        return fine;
+    }
+
+    // Getter and setter methods
+    public int getFine() {
         return fine;
     }
 

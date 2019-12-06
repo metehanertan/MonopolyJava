@@ -33,7 +33,6 @@ public class Piece {
             // player.getMoney().increaseMoney(goMoney);
             GoSquare gos = new GoSquare(0, "GO");
             gos.passGoMoney(goMoney, player);
-
         }
 
         this.position = board.getSquareList()[moving]; //update position

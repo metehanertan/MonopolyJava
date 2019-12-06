@@ -1,12 +1,10 @@
-
+// Simulation continues in this class
 public class MonopolyGame {
     //String array which contains name of players
     private final String[] NAMES = {"ARDA", "EKIN", "MINEL", "METE", "HAMZA", "MELISA", "BARIS", "EYLUL"};
     //String array which contains piece types of players
     private final String[] PIECES = {"DOG", "HAT", "BOOT", "THIMBLE", "CAT", "CAR", "SHIP", "HORSEMAN"};
     private Board board; //Board object
-
-
     private Player[] playerList; //Player array to create given number of players
     private Player[] playerOldList; //Not ordered player list
     private int playerSize, threshold, startMoney;
@@ -14,9 +12,9 @@ public class MonopolyGame {
     private int goMoney; //Given money amount while passing through GO square
     private int cycle; //Cycle counter
     private int[] dices; //Dice values array to order turns of players
-    private int jailFine;
-    private int goToJailNumber;
-    private int currentPlayerSize;
+    private int jailFine; // Fine for go our from the jail
+    private int goToJailNumber; // Number of GoToJail squares
+    private int currentPlayerSize; // Non-bankrupted player number
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
@@ -36,20 +34,24 @@ public class MonopolyGame {
         this.currentPlayerSize = playerSize;
     }
 
-    //Play method to play the game.
+    // Play method to play the game.
     public void Play() {
 
+        // Create variables for dice results
         int diceValue;
         int firstDice;
         int secondDice;
 
+        // Call some functions to create necessary objects
         createPlayerList();
         createPieceList();
         createPlayerOldList();
         createDices();
 
+        // Set the board
         board.setSquareList();
 
+        // Determine player turns
         for (int i = 0; i < playerSize; i++) {
             playerOldList[i] = new Player(NAMES[i], startMoney); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
@@ -59,6 +61,7 @@ public class MonopolyGame {
                     + playerOldList[i].getMoveDice().getSecondRandomValue();
         }
 
+        // Print some infos before the start
         printDiceRoll();
         rollDiceBeginning();
         printPlayerAndPiece();
@@ -68,6 +71,7 @@ public class MonopolyGame {
 
         Square tempSquare;
 
+        // The simulation continues in this loop
         while (check) {
             cycle++; //Increase cycle counter for each cycle.
             System.out.println("-----NEXT CYCLE-----");
@@ -83,6 +87,7 @@ public class MonopolyGame {
 
                 playerList[i].reportBeforeRoll();
 
+                // Current player roll dices
                 playerList[i].rollMoveDice();
                 firstDice = playerList[i].getMoveDice().getFirstValue(); //Roll first dice
                 secondDice = playerList[i].getMoveDice().getSecondValue(); //Roll second dice
@@ -100,6 +105,7 @@ public class MonopolyGame {
 
                         if (playerList[i].getChoiceDice().getTotal() > threshold) {
 
+                            // Check if player have enough money
                             if (playerList[i].getMoney().getCurrentMoney() > jailFine) {
 
                                 playerList[i].getMoney().decreaseMoney(jailFine);
@@ -147,6 +153,7 @@ public class MonopolyGame {
 
                 tempSquare = playerList[i].getPiece().getSquare();
 
+                // Check current square and end of the game
                 if (tempSquare instanceof PropertySquare) {
                     gameFinish = propertySquareActions((PropertySquare) tempSquare, i);
 
@@ -169,12 +176,17 @@ public class MonopolyGame {
                         break;
                     }
                 }
+
+                // If player's new square is Go To Jail Square
                 if (tempSquare instanceof GoToJailSquare) {
+                    ((GoToJailSquare)playerList[i].getPiece().getSquare()).goToJail(playerList[i].getPiece().getSquare(), board.getJailSquare());
                     playerList[i].getPiece().setSquare(board.getSquareList()[10]);
                     playerList[i].setJailTurnCounter(0);
                     playerList[i].setInJail(true);
+                    System.out.println("!!" + playerList[i].getPlayerName() + " HAS GONE TO JAIL!!");
                 }
 
+                // If player's new square is Tax Square
                 if (tempSquare instanceof TaxSquare) {
                     gameFinish = taxSquareActions((TaxSquare) tempSquare, i);
 
@@ -195,6 +207,7 @@ public class MonopolyGame {
             }
         }
 
+        // Print the winner
         for (int i = 0; i < playerSize; i++) {
             if (playerList[i] != null) {
                 System.out.println("WINNER : " + playerList[i].getPlayerName());
@@ -202,14 +215,17 @@ public class MonopolyGame {
         }
     }
 
+    // This method apply the transport square actions
     private boolean transportSquareActions(TransportSquare tempSquare, int i) {
-        //ownerı varsa
+        // If square has a owner
         if (tempSquare.getHasOwner()) {
+            // Check if the owner is himself
             if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
-
+                // Check if the owner is in jail
                 if (!(tempSquare.getOwner().isInJail())) {
                     int tempFine = tempSquare.getOwner().getTransportCount() * tempSquare.getFine();
 
+                    // Player sells his properties if he has not enough money to pay fine
                     while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
                         if (!playerList[i].sellCheapest())
                             break;
@@ -217,9 +233,9 @@ public class MonopolyGame {
 
                     playerList[i].getMoney().decreaseMoney(tempFine);
 
+                    // If player goes to bankruptcy
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(tempFine
-                                + playerList[i].getMoney().getCurrentMoney());
+                        tempSquare.getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
                         System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
                                 + (tempFine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
                                 + tempSquare.getOwner().getPlayerName() + "***");
@@ -227,7 +243,7 @@ public class MonopolyGame {
                         playerList[i] = null;
                         currentPlayerSize--;
 
-                        //If only one player left in the game, finish the game.
+                        // If only one player left in the game, finish the game.
                         if (currentPlayerSize == 1) {
                             return true;
                         }
@@ -238,14 +254,12 @@ public class MonopolyGame {
                     tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine());
                 }
             }
-        }
-
-        //ownerı yoksa
-        else {
+        } else { // If square has not an owner
+            // Player roll the choice dice
             playerList[i].rollChoiceDice();
             int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
-            //treshold değeri inputtan alınacak!!!!!
+            // If player wants to take this square and has enough money to buy
             if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
                 tempSquare.setOwner(playerList[i]);
                 playerList[i].addTransportLister(tempSquare);
@@ -257,15 +271,18 @@ public class MonopolyGame {
         return false;
     }
 
+    // This method apply the utility square actions
     private boolean utilitySquareActions(UtilitySquare tempSquare, int i) {
-        //ownerı varsa
+        // If square has a owner
         if (tempSquare.getHasOwner()) {
+            // Check if the owner is himself
             if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
+                // Check if the owner is in jail
                 if (!(tempSquare.getOwner().isInJail())) {
-
                     int tempFine = tempSquare.getOwner().getUtilityCount()
                             * tempSquare.getFine(playerList[i].getMoveDice().getTotal());
 
+                    // Player sells his properties if he has not enough money to pay fine
                     while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
                         if (!playerList[i].sellCheapest())
                             break;
@@ -273,6 +290,7 @@ public class MonopolyGame {
 
                     playerList[i].getMoney().decreaseMoney(tempFine);
 
+                    // If player goes to bankruptcy
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
                         tempSquare.getOwner().getMoney().increaseMoney(tempFine
                                 + playerList[i].getMoney().getCurrentMoney());
@@ -283,7 +301,7 @@ public class MonopolyGame {
                         playerList[i] = null;
                         currentPlayerSize--;
 
-                        //If only one player left in the game, finish the game.
+                        // If only one player left in the game, finish the game.
                         if (currentPlayerSize == 1) {
                             return true;
                         }
@@ -294,13 +312,12 @@ public class MonopolyGame {
                     tempSquare.getOwner().getMoney().increaseMoney(tempFine);
                 }
             }
-        }
-
-        //ownerı yoksa
-        else {
+        }else { // If square has not an owner
+            // Player roll the choice dice
             playerList[i].rollChoiceDice();
             int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
+            // If player wants to take this square and has enough money to buy
             if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
                 tempSquare.setOwner(playerList[i]);
                 playerList[i].addUtilityList(tempSquare);
@@ -312,18 +329,21 @@ public class MonopolyGame {
         return false;
     }
 
+    // This method apply the transport square actions
     private boolean propertySquareActions(PropertySquare tempSquare, int i) {
+        // If square has a owner
         if (tempSquare.getHasOwner()) {
+            // Check if the owner is himself
             if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
+                // Check if the owner is in jail
                 if (!(tempSquare.getOwner().isInJail())) {
-
                     int tempFine = ((PropertySquare) tempSquare).getFine();
                     if (playerList[i].hasItAll((PropertySquare) tempSquare, board)) {
                         tempFine = 2 * tempFine;
                         System.out.println("Player " + tempSquare.getOwner().getPlayerName() + " has all " + tempSquare.getColor() + " colors.");
                     }
 
-
+                    // Player sells his properties if he has not enough money to pay fine
                     while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
                         if (!playerList[i].sellCheapest())
                             break;
@@ -331,6 +351,7 @@ public class MonopolyGame {
 
                     playerList[i].getMoney().decreaseMoney(tempFine);
 
+                    // If player goes to bankruptcy
                     if (playerList[i].getMoney().getCurrentMoney() <= 0) {
                         tempSquare.getOwner().getMoney().increaseMoney(tempFine
                                 + playerList[i].getMoney().getCurrentMoney());
@@ -353,12 +374,12 @@ public class MonopolyGame {
                     tempSquare.getOwner().getMoney().increaseMoney(tempFine);
                 }
             }
-        } else {
-
+        } else { // If square has not an owner
+            // Player roll the choice dice
             playerList[i].rollChoiceDice();
             int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
 
-            //treshold değeri inputtan alınacak!!!!!
+            // If player wants to take this square and has enough money to buy
             if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
                 tempSquare.setOwner(playerList[i]);
                 playerList[i].addProperty(tempSquare);
@@ -369,9 +390,11 @@ public class MonopolyGame {
         return false;
     }
 
+    // This method apply tax square actions
     private boolean taxSquareActions(TaxSquare tempSquare, int i) {
         playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
 
+        // If player goes to bankruptcy
         if (playerList[i].getMoney().getCurrentMoney() <= 0) {
             playerList[i].emptyOwnedSquares();
             System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
@@ -443,6 +466,7 @@ public class MonopolyGame {
         }
     }
 
+    // Check if the given player size is wrong
     private void checkPlayerSize(int intPlayerSize) {
         if (intPlayerSize < 2 || intPlayerSize > 8) {
             System.out.println("Player size must be from 2 to 8.");
@@ -450,6 +474,7 @@ public class MonopolyGame {
         }
     }
 
+    // Getter and setter methods
     public Player[] getPlayerOldList() {
         return playerOldList;
     }
