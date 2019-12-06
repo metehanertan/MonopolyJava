@@ -9,9 +9,9 @@ import java.util.Iterator;
 
 public class FileReaderJson {
 
-    private int intPlayerSize;
-    private int intThreshold;
-    private int intStartMoney;
+    private int intPlayerSize; //Integer value of player number of game.
+    private int intThreshold; //Integer threshold value for buying properties.
+    private int intStartMoney; // Integer value of
     private int intGoMoney;
     private int intJailFine;
     private String[] properties = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};;
