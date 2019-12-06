@@ -40,6 +40,7 @@ public class PropertySquare extends PurchasableSquare {
         this.squareName = squareName;
     }
 
+    // Getter and setter methods
     public int getFine() {
         return fine;
     }

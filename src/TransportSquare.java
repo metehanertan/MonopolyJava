@@ -1,14 +1,15 @@
+// This class represents the transport squares on the board
 public class TransportSquare extends PurchasableSquare {
 
+    // Create necessary variables
     private int squareID;
     private String squareName;
     private int transportFine;
     private Player owner;
     private int price;
-
-
     private boolean hasOwner;
 
+    // Constructor
     public TransportSquare(int id, String name, int fine, int price) {
         this.squareID = id;
         this.squareName = name;
@@ -17,6 +18,7 @@ public class TransportSquare extends PurchasableSquare {
         this.price = price;
     }
 
+    // Getter and setter methods
     @Override
     public int getSquareID() {
         return this.squareID;
@@ -36,7 +38,6 @@ public class TransportSquare extends PurchasableSquare {
     public void setSquareName(String squareName) {
         this.squareName = squareName;
     }
-
 
     public int getFine() {
         return this.transportFine;

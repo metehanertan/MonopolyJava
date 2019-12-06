@@ -1,9 +1,9 @@
-//Board Class to create a board.
+// This class represents a Monopoly board
 public class Board {
 
-    private final int BOARD_SIZE = 40; //board size. it is fixed to 40.
-    private Square[] squareList; //Square list to keep all squares on the board.
-    private String[] properties; //String array that contains property names.
+    private final int BOARD_SIZE = 40; // Board size. It is fixed to 40.
+    private Square[] squareList; // Square list to keep all squares on the board.
+    private String[] properties; // String array that contains property names.
     private int[] propertyFine; // Integer array that contains properties fine values.
     private int[] propertyPrice; // Integer array that contains properties price for buying functionality
     private String[] propertyColor; // String array that contains properties colors.
@@ -17,12 +17,12 @@ public class Board {
     private String[] taxSquares; // String array that contains type of taxes.
     private int goToJailNumber; // Go to jail squares numbers in the board.
 
-    //Default constructor of Board Class.
+    // Default constructor of Board Class.
     public Board(String[] properties,
                  int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                  int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                  int[] transportPrice, int[] taxFine, String[] taxSquares, int goToJailNumber) {
-        this.squareList = new Square[BOARD_SIZE]; //set the square list's size to board size.
+        this.squareList = new Square[BOARD_SIZE]; // Set the square list's size to board size.
         this.properties = properties;
         this.propertyFine = propertyFine;
         this.propertyColor = propertyColor;
@@ -38,17 +38,17 @@ public class Board {
         this.goToJailNumber = goToJailNumber;
     }
 
-    //getter method for board size.
+    // Getter method for board size.
     public int getBoardSize() {
         return BOARD_SIZE;
     }
 
-    //getter method for square list
+    // Getter method for square list
     public Square[] getSquareList() {
         return this.squareList;
     }
 
-    //set the square list
+    // Set the square list
     public void setSquareList() {
 
         int id = 0;
@@ -148,5 +148,9 @@ public class Board {
                 System.out.println();
             }
         }
+    }
+
+    public JailSquare getJailSquare(){
+        return (JailSquare) squareList[10];
     }
 }

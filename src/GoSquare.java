@@ -1,3 +1,4 @@
+// This class represents Go Square on the board
 public class GoSquare extends Square {
 
     // Create necessary variables
@@ -31,12 +32,12 @@ public class GoSquare extends Square {
         this.squareName = squareName;
     }
 
-
-
+    // Get fine
     public int getFine() {
         return FINE;
     }
 
+    // When a player pass from Go Square his/her money increase
     public void passGoMoney(int money, Player player) {
         player.getMoney().increaseMoney(money);
     }

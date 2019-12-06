@@ -14,9 +14,9 @@ public class FileReaderJson {
     private int intStartMoney; // Integer value of
     private int intGoMoney;
     private int intJailFine;
-    private String[] properties = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};;
+    private String[] properties = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
     private String[] propertyColor = {"", "", "", "", "", "", "", ""};
-    private int[]  propertyFine = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int[] propertyFine = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int[] propertyPrice = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private String[] utilityName = {"", ""};
     private int[] utilityRate = {0, 0};
@@ -125,12 +125,12 @@ public class FileReaderJson {
         }
 
         // Cast given strings to integers
-         this.intPlayerSize = Integer.parseInt(playerSize);
-         this.intThreshold = Integer.parseInt(threshold);
-         this.intStartMoney = Integer.parseInt(startMoney);
-         this.intGoMoney = Integer.parseInt(goMoney);
-         this.intJailFine = Integer.parseInt(jailFine);
-         this.intGoToJailNumber = Integer.parseInt(goToJailNumber);
+        this.intPlayerSize = Integer.parseInt(playerSize);
+        this.intThreshold = Integer.parseInt(threshold);
+        this.intStartMoney = Integer.parseInt(startMoney);
+        this.intGoMoney = Integer.parseInt(goMoney);
+        this.intJailFine = Integer.parseInt(jailFine);
+        this.intGoToJailNumber = Integer.parseInt(goToJailNumber);
     }
 
     public int getIntPlayerSize() {

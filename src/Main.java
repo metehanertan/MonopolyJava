@@ -15,6 +15,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ParseException {
         FileReaderJson fileReader = new FileReaderJson();
 
+        // Read necessary variables with the FileReaderJson object
         int intPlayerSize = fileReader.getIntPlayerSize();
         int intThreshold = fileReader.getIntThreshold();
         int intStartMoney = fileReader.getIntStartMoney();
@@ -34,11 +35,10 @@ public class Main {
         int[] taxFine = fileReader.getTaxFine();
         int intGoToJailNumber = fileReader.getIntGoToJailNumber();
 
-
         // Create MonopolyGame object with given parameters
         MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intGoMoney,
                 properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, intJailFine,intGoToJailNumber);
+                transportFine, transportPrice, taxFine, taxSquares, intJailFine, intGoToJailNumber);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 

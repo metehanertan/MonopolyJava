@@ -33,7 +33,6 @@ public class TaxSquare extends Square {
         this.squareName = squareName;
     }
 
-
     // Return fine
     public int getFine() {
         return this.fine;
