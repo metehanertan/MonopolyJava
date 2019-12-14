@@ -72,4 +72,13 @@ public class TransportSquare extends PurchasableSquare {
         this.transportFine = fine;
     }
 
+    @Override
+    public void buyProperty(Player player, MonopolyGame mpGame) {
+
+    }
+
+    @Override
+    public void payRent(Player player, Board board, MonopolyGame mpGame) {
+
+    }
 }

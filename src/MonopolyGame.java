@@ -155,12 +155,24 @@ public class MonopolyGame {
 
                 // Check current square and end of the game
                 if (tempSquare instanceof PropertySquare) {
+                    if(((PropertySquare) tempSquare).getHasOwner()){
+                        ((PropertySquare) tempSquare).payRent(playerList[i], board, this);
+                    }
+                    else{
+                        ((PropertySquare) tempSquare).buyProperty(playerList[i], this);
+                    }
+
+                    if(currentPlayerSize == 1){
+                        check = false;
+                        break;
+                    }
+                    /*
                     gameFinish = propertySquareActions((PropertySquare) tempSquare, i);
 
                     if (gameFinish) {
                         check = false;
                         break;
-                    }
+                    }*/
                 } else if (tempSquare instanceof TransportSquare) {
                     gameFinish = transportSquareActions((TransportSquare) tempSquare, i);
 
@@ -338,6 +350,7 @@ public class MonopolyGame {
                 // Check if the owner is in jail
                 if (!(tempSquare.getOwner().isInJail())) {
                     int tempFine = ((PropertySquare) tempSquare).getFine();
+                    // BURASI YANLIŞ OWNER OLACAK
                     if (playerList[i].hasItAll((PropertySquare) tempSquare, board)) {
                         tempFine = 2 * tempFine;
                         System.out.println("Player " + tempSquare.getOwner().getPlayerName() + " has all " + tempSquare.getColor() + " colors.");
@@ -481,6 +494,22 @@ public class MonopolyGame {
 
     public Player[] getPlayerList() {
         return playerList;
+    }
+
+    public void decreasePlayerSize(){
+        this.currentPlayerSize--;
+    }
+
+    public int getPlayerSize(){
+        return this.playerSize;
+    }
+
+    public int getCurrentPlayerSize(){
+        return this.currentPlayerSize;
+    }
+
+    public int getThreshold(){
+        return this.threshold;
     }
 
 }
