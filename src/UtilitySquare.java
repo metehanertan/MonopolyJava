@@ -8,7 +8,6 @@ public class UtilitySquare extends PurchasableSquare {
     private Player owner;
     private int price;
     private int fine;
-
     private boolean hasOwner;
 
     // Constructor
@@ -79,6 +78,16 @@ public class UtilitySquare extends PurchasableSquare {
 
     public void setHasOwner(boolean hasOwner) {
         this.hasOwner = hasOwner;
+    }
+
+    @Override
+    public void buyProperty(Player player, MonopolyGame mpGame) {
+
+    }
+
+    @Override
+    public void payRent(Player player, Board board, MonopolyGame mpGame) {
+
     }
 
 }
