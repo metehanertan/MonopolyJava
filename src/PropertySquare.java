@@ -108,6 +108,7 @@ public class PropertySquare extends PurchasableSquare {
                             + owner.getPlayerName() + "***");
 
                     System.out.println("!!! " + player.getPlayerName() + "  has gone bankrupt!!!\n");
+
                     for (int i = 0; i < mpGame.getPlayerSize(); i++) {
                         if (player == mpGame.getPlayerList()[i]) {
                             mpGame.getPlayerList()[i] = null;
@@ -122,10 +123,10 @@ public class PropertySquare extends PurchasableSquare {
                 owner.getMoney().increaseMoney(tempFine);
             }
         }
-
     }
 
     public void buyProperty(Player player, MonopolyGame mpGame) {
+        // If square has not an owner
         // Player roll the choice dice
         player.rollChoiceDice();
         int choiceDiceValue = player.getChoiceDice().getTotal();
@@ -134,8 +135,7 @@ public class PropertySquare extends PurchasableSquare {
         if (choiceDiceValue > mpGame.getThreshold() && player.getMoney().getCurrentMoney() > price) {
             setOwner(player);
             player.addProperty(this);
-            System.out.println("***" + player.getPlayerName() + " BOUGHT "
-                    + squareName + "***");
+            System.out.println("***" + player.getPlayerName() + " BOUGHT " + squareName + "***");
         }
     }
 
