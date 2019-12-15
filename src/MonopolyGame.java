@@ -154,6 +154,15 @@ public class MonopolyGame {
                 tempSquare = playerList[i].getPiece().getSquare();
 
                 // Check current square and end of the game
+                if(tempSquare instanceof PurchasableSquare){
+                    if(((PurchasableSquare) tempSquare).getHasOwner()){
+                        ((PurchasableSquare) tempSquare).payRent(playerList[i], board, this);
+                    }
+                    else{
+                        ((PurchasableSquare) tempSquare).buyProperty(playerList[i],this);
+                    }
+                }
+                /*
                 if (tempSquare instanceof PropertySquare) {
                     if(((PropertySquare) tempSquare).getHasOwner()){
                         ((PropertySquare) tempSquare).payRent(playerList[i], board, this);
@@ -162,10 +171,6 @@ public class MonopolyGame {
                         ((PropertySquare) tempSquare).buyProperty(playerList[i], this);
                     }
 
-                    if(currentPlayerSize == 1){
-                        check = false;
-                        break;
-                    }
                     /*
                     gameFinish = propertySquareActions((PropertySquare) tempSquare, i);
 
@@ -173,20 +178,39 @@ public class MonopolyGame {
                         check = false;
                         break;
                     }*/
-                } else if (tempSquare instanceof TransportSquare) {
-                    gameFinish = transportSquareActions((TransportSquare) tempSquare, i);
+                /*} else if (tempSquare instanceof TransportSquare) {
+
+                    if(((TransportSquare) tempSquare).getHasOwner()){
+                        ((TransportSquare) tempSquare).payRent(playerList[i], board, this);
+                    }
+                    else{
+                        ((TransportSquare) tempSquare).buyProperty(playerList[i], this);
+                    }
+                    /*gameFinish = transportSquareActions((TransportSquare) tempSquare, i);
 
                     if (gameFinish) {
                         check = false;
                         break;
+                    }*/
+                /*} else if (tempSquare instanceof UtilitySquare) {
+
+                    if(((UtilitySquare) tempSquare).getHasOwner()){
+                        ((UtilitySquare) tempSquare).payRent(playerList[i], board, this);
                     }
-                } else if (tempSquare instanceof UtilitySquare) {
-                    gameFinish = utilitySquareActions((UtilitySquare) tempSquare, i);
+                    else{
+                        ((UtilitySquare) tempSquare).buyProperty(playerList[i], this);
+                    }
+                    /*gameFinish = utilitySquareActions((UtilitySquare) tempSquare, i);
 
                     if (gameFinish) {
                         check = false;
                         break;
-                    }
+                    }*/
+                //}
+
+                if(currentPlayerSize == 1){
+                    check = false;
+                    break;
                 }
 
                 // If player's new square is Go To Jail Square
