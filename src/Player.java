@@ -45,8 +45,14 @@ public class Player {
         System.out.println();
         System.out.println("New location : Square " + this.piece.getSquare().getSquareID());
         System.out.println("Type of square : " + this.piece.getSquare().getSquareName());
-        //System.out.println("The amount of tax : " + this.piece.getSquare().getFine());
-        System.out.println("Current balance : " + this.money.getCurrentMoney());
+        if(this.piece.getSquare() instanceof TaxSquare){
+            System.out.println("The amount of tax : " + ((TaxSquare)this.piece.getSquare()).getFine());
+        }
+        System.out.println();
+    }
+
+    public void reportAfterAction(){
+        System.out.println(playerName + "'s New balance : " + this.money.getCurrentMoney());
         System.out.println();
     }
 
@@ -131,8 +137,8 @@ public class Player {
         for (int i = 0; i < properties.size(); i++) {
 
             if (properties.get(i) instanceof PropertySquare) {
-                ((PropertySquare) properties.get(i)).setOwner(null);
-                ((PropertySquare) properties.get(i)).setHasOwner(false);
+                (properties.get(i)).setOwner(null);
+                (properties.get(i)).setHasOwner(false);
 
             }
         }
@@ -141,16 +147,16 @@ public class Player {
 
             if (transportList.get(k) instanceof TransportSquare) {
 
-                ((TransportSquare) transportList.get(k)).setOwner(null);
-                ((TransportSquare) transportList.get(k)).setHasOwner(false);
+                (transportList.get(k)).setOwner(null);
+                (transportList.get(k)).setHasOwner(false);
 
             }
         }
 
         for (int j = 0; j < utilityList.size(); j++) {
             if (utilityList.get(j) instanceof UtilitySquare) {
-                ((UtilitySquare) utilityList.get(j)).setOwner(null);
-                ((UtilitySquare) utilityList.get(j)).setHasOwner(false);
+                (utilityList.get(j)).setOwner(null);
+                (utilityList.get(j)).setHasOwner(false);
 
             }
         }
@@ -251,6 +257,20 @@ public class Player {
         tempSquare.setHasOwner(false);
         properties.remove(tempSquare);
         return true;
+    }
+
+    public void buyProperty(PurchasableSquare pSquare,MonopolyGame mpGame) {
+        // If square has not an owner
+        // Player roll the choice dice
+        this.rollChoiceDice();
+        int choiceDiceValue = this.getChoiceDice().getTotal();
+
+        // If player wants to take this square and has enough money to buy
+        if (choiceDiceValue > mpGame.getThreshold() && this.getMoney().getCurrentMoney() > pSquare.getPrice()) {
+            pSquare.setOwner(this);
+            this.addProperty(pSquare);
+            System.out.println("***" + this.getPlayerName() + " BOUGHT " + pSquare.getSquareName() + "***");
+        }
     }
 
 

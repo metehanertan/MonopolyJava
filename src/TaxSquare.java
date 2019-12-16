@@ -38,4 +38,27 @@ public class TaxSquare extends Square {
         return this.fine;
     }
 
+    public void payTax(Player player){
+
+        // Player sells his properties if he has not enough money to pay fine
+        while (player.getMoney().getCurrentMoney() <= fine) {
+            if (!player.sellCheapest()){
+                break;
+            }
+        }
+
+        player.getMoney().decreaseMoney(fine);
+
+        // If player goes to bankruptcy
+        if (player.getMoney().getCurrentMoney() <= 0) {
+            player.emptyOwnedSquares();
+            System.out.println("***" + player.getPlayerName() + " HAS PAID \'" + fine + "$\' TO BANK***");
+            System.out.println("!!! " + player.getPlayerName() + " HAS GONE BANKRUPT!!!\n");
+
+            player.setIsBankrupted(true);
+
+        }else{
+            System.out.println("***" + player.getPlayerName() + " HAS PAID \'" + fine + "$\' TO BANK***");
+        }
+    }
 }

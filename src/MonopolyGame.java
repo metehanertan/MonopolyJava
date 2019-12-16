@@ -99,7 +99,6 @@ public class MonopolyGame {
 
                     if (firstDice != secondDice) {
 
-
                         // Check if player wants to pay fine and go out to jail
                         playerList[i].rollChoiceDice();
 
@@ -107,23 +106,22 @@ public class MonopolyGame {
                             ((JailSquare) tempSquare).playerWantsPayForJail(playerList[i]);
 
                         } else {
-                            int tempi = i;
-                           i = ((JailSquare) tempSquare).playerDoesntWantPayForJail(playerList[i],this,i);
+                            int tempI = i;
+                            i = ((JailSquare) tempSquare).playerDoesntWantPayForJail(playerList[i], this, i);
 
-                           if(tempi != i){
-                               break;
-                           }
-                            if(playerList[i].getIsBankrupted()){
+                            if (tempI != i) {
+                                break;
+                            }
+                            if (playerList[i].getIsBankrupted()) {
                                 currentPlayerSize--;
                                 playerList[i] = null;
 
-                                if(currentPlayerSize == 1){
+                                if (currentPlayerSize == 1) {
                                     check = false;
                                     break;
                                 }
                                 i++;
                                 continue;
-                                //break;
                             }
                         }
                     } else {
@@ -140,23 +138,35 @@ public class MonopolyGame {
                 tempSquare = playerList[i].getPiece().getSquare();
 
                 // Check current square and end of the game
-                if(tempSquare instanceof PurchasableSquare){
-                    if(((PurchasableSquare) tempSquare).getHasOwner()){
+                if (tempSquare instanceof PurchasableSquare) {
+                    if (((PurchasableSquare) tempSquare).getHasOwner()) {
                         ((PurchasableSquare) tempSquare).payRent(playerList[i], board, this);
-                    }
-                    else{
-                        ((PurchasableSquare) tempSquare).buyProperty(playerList[i],this);
+
+                        if (playerList[i].getIsBankrupted()) {
+                            currentPlayerSize--;
+                            playerList[i] = null;
+
+                            if (currentPlayerSize == 1) {
+                                check = false;
+                                break;
+                            }
+                            i++;
+                            continue;
+                        }
+
+                    } else {
+                        playerList[i].buyProperty((PurchasableSquare)tempSquare,this);
                     }
                 }
 
-                if(currentPlayerSize == 1){
+                if (currentPlayerSize == 1) {
                     check = false;
                     break;
                 }
 
                 // If player's new square is Go To Jail Square
                 if (tempSquare instanceof GoToJailSquare) {
-                    ((GoToJailSquare)playerList[i].getPiece().getSquare()).goToJail(playerList[i].getPiece().getSquare(), board.getJailSquare());
+                    ((GoToJailSquare) playerList[i].getPiece().getSquare()).goToJail(playerList[i].getPiece().getSquare(), board.getJailSquare());
                     playerList[i].getPiece().setSquare(board.getSquareList()[10]);
                     playerList[i].setJailTurnCounter(0);
                     playerList[i].setInJail(true);
@@ -165,12 +175,23 @@ public class MonopolyGame {
 
                 // If player's new square is Tax Square
                 if (tempSquare instanceof TaxSquare) {
-                    gameFinish = taxSquareActions((TaxSquare) tempSquare, i);
+                    ((TaxSquare) tempSquare).payTax(playerList[i]);
 
-                    if (gameFinish) {
-                        check = false;
-                        break;
+                    if (playerList[i].getIsBankrupted()) {
+                        currentPlayerSize--;
+                        playerList[i] = null;
+
+                        if (currentPlayerSize == 1) {
+                            check = false;
+                            break;
+                        }
+                        i++;
+                        continue;
                     }
+                }
+
+                if(playerList[i] != null){
+                    playerList[i].reportAfterAction();
                 }
 
                 if (i != playerSize - 1) {
@@ -190,26 +211,6 @@ public class MonopolyGame {
                 System.out.println("WINNER : " + playerList[i].getPlayerName());
             }
         }
-    }
-
-    // This method apply tax square actions
-    private boolean taxSquareActions(TaxSquare tempSquare, int i) {
-        playerList[i].getMoney().decreaseMoney(tempSquare.getFine());
-
-        // If player goes to bankruptcy
-        if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-            playerList[i].emptyOwnedSquares();
-            System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                    + tempSquare.getFine() + "$\' TO BANK***");
-            System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
-            playerList[i] = null;
-            currentPlayerSize--;
-
-            if (currentPlayerSize == 1) {
-                return true;
-            }
-        }
-        return false;
     }
 
     //Create player list.
@@ -285,19 +286,19 @@ public class MonopolyGame {
         return playerList;
     }
 
-    public void decreasePlayerSize(){
+    public void decreasePlayerSize() {
         this.currentPlayerSize--;
     }
 
-    public int getPlayerSize(){
+    public int getPlayerSize() {
         return this.playerSize;
     }
 
-    public int getCurrentPlayerSize(){
+    public int getCurrentPlayerSize() {
         return this.currentPlayerSize;
     }
 
-    public int getThreshold(){
+    public int getThreshold() {
         return this.threshold;
     }
 

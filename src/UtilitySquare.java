@@ -102,14 +102,9 @@ public class UtilitySquare extends PurchasableSquare {
                     System.out.println("***" + player.getPlayerName() + " HAS PAID \'"
                             + (tempFine + player.getMoney().getCurrentMoney()) + "$\' TO "
                             + owner.getPlayerName() + "***");
-                    System.out.println("!!! " + player.getPlayerName() + "  has gone bankrupt!!!\n");
+                    System.out.println("!!! " + player.getPlayerName() + " HAS GONE BANKRUPT!!!\n");
 
-                    for (int i = 0; i < mpGame.getPlayerSize(); i++) {
-                        if (player == mpGame.getPlayerList()[i]) {
-                            mpGame.getPlayerList()[i] = null;
-                        }
-                    }
-                    mpGame.decreasePlayerSize();
+                    player.setIsBankrupted(true);
 
                 } else {
                     System.out.println("***" + player.getPlayerName() + " HAS PAID \'"
@@ -119,22 +114,5 @@ public class UtilitySquare extends PurchasableSquare {
             }
         }
     }
-
-    @Override
-    public void buyProperty(Player player, MonopolyGame mpGame) {
-        // Player roll the choice dice
-        player.rollChoiceDice();
-        int choiceDiceValue = player.getChoiceDice().getTotal();
-
-        // If player wants to take this square and has enough money to buy
-        if (choiceDiceValue > mpGame.getThreshold() && player.getMoney().getCurrentMoney() > price) {
-            setOwner(player);
-            player.addUtilityList(this);
-            player.addProperty(this);
-            System.out.println("***" + player.getPlayerName() + " BOUGHT "
-                    + utilityName + "***");
-        }
-    }
-
 
 }

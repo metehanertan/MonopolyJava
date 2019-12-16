@@ -64,8 +64,7 @@ public class JailSquare extends Square {
             System.out.println("***" + player.getPlayerName() + " HAS PAID \'" + jailFine
                     + "$\' TO THE BANK FOR GO OUT FROM JAIL***");
             if (player.getMoney().getCurrentMoney() <= 0) {
-                System.out.println("!!! " + player.getPlayerName()
-                        + "  has gone bankrupt!!!\n");
+                System.out.println("!!! " + player.getPlayerName() + " HAS GONE BANKRUPT!!!\n");
 
                 player.setIsBankrupted(true);
 
