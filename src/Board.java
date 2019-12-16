@@ -16,12 +16,13 @@ public class Board {
     private int[] taxFine; // Integer array that contains tax squares fine values.
     private String[] taxSquares; // String array that contains type of taxes.
     private int goToJailNumber; // Go to jail squares numbers in the board.
+    private int jailFine; // Amount for go out from the jail
 
     // Default constructor of Board Class.
     public Board(String[] properties,
                  int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                  int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
-                 int[] transportPrice, int[] taxFine, String[] taxSquares, int goToJailNumber) {
+                 int[] transportPrice, int[] taxFine, String[] taxSquares, int goToJailNumber, int jailFine) {
         this.squareList = new Square[BOARD_SIZE]; // Set the square list's size to board size.
         this.properties = properties;
         this.propertyFine = propertyFine;
@@ -36,6 +37,7 @@ public class Board {
         this.taxFine = taxFine;
         this.taxSquares = taxSquares;
         this.goToJailNumber = goToJailNumber;
+        this.jailFine = jailFine;
     }
 
     // Getter method for board size.
@@ -79,7 +81,7 @@ public class Board {
 
             //Set the squares with id number 10 as JAIL square.
             else if (id == 10) {
-                this.squareList[id] = new JailSquare(id, "JAIL");
+                this.squareList[id] = new JailSquare(id, "JAIL", jailFine);
             }
 
             //Set the 20. square as FREE PARKING square.

@@ -98,8 +98,7 @@ public class UtilitySquare extends PurchasableSquare {
 
                 // If player goes to bankruptcy
                 if (player.getMoney().getCurrentMoney() <= 0) {
-                    owner.getMoney().increaseMoney(tempFine
-                            + player.getMoney().getCurrentMoney());
+                    owner.getMoney().increaseMoney(tempFine + player.getMoney().getCurrentMoney());
                     System.out.println("***" + player.getPlayerName() + " HAS PAID \'"
                             + (tempFine + player.getMoney().getCurrentMoney()) + "$\' TO "
                             + owner.getPlayerName() + "***");

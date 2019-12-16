@@ -15,6 +15,7 @@ public class Player {
     private ArrayList<PurchasableSquare> utilityList;
     private Dice moveDice;
     private Dice choiceDice;
+    private boolean isBankrupted;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
@@ -26,6 +27,7 @@ public class Player {
         this.isInJail = false;
         this.moveDice = new Dice();
         this.choiceDice = new Dice();
+        this.isBankrupted = false;
     }
 
 
@@ -163,6 +165,14 @@ public class Player {
         return choiceDice;
     }
 
+    public boolean getIsBankrupted(){
+        return this.isBankrupted;
+    }
+
+    public void setIsBankrupted(boolean set){
+        this.isBankrupted = set;
+    }
+
     public void rollMoveDice() {
         this.moveDice.rollDice();
     }
@@ -242,5 +252,7 @@ public class Player {
         properties.remove(tempSquare);
         return true;
     }
+
+
 
 }

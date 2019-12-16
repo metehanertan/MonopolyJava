@@ -27,7 +27,7 @@ public class MonopolyGame {
         this.startMoney = startMoney;
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
-                taxFine, taxSquares, goToJailNumber); //Create Board object.
+                taxFine, taxSquares, goToJailNumber, jailFine); //Create Board object.
         this.goMoney = goMoney; //Assign GO money.
         this.jailFine = jailFine;
         this.goToJailNumber = goToJailNumber;
@@ -84,7 +84,6 @@ public class MonopolyGame {
                     i++;
                     continue;
                 }
-
                 playerList[i].reportBeforeRoll();
 
                 // Current player roll dices
@@ -100,44 +99,31 @@ public class MonopolyGame {
 
                     if (firstDice != secondDice) {
 
+
                         // Check if player wants to pay fine and go out to jail
                         playerList[i].rollChoiceDice();
 
                         if (playerList[i].getChoiceDice().getTotal() > threshold) {
+                            ((JailSquare) tempSquare).playerWantsPayForJail(playerList[i]);
 
-                            // Check if player have enough money
-                            if (playerList[i].getMoney().getCurrentMoney() > jailFine) {
-
-                                playerList[i].getMoney().decreaseMoney(jailFine);
-                                System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'" + jailFine
-                                        + "$\' TO THE BANK FOR GO OUT FROM JAIL***");
-                                playerList[i].setInJail(false);
-
-                            }
                         } else {
-                            // Check the player how many turns in the jail
-                            if (playerList[i].getJailTurnCounter() < 3) {
-                                playerList[i].increaseJailTurnCounter();
-                                i++;
-                                break;
-                            } else {
-                                playerList[i].getMoney().decreaseMoney(jailFine);
-                                System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'" + jailFine
-                                        + "$\' TO THE BANK FOR GO OUT FROM JAIL***");
-                                if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                                    System.out.println("!!! " + playerList[i].getPlayerName()
-                                            + "  has gone bankrupt!!!\n");
-                                    playerList[i] = null;
-                                    currentPlayerSize--;
+                            int tempi = i;
+                           i = ((JailSquare) tempSquare).playerDoesntWantPayForJail(playerList[i],this,i);
 
-                                    //If only one player left in the game, finish the game.
-                                    if (currentPlayerSize == 1) {
-                                        check = false;
-                                    }
+                           if(tempi != i){
+                               break;
+                           }
+                            if(playerList[i].getIsBankrupted()){
+                                currentPlayerSize--;
+                                playerList[i] = null;
+
+                                if(currentPlayerSize == 1){
+                                    check = false;
                                     break;
                                 }
-
-                                playerList[i].setInJail(false);
+                                i++;
+                                continue;
+                                //break;
                             }
                         }
                     } else {
@@ -162,51 +148,6 @@ public class MonopolyGame {
                         ((PurchasableSquare) tempSquare).buyProperty(playerList[i],this);
                     }
                 }
-                /*
-                if (tempSquare instanceof PropertySquare) {
-                    if(((PropertySquare) tempSquare).getHasOwner()){
-                        ((PropertySquare) tempSquare).payRent(playerList[i], board, this);
-                    }
-                    else{
-                        ((PropertySquare) tempSquare).buyProperty(playerList[i], this);
-                    }
-
-                    /*
-                    gameFinish = propertySquareActions((PropertySquare) tempSquare, i);
-
-                    if (gameFinish) {
-                        check = false;
-                        break;
-                    }*/
-                /*} else if (tempSquare instanceof TransportSquare) {
-
-                    if(((TransportSquare) tempSquare).getHasOwner()){
-                        ((TransportSquare) tempSquare).payRent(playerList[i], board, this);
-                    }
-                    else{
-                        ((TransportSquare) tempSquare).buyProperty(playerList[i], this);
-                    }
-                    /*gameFinish = transportSquareActions((TransportSquare) tempSquare, i);
-
-                    if (gameFinish) {
-                        check = false;
-                        break;
-                    }*/
-                /*} else if (tempSquare instanceof UtilitySquare) {
-
-                    if(((UtilitySquare) tempSquare).getHasOwner()){
-                        ((UtilitySquare) tempSquare).payRent(playerList[i], board, this);
-                    }
-                    else{
-                        ((UtilitySquare) tempSquare).buyProperty(playerList[i], this);
-                    }
-                    /*gameFinish = utilitySquareActions((UtilitySquare) tempSquare, i);
-
-                    if (gameFinish) {
-                        check = false;
-                        break;
-                    }*/
-                //}
 
                 if(currentPlayerSize == 1){
                     check = false;
@@ -249,182 +190,6 @@ public class MonopolyGame {
                 System.out.println("WINNER : " + playerList[i].getPlayerName());
             }
         }
-    }
-
-    // This method apply the transport square actions
-    private boolean transportSquareActions(TransportSquare tempSquare, int i) {
-        // If square has a owner
-        if (tempSquare.getHasOwner()) {
-            // Check if the owner is himself
-            if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
-                // Check if the owner is in jail
-                if (!(tempSquare.getOwner().isInJail())) {
-                    int tempFine = tempSquare.getOwner().getTransportCount() * tempSquare.getFine();
-
-                    // Player sells his properties if he has not enough money to pay fine
-                    while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
-                        if (!playerList[i].sellCheapest())
-                            break;
-                    }
-
-                    playerList[i].getMoney().decreaseMoney(tempFine);
-
-                    // If player goes to bankruptcy
-                    if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(tempFine + playerList[i].getMoney().getCurrentMoney());
-                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + (tempFine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
-                                + tempSquare.getOwner().getPlayerName() + "***");
-                        System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
-                        playerList[i] = null;
-                        currentPlayerSize--;
-
-                        // If only one player left in the game, finish the game.
-                        if (currentPlayerSize == 1) {
-                            return true;
-                        }
-                    } else {
-                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'" + tempFine
-                                + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
-                    }
-                    tempSquare.getOwner().getMoney().increaseMoney(tempSquare.getFine());
-                }
-            }
-        } else { // If square has not an owner
-            // Player roll the choice dice
-            playerList[i].rollChoiceDice();
-            int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
-
-            // If player wants to take this square and has enough money to buy
-            if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
-                tempSquare.setOwner(playerList[i]);
-                playerList[i].addTransportLister(tempSquare);
-                playerList[i].addProperty(tempSquare);
-                System.out.println("***" + playerList[i].getPlayerName() + " BOUGHT " + tempSquare.getSquareName()
-                        + "***");
-            }
-        }
-        return false;
-    }
-
-    // This method apply the utility square actions
-    private boolean utilitySquareActions(UtilitySquare tempSquare, int i) {
-        // If square has a owner
-        if (tempSquare.getHasOwner()) {
-            // Check if the owner is himself
-            if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
-                // Check if the owner is in jail
-                if (!(tempSquare.getOwner().isInJail())) {
-                    int tempFine = tempSquare.getOwner().getUtilityCount()
-                            * tempSquare.getFine(playerList[i].getMoveDice().getTotal());
-
-                    // Player sells his properties if he has not enough money to pay fine
-                    while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
-                        if (!playerList[i].sellCheapest())
-                            break;
-                    }
-
-                    playerList[i].getMoney().decreaseMoney(tempFine);
-
-                    // If player goes to bankruptcy
-                    if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(tempFine
-                                + playerList[i].getMoney().getCurrentMoney());
-                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + (tempFine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
-                                + tempSquare.getOwner().getPlayerName() + "***");
-                        System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
-                        playerList[i] = null;
-                        currentPlayerSize--;
-
-                        // If only one player left in the game, finish the game.
-                        if (currentPlayerSize == 1) {
-                            return true;
-                        }
-                    } else {
-                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + tempFine + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
-                    }
-                    tempSquare.getOwner().getMoney().increaseMoney(tempFine);
-                }
-            }
-        }else { // If square has not an owner
-            // Player roll the choice dice
-            playerList[i].rollChoiceDice();
-            int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
-
-            // If player wants to take this square and has enough money to buy
-            if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
-                tempSquare.setOwner(playerList[i]);
-                playerList[i].addUtilityList(tempSquare);
-                playerList[i].addProperty(tempSquare);
-                System.out.println("***" + playerList[i].getPlayerName() + " BOUGHT "
-                        + tempSquare.getSquareName() + "***");
-            }
-        }
-        return false;
-    }
-
-    // This method apply the transport square actions
-    private boolean propertySquareActions(PropertySquare tempSquare, int i) {
-        // If square has a owner
-        if (tempSquare.getHasOwner()) {
-            // Check if the owner is himself
-            if (!(tempSquare.getOwner().getPlayerName().equals(playerList[i].getPlayerName()))) {
-                // Check if the owner is in jail
-                if (!(tempSquare.getOwner().isInJail())) {
-                    int tempFine = ((PropertySquare) tempSquare).getFine();
-                    // BURASI YANLIŞ OWNER OLACAK
-                    if (playerList[i].hasItAll((PropertySquare) tempSquare, board)) {
-                        tempFine = 2 * tempFine;
-                        System.out.println("Player " + tempSquare.getOwner().getPlayerName() + " has all " + tempSquare.getColor() + " colors.");
-                    }
-
-                    // Player sells his properties if he has not enough money to pay fine
-                    while (playerList[i].getMoney().getCurrentMoney() <= tempFine) {
-                        if (!playerList[i].sellCheapest())
-                            break;
-                    }
-
-                    playerList[i].getMoney().decreaseMoney(tempFine);
-
-                    // If player goes to bankruptcy
-                    if (playerList[i].getMoney().getCurrentMoney() <= 0) {
-                        tempSquare.getOwner().getMoney().increaseMoney(tempFine
-                                + playerList[i].getMoney().getCurrentMoney());
-                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + (tempFine + playerList[i].getMoney().getCurrentMoney()) + "$\' TO "
-                                + tempSquare.getOwner().getPlayerName() + "***");
-
-                        System.out.println("!!! " + playerList[i].getPlayerName() + "  has gone bankrupt!!!\n");
-                        playerList[i] = null;
-                        currentPlayerSize--;
-
-                        //If only one player left in the game, finish the game.
-                        if (currentPlayerSize == 1) {
-                            return true;
-                        }
-                    } else {
-                        System.out.println("***" + playerList[i].getPlayerName() + " HAS PAID \'"
-                                + tempFine + "$\' TO " + tempSquare.getOwner().getPlayerName() + "***");
-                    }
-                    tempSquare.getOwner().getMoney().increaseMoney(tempFine);
-                }
-            }
-        } else { // If square has not an owner
-            // Player roll the choice dice
-            playerList[i].rollChoiceDice();
-            int choiceDiceValue = playerList[i].getChoiceDice().getTotal();
-
-            // If player wants to take this square and has enough money to buy
-            if (choiceDiceValue > threshold && playerList[i].getMoney().getCurrentMoney() > tempSquare.getPrice()) {
-                tempSquare.setOwner(playerList[i]);
-                playerList[i].addProperty(tempSquare);
-                System.out.println("***" + playerList[i].getPlayerName() + " BOUGHT "
-                        + tempSquare.getSquareName() + "***");
-            }
-        }
-        return false;
     }
 
     // This method apply tax square actions

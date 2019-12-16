@@ -93,8 +93,9 @@ public class PropertySquare extends PurchasableSquare {
 
                 // Player sells his properties if he has not enough money to pay fine
                 while (player.getMoney().getCurrentMoney() <= tempFine) {
-                    if (!player.sellCheapest())
+                    if (!player.sellCheapest()){
                         break;
+                    }
                 }
 
                 player.getMoney().decreaseMoney(tempFine);
@@ -109,6 +110,7 @@ public class PropertySquare extends PurchasableSquare {
 
                     System.out.println("!!! " + player.getPlayerName() + "  has gone bankrupt!!!\n");
 
+                    player.setIsBankrupted(true);
                     for (int i = 0; i < mpGame.getPlayerSize(); i++) {
                         if (player == mpGame.getPlayerList()[i]) {
                             mpGame.getPlayerList()[i] = null;
