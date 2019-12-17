@@ -17,19 +17,27 @@ public class MonopolyGame {
     private int jailFine; // Fine for go our from the jail
     private int goToJailNumber; // Number of GoToJail squares
     private int currentPlayerSize; // Non-bankrupted player number
+    private int[] rent1;
+    private int[] rent2;
+    private int[] rent3;
+    private int[] rent4;
+    private int[] hotel;
+    private int[] mortgage;
+    private int[] pricePerHouse;
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
-                        int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber) {
+                        int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber,
+                        int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
         this.threshold = threshold;
         this.startMoney = startMoney;
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
-                taxFine, taxSquares, goToJailNumber, jailFine); //Create Board object.
+                taxFine, taxSquares, goToJailNumber, jailFine, rent1,rent2,rent3,rent4,hotel,mortgage,pricePerHouse); //Create Board object.
         this.goMoney = goMoney; //Assign GO money.
         this.jailFine = jailFine;
         this.goToJailNumber = goToJailNumber;

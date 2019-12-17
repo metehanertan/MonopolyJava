@@ -36,11 +36,19 @@ public class Main {
         String[] taxSquares = fileReader.getTaxSquares();
         int[] taxFine = fileReader.getTaxFine();
         int intGoToJailNumber = fileReader.getIntGoToJailNumber();
+        int[] rent1 = fileReader.getRent1();
+        int[] rent2 = fileReader.getRent2();
+        int[] rent3 = fileReader.getRent3();
+        int[] rent4 = fileReader.getRent4();
+        int[] hotel = fileReader.getHotel();
+        int[] mortgage = fileReader.getMortgage();
+        int[] pricePerHouse = fileReader.getPricePerHouse();
 
         // Create MonopolyGame object with given parameters
         MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intGoMoney,
                 properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, intJailFine, intGoToJailNumber);
+                transportFine, transportPrice, taxFine, taxSquares, intJailFine, intGoToJailNumber, rent1, rent2 ,rent3,rent4,hotel,
+                mortgage, pricePerHouse);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 
