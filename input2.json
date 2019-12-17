@@ -1,0 +1,371 @@
+{
+  "playerSize": "4",
+  "taxValue": "50",
+  "startMoney": "1000",
+  "goMoney" : "30",
+  "jailFine": "50",
+  "threshold": "8",
+  "goToJailNumber": "3",
+
+  "properties": [
+  {
+    "name" : "Old Kent Rd",
+    "color": "brown",
+    "location": 1,
+    "cost": 60,
+    "rent": 2,
+    "rent1": 10,
+    "rent2": 30,
+    "rent3": 90,
+    "rent4": 160,
+    "hotel": 250,
+    "mortgage": 30,
+    "pricePerHouse": 50
+  },
+  {
+    "name" : "Whitechapel Rd",
+    "color": "brown",
+    "location": 3,
+    "cost": 60,
+    "rent": 4,
+    "rent1": 20,
+    "rent2": 60,
+    "rent3": 180,
+    "rent4": 320,
+    "hotel": 450,
+    "mortgage": 30,
+    "pricePerHouse": 50
+  },
+  {
+    "name" : "The Angel",
+    "color": "blue",
+    "location": 6,
+    "cost": 100,
+    "rent": 6,
+    "rent1": 30,
+    "rent2": 90,
+    "rent3": 270,
+    "rent4": 400,
+    "hotel": 550,
+    "mortgage": 50,
+    "pricePerHouse": 50
+  },
+  {
+    "name" : "Euston Rd",
+    "color": "blue",
+    "location": 8,
+    "cost": 100,
+    "rent": 6,
+    "rent1": 30,
+    "rent2": 90,
+    "rent3": 270,
+    "rent4": 400,
+    "hotel": 550,
+    "mortgage": 50,
+    "pricePerHouse": 50
+  },
+  {
+    "name" : "Pentonville Rd",
+    "color": "blue",
+    "location": 9,
+    "cost": 120,
+    "rent": 8,
+    "rent1": 40,
+    "rent2": 100,
+    "rent3": 300,
+    "rent4": 450,
+    "hotel": 600,
+    "mortgage": 60,
+    "pricePerHouse": 50
+  },
+  {
+    "name" : "Pall Mall",
+    "color": "pink",
+    "location": 11,
+    "cost": 140,
+    "rent": 10,
+    "rent1": 50,
+    "rent2": 150,
+    "rent3": 450,
+    "rent4": 625,
+    "hotel": 750,
+    "mortgage": 70,
+    "pricePerHouse": 100
+  },
+  {
+    "name" : "Whitehall",
+    "color": "pink",
+    "location": 13,
+    "cost": 140,
+    "rent": 10,
+    "rent1": 50,
+    "rent2": 150,
+    "rent3": 450,
+    "rent4": 625,
+    "hotel": 750,
+    "mortgage": 70,
+    "pricePerHouse": 100
+  },
+  {
+    "name" : "Northumberland Ave",
+    "color": "pink",
+    "location": 14,
+    "cost": 160,
+    "rent": 12,
+    "rent1": 60,
+    "rent2": 180,
+    "rent3": 500,
+    "rent4": 700,
+    "hotel": 900,
+    "mortgage": 80,
+    "pricePerHouse": 100
+  },
+  {
+    "name" : "Bow St",
+    "color": "orange",
+    "location": 16,
+    "cost": 180,
+    "rent": 14,
+    "rent1": 70,
+    "rent2": 200,
+    "rent3": 550,
+    "rent4": 750,
+    "hotel": 950,
+    "mortgage": 90,
+    "pricePerHouse": 100
+  },
+  {
+    "name" : "Marlborough St",
+    "color": "orange",
+    "location": 18,
+    "cost": 180,
+    "rent": 14,
+    "rent1": 70,
+    "rent2": 200,
+    "rent3": 550,
+    "rent4": 750,
+    "hotel": 950,
+    "mortgage": 90,
+    "pricePerHouse": 100
+  },
+  {
+    "name" : "Vine St",
+    "color": "orange",
+    "location": 19,
+    "cost": 200,
+    "rent": 16,
+    "rent1": 80,
+    "rent2": 220,
+    "rent3": 600,
+    "rent4": 800,
+    "hotel": 1000,
+    "mortgage": 100,
+    "pricePerHouse": 100
+  },
+  {
+    "name" : "Strand",
+    "color": "red",
+    "location": 21,
+    "cost": 220,
+    "rent": 18,
+    "rent1": 90,
+    "rent2": 250,
+    "rent3": 700,
+    "rent4": 875,
+    "hotel": 1050,
+    "mortgage": 110,
+    "pricePerHouse": 150
+  },
+  {
+    "name" : "Fleet St",
+    "color": "red",
+    "location": 23,
+    "cost": 220,
+    "rent": 18,
+    "rent1": 90,
+    "rent2": 250,
+    "rent3": 700,
+    "rent4": 875,
+    "hotel": 1050,
+    "mortgage": 110,
+    "pricePerHouse": 150
+  },
+  {
+    "name" : "Trafalgar Sq",
+    "color": "red",
+    "location": 24,
+    "cost": 240,
+    "rent": 20,
+    "rent1": 100,
+    "rent2": 300,
+    "rent3": 750,
+    "rent4": 925,
+    "hotel": 1100,
+    "mortgage": 120,
+    "pricePerHouse": 150
+  },
+  {
+    "name" : "Leicester Sq",
+    "color": "yellow",
+    "location": 26,
+    "cost": 260,
+    "rent": 22,
+    "rent1": 110,
+    "rent2": 330,
+    "rent3": 800,
+    "rent4": 975,
+    "hotel": 1150,
+    "mortgage": 130,
+    "pricePerHouse": 150
+  },
+  {
+    "name" : "Coventry St",
+    "color": "yellow",
+    "location": 27,
+    "cost": 260,
+    "rent": 22,
+    "rent1": 110,
+    "rent2": 330,
+    "rent3": 800,
+    "rent4": 975,
+    "hotel": 1150,
+    "mortgage": 130,
+    "pricePerHouse": 150
+  },
+  {
+    "name" : "Piccadilly",
+    "color": "yellow",
+    "location": 29,
+    "cost": 280,
+    "rent": 24,
+    "rent1": 120,
+    "rent2": 360,
+    "rent3": 850,
+    "rent4": 1025,
+    "hotel": 1200,
+    "mortgage": 140,
+    "pricePerHouse": 150
+  },
+  {
+    "name" : "Regent St",
+    "color": "green",
+    "location": 31,
+    "cost": 300,
+    "rent": 26,
+    "rent1": 130,
+    "rent2": 390,
+    "rent3": 900,
+    "rent4": 1100,
+    "hotel": 1275,
+    "mortgage": 150,
+    "pricePerHouse": 200
+
+  },
+  {
+    "name" : "Oxford St",
+    "color": "green",
+    "location": 32,
+    "cost": 300,
+    "rent": 26,
+    "rent1": 130,
+    "rent2": 390,
+    "rent3": 900,
+    "rent4": 1100,
+    "hotel": 1275,
+    "mortgage": 150,
+    "pricePerHouse": 200
+  },
+  {
+    "name" : "Bond St",
+    "color": "green",
+    "location": 34,
+    "cost": 320,
+    "rent": 28,
+    "rent1": 150,
+    "rent2": 450,
+    "rent3": 1000,
+    "rent4": 1200,
+    "hotel": 1400,
+    "mortgage": 160,
+    "pricePerHouse": 200
+  },
+  {
+    "name" : "Park Lane",
+    "color": "darkblue",
+    "location": 37,
+    "cost": 350,
+    "rent": 35,
+    "rent1": 175,
+    "rent2": 500,
+    "rent3": 1100,
+    "rent4": 1300,
+    "hotel": 1500,
+    "mortgage": 175,
+    "pricePerHouse": 200
+  },
+  {
+    "name" : "Mayfair",
+    "color": "darkblue",
+    "location": 39,
+    "cost": 400,
+    "rent": 50,
+    "rent1": 200,
+    "rent2": 600,
+    "rent3": 1400,
+    "rent4": 1700,
+    "hotel": 2000,
+    "mortgage": 200,
+    "pricePerHouse": 200
+  }
+],
+  "utilities": [
+    {
+      "name": "Electric",
+      "price": 15,
+      "rate": 1
+
+    },
+    {
+      "name": "Water",
+      "price": 15,
+      "rate": 1
+
+    }
+  ],
+  "transport":[
+
+    {
+      "name": "Otobus",
+      "fine": 5,
+      "price": 20
+    },
+    {
+      "name": "Metrobus",
+      "fine": 5,
+      "price": 20
+    },
+    {
+      "name": "Ucak",
+      "fine": 5,
+      "price": 20
+    },
+    {
+      "name": "Metro",
+      "fine": 5,
+      "price": 20
+    }
+  ],
+  "tax":[
+    {
+      "name": "Income Tax",
+      "fine": 20
+    },
+    {
+      "name": "Luxury Tax",
+      "fine": 10
+    }
+
+  ]
+
+
+}

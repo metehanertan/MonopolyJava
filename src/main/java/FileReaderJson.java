@@ -1,9 +1,12 @@
+package main.java;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -31,9 +34,56 @@ public class FileReaderJson {
     public FileReaderJson() throws IOException, ParseException {
         int i = 0;
 
-        JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new java.io.FileReader("input.json"));
+        Object obj = new JSONParser().parse(new FileReader("input2.json"));
         JSONObject jo = (JSONObject) obj;
+
+
+        //PROPETTIES
+        JSONArray japrop = (JSONArray) jo.get("properties");
+        for(int k = 0; k < japrop.size(); k++){
+            JSONObject jsonProp = (JSONObject) japrop.get(k);
+            properties[k] = (String) jsonProp.get("name");
+            long a = (long) jsonProp.get("rent");
+            long b = (long) jsonProp.get("cost");
+            propertyFine[k] = (int)a;
+            propertyPrice[k] = (int) b;
+        }
+
+        //UTILITIES
+        JSONArray jautils = (JSONArray) jo.get("utilities");
+        for(int j = 0; j < jautils.size(); j++){
+            JSONObject jsonUtil = (JSONObject) jautils.get(j);
+
+            utilityName[j] = (String) jsonUtil.get("name");
+            long a = (long) jsonUtil.get("rate");
+            long b = (long) jsonUtil.get("price");
+            utilityPrice[j] = (int) b;
+            utilityRate[j] = (int) a;
+        }
+
+        //TRANSPORT
+        JSONArray jatransport = (JSONArray) jo.get("transport");
+        for(int m = 0; m < jatransport.size(); m++){
+
+            JSONObject jsonTransport = (JSONObject) jatransport.get(m);
+
+            transportName[m] = (String) jsonTransport.get("name");
+            long a = (long) jsonTransport.get("price");
+            long b = (long) jsonTransport.get("fine");
+            transportPrice[m] = (int) b;
+            transportFine[m] = (int) a;
+        }
+
+        JSONArray jaTax = (JSONArray) jo.get("tax");
+        for(int n = 0; n < jaTax.size(); n++){
+
+
+            JSONObject jsonTax = (JSONObject) jaTax.get(n);
+            taxSquares[n] = (String) jsonTax.get("name");
+            long a = (long) jsonTax.get("fine");
+            taxFine[n] = (int) a;
+        }
+
 
         // Read inputs as string
         String playerSize = (String) jo.get("playerSize");
@@ -43,86 +93,8 @@ public class FileReaderJson {
         String jailFine = (String) jo.get("jailFine");
         String goToJailNumber = (String) jo.get("goToJailNumber");
 
-        JSONArray jsonProperties = (JSONArray) jo.get("propertyName");
-        Iterator iterator1 = jsonProperties.iterator();
 
-        JSONArray jsonPropertyColor = (JSONArray) jo.get("propertyColor");
-        Iterator iterator2 = jsonPropertyColor.iterator();
 
-        JSONArray jsonPropertyFine = (JSONArray) jo.get("propertyFine");
-        Iterator iterator3 = jsonPropertyFine.iterator();
-
-        JSONArray jsonPropertyPrice = (JSONArray) jo.get("propertyPrice");
-        Iterator iterator4 = jsonPropertyPrice.iterator();
-
-        JSONArray jsonUtilityName = (JSONArray) jo.get("utilityName");
-        Iterator iterator5 = jsonUtilityName.iterator();
-
-        JSONArray jsonUtilityRate = (JSONArray) jo.get("utilityRate");
-        Iterator iterator6 = jsonUtilityRate.iterator();
-
-        JSONArray jsonUtilityPrice = (JSONArray) jo.get("utilityPrice");
-        Iterator iterator7 = jsonUtilityPrice.iterator();
-
-        JSONArray jsonTransportName = (JSONArray) jo.get("transportName");
-        Iterator iterator8 = jsonTransportName.iterator();
-
-        JSONArray jsonTransportFine = (JSONArray) jo.get("transportFine");
-        Iterator iterator9 = jsonTransportFine.iterator();
-
-        JSONArray jsonTransportPrice = (JSONArray) jo.get("transportPrice");
-        Iterator iterator10 = jsonTransportPrice.iterator();
-
-        JSONArray jsonTaxSquares = (JSONArray) jo.get("taxSquares");
-        Iterator iterator11 = jsonTaxSquares.iterator();
-
-        JSONArray jsonTaxFine = (JSONArray) jo.get("taxFine");
-        Iterator iterator12 = jsonTaxFine.iterator();
-
-        while (iterator1.hasNext()) {
-            int a = Integer.parseInt((String) iterator3.next());
-            int b = Integer.parseInt((String) iterator4.next());
-
-            this.properties[i] = (String) iterator1.next();
-            this.propertyFine[i] = a;
-            this.propertyPrice[i] = b;
-            i++;
-        }
-
-        i = 0;
-        while (iterator2.hasNext()) {
-            this.propertyColor[i] = (String) iterator2.next();
-            i++;
-        }
-
-        i = 0;
-        while (iterator5.hasNext()) {
-            int a = Integer.parseInt((String) iterator6.next());
-            int b = Integer.parseInt((String) iterator7.next());
-
-            this.utilityName[i] = (String) iterator5.next();
-            this.utilityRate[i] = a;
-            this.utilityPrice[i] = b;
-            i++;
-        }
-
-        i = 0;
-        while (iterator8.hasNext()) {
-            int a = Integer.parseInt((String) iterator9.next());
-            int b = Integer.parseInt((String) iterator10.next());
-            this.transportName[i] = (String) iterator8.next();
-            this.transportFine[i] = a;
-            this.transportPrice[i] = b;
-            i++;
-        }
-
-        i = 0;
-        while (iterator11.hasNext()) {
-            int a = Integer.parseInt((String) iterator12.next());
-            this.taxFine[i] = a;
-            this.taxSquares[i] = (String) iterator11.next();
-            i++;
-        }
 
         // Cast given strings to integers
         this.intPlayerSize = Integer.parseInt(playerSize);

@@ -1,3 +1,5 @@
+package main.java;
+
 // This class represents purchasable squares on the board
 public abstract class PurchasableSquare extends Square {
 

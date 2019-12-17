@@ -1,3 +1,5 @@
+package main.java;
+
 // Class of normal square
 public class NormalSquare extends Square {
 

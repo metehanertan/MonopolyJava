@@ -1,3 +1,5 @@
+/*package test.java;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,4 +21,4 @@ public class testPropertySquare {
         assertTrue("Error occured while setting owner.", ps.getHasOwner());
     }
 
-}
+}*/

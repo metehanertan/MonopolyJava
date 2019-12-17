@@ -1,3 +1,5 @@
+package main.java;
+
 // This class represents the transport squares on the board
 public class TransportSquare extends PurchasableSquare {
 

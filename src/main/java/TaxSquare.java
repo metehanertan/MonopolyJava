@@ -1,3 +1,5 @@
+package main.java;
+
 // Class of tax square
 public class TaxSquare extends Square {
 
