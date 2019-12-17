@@ -8,6 +8,10 @@ public class PropertySquare extends PurchasableSquare {
     private String color;
     private Player owner;
     private boolean hasOwner;
+    private int houseCount;
+    private int hotelCount;
+    private int housePrice;
+    private int hotelPrice;
 
     // Constructor
     public PropertySquare(int squareID, String squareName, int fine, String color, int price) {
@@ -17,6 +21,8 @@ public class PropertySquare extends PurchasableSquare {
         this.fine = fine;
         this.price = price;
         this.hasOwner = false;
+        houseCount = 0;
+        hotelCount = 0;
     }
 
     // Return square id
@@ -93,7 +99,7 @@ public class PropertySquare extends PurchasableSquare {
 
                 // Player sells his properties if he has not enough money to pay fine
                 while (player.getMoney().getCurrentMoney() <= tempFine) {
-                    if (!player.sellCheapest()){
+                    if (!player.sellCheapest()) {
                         break;
                     }
                 }
@@ -118,6 +124,50 @@ public class PropertySquare extends PurchasableSquare {
                 }
                 owner.getMoney().increaseMoney(tempFine);
             }
+        }
+    }
+
+    public void buyHouse(Player player, MonopolyGame mpGame) {
+        player.rollChoiceDice();
+
+        if (player.getMoney().getCurrentMoney() > housePrice) {
+            if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
+                player.getMoney().decreaseMoney(housePrice);
+                houseCount++;
+            }
+        }
+    }
+
+    public void buyHotel(Player player, MonopolyGame mpGame) {
+        player.rollChoiceDice();
+
+        if (player.getMoney().getCurrentMoney() > hotelPrice) {
+            if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
+                player.getMoney().decreaseMoney(hotelPrice);
+                hotelCount++;
+                houseCount = 0;
+            }
+        }
+    }
+
+    public void sellHouse(Player player, MonopolyGame mpGame) {
+        player.rollChoiceDice();
+
+        if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
+            // BURADA SIKINTI ÇIKABİLİR GİRİLEN SAYILARA GÖRE DOUBLE OLMASINI İSTEYECEK
+            player.getMoney().increaseMoney((int) (housePrice / 2));
+            houseCount--;
+        }
+    }
+
+    public void sellHotel(Player player, MonopolyGame mpGame) {
+        player.rollChoiceDice();
+
+        if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
+            // BURADA SIKINTI ÇIKABİLİR GİRİLEN SAYILARA GÖRE DOUBLE OLMASINI İSTEYECEK
+            player.getMoney().increaseMoney((int) (hotelPrice / 2));
+            houseCount = 4;
+            hotelCount--;
         }
     }
 
