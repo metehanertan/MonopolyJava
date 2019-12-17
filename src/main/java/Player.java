@@ -271,6 +271,7 @@ public class Player {
         if (choiceDiceValue > mpGame.getThreshold() && this.getMoney().getCurrentMoney() > pSquare.getPrice()) {
             pSquare.setOwner(this);
             this.addProperty(pSquare);
+            this.getMoney().decreaseMoney(pSquare.getPrice());
             System.out.println("***" + this.getPlayerName() + " BOUGHT " + pSquare.getSquareName() + "***");
         }
     }

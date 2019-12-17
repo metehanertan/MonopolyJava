@@ -30,6 +30,14 @@ public class FileReaderJson {
     private String[] taxSquares = {"", ""};
     private int[] taxFine = {0, 0};
     private int intGoToJailNumber;
+    private int[] rent1 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+    private int[] rent2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+    private int[] rent3 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+    private int[] rent4 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+    private int[] hotel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+    private int[] mortgage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+    private int[] pricePerHouse = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+
 
     public FileReaderJson() throws IOException, ParseException {
         int i = 0;
@@ -40,18 +48,32 @@ public class FileReaderJson {
 
         //PROPETTIES
         JSONArray japrop = (JSONArray) jo.get("properties");
-        for(int k = 0; k < japrop.size(); k++){
+        for (int k = 0; k < japrop.size(); k++) {
             JSONObject jsonProp = (JSONObject) japrop.get(k);
             properties[k] = (String) jsonProp.get("name");
             long a = (long) jsonProp.get("rent");
             long b = (long) jsonProp.get("cost");
-            propertyFine[k] = (int)a;
+            long c = (long) jsonProp.get("rent1");
+            long d = (long) jsonProp.get("rent2");
+            long e = (long) jsonProp.get("rent3");
+            long f = (long) jsonProp.get("rent4");
+            long g = (long) jsonProp.get("hotel");
+            long h = (long) jsonProp.get("mortgage");
+            long l = (long) jsonProp.get("pricePerHouse");
+            propertyFine[k] = (int) a;
             propertyPrice[k] = (int) b;
+            rent1[k] = (int) c;
+            rent2[k] = (int) d;
+            rent3[k] = (int) e;
+            rent4[k] = (int) f;
+            hotel[k] = (int) g;
+            mortgage[k] = (int) h;
+            pricePerHouse[k] = (int) l;
         }
 
         //UTILITIES
         JSONArray jautils = (JSONArray) jo.get("utilities");
-        for(int j = 0; j < jautils.size(); j++){
+        for (int j = 0; j < jautils.size(); j++) {
             JSONObject jsonUtil = (JSONObject) jautils.get(j);
 
             utilityName[j] = (String) jsonUtil.get("name");
@@ -63,7 +85,7 @@ public class FileReaderJson {
 
         //TRANSPORT
         JSONArray jatransport = (JSONArray) jo.get("transport");
-        for(int m = 0; m < jatransport.size(); m++){
+        for (int m = 0; m < jatransport.size(); m++) {
 
             JSONObject jsonTransport = (JSONObject) jatransport.get(m);
 
@@ -75,7 +97,7 @@ public class FileReaderJson {
         }
 
         JSONArray jaTax = (JSONArray) jo.get("tax");
-        for(int n = 0; n < jaTax.size(); n++){
+        for (int n = 0; n < jaTax.size(); n++) {
 
 
             JSONObject jsonTax = (JSONObject) jaTax.get(n);
@@ -92,8 +114,6 @@ public class FileReaderJson {
         String goMoney = (String) jo.get("goMoney");
         String jailFine = (String) jo.get("jailFine");
         String goToJailNumber = (String) jo.get("goToJailNumber");
-
-
 
 
         // Cast given strings to integers
@@ -175,5 +195,33 @@ public class FileReaderJson {
 
     public int getIntGoToJailNumber() {
         return intGoToJailNumber;
+    }
+
+    public int[] getRent1(){
+        return rent1;
+    }
+
+    public int[] getRent2() {
+        return rent2;
+    }
+
+    public int[] getRent3() {
+        return rent3;
+    }
+
+    public int[] getRent4() {
+        return rent4;
+    }
+
+    public int[] getHotel() {
+        return hotel;
+    }
+
+    public int[] getMortgage() {
+        return mortgage;
+    }
+
+    public int[] getPricePerHouse() {
+        return pricePerHouse;
     }
 }

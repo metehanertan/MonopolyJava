@@ -1,7 +1,7 @@
 {
   "playerSize": "4",
   "taxValue": "50",
-  "startMoney": "1000",
+  "startMoney": "100",
   "goMoney" : "30",
   "jailFine": "50",
   "threshold": "8",
