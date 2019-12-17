@@ -1,3 +1,5 @@
+package main.java;
+
 // This class represents Jail Square on the board
 public class JailSquare extends Square {
 

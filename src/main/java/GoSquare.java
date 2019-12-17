@@ -1,3 +1,5 @@
+package main.java;
+
 // This class represents Go Square on the board
 public class GoSquare extends Square {
 

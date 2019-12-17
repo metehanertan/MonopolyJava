@@ -1,3 +1,5 @@
+package main.java;
+
 public class PropertySquare extends PurchasableSquare {
 
     // Create necessary variables

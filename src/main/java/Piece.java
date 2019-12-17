@@ -1,3 +1,5 @@
+package main.java;
+
 //Piece class.
 public class Piece {
 
