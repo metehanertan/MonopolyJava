@@ -1,5 +1,3 @@
-package main.java;
-
 // This class represents a Monopoly board
 public class Board {
 

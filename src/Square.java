@@ -1,5 +1,3 @@
-package main.java;
-
 //This class creates squares on the board
 public abstract class Square {
 

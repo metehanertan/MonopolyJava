@@ -1,5 +1,3 @@
-package main.java;
-
 // This class represents Go To Jail square on the board
 public class GoToJailSquare extends Square {
 

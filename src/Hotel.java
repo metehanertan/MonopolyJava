@@ -1,5 +1,3 @@
-package main.java;
-
 public class Hotel {
     private int count; // Hotel number on a square
     private String name;

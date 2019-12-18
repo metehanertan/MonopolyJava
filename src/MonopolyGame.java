@@ -1,5 +1,3 @@
-package main.java;
-
 // Simulation continues in this class
 public class MonopolyGame {
     //String array which contains name of players

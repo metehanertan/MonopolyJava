@@ -1,5 +1,3 @@
-package main.java;
-
 public class House {
     private String name;
     private PropertySquare pSquare;
