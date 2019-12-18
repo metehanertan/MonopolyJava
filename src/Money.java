@@ -1,5 +1,3 @@
-package main.java;
-
 //Money class.
 public class Money {
 

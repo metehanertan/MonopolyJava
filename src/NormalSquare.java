@@ -1,7 +1,5 @@
-package main.java;
-
-// This class represents Go Square on the board
-public class GoSquare extends Square {
+// Class of normal square
+public class NormalSquare extends Square {
 
     // Create necessary variables
     private int squareID;
@@ -9,7 +7,7 @@ public class GoSquare extends Square {
     private final int FINE = 0;
 
     // Constructor
-    public GoSquare(int squareID, String squareName) {
+    public NormalSquare(int squareID, String squareName) {
         this.squareID = squareID;
         this.squareName = squareName;
     }
@@ -32,16 +30,6 @@ public class GoSquare extends Square {
     // Set square name
     public void setSquareName(String squareName) {
         this.squareName = squareName;
-    }
-
-    // Get fine
-    public int getFine() {
-        return FINE;
-    }
-
-    // When a player pass from Go Square his/her money increase
-    public void passGoMoney(int money, Player player) {
-        player.getMoney().increaseMoney(money);
     }
 
 }

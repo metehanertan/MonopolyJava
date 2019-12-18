@@ -1,5 +1,3 @@
-package main.java;
-
 // This class represents Monopoly dices
 public class Dice {
 

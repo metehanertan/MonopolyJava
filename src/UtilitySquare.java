@@ -1,5 +1,3 @@
-package main.java;
-
 // This class represents the utility squares on the board
 public class UtilitySquare extends PurchasableSquare {
 

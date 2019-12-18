@@ -1,5 +1,3 @@
-package main.java;
-
 // This class represents Free Park square on the board
 public class FreeParkingSquare extends Square {
 

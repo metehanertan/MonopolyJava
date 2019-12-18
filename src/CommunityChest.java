@@ -1,10 +1,7 @@
-package main.java;
-
-public class LuckCard {
-
+public class CommunityChest {
     private String action;
 
-    public LuckCard(String action){
+    public CommunityChest(String action){
         this.action = action;
     }
 
