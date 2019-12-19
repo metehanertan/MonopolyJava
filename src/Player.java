@@ -19,15 +19,15 @@ public class Player {
     private boolean outOfJailCard;
 
     //Constructor of Player Class with given parameters.
-    public Player(String playerName, int startMoney) {
+    public Player(String playerName, int startMoney, Dice moveDice, Dice choiceDice) {
         this.playerName = playerName;
         this.money = new Money(startMoney);
         this.properties = new ArrayList<PurchasableSquare>();
         this.utilityList = new ArrayList<PurchasableSquare>();
         this.transportList = new ArrayList<PurchasableSquare>();
         this.isInJail = false;
-        this.moveDice = new Dice();
-        this.choiceDice = new Dice();
+        this.moveDice = moveDice;
+        this.choiceDice = choiceDice;
         this.isBankrupted = false;
         this.outOfJailCard = false;
     }
@@ -143,23 +143,17 @@ public class Player {
     // If player goes to bankrupt, this method empty his properties
     public void emptyOwnedSquares() {
 
-
         for (int i = 0; i < properties.size(); i++) {
-
             if (properties.get(i) instanceof PropertySquare) {
                 (properties.get(i)).setOwner(null);
                 (properties.get(i)).setHasOwner(false);
-
             }
         }
 
         for (int k = 0; k < transportList.size(); k++) {
-
             if (transportList.get(k) instanceof TransportSquare) {
-
                 (transportList.get(k)).setOwner(null);
                 (transportList.get(k)).setHasOwner(false);
-
             }
         }
 
@@ -167,7 +161,6 @@ public class Player {
             if (utilityList.get(j) instanceof UtilitySquare) {
                 (utilityList.get(j)).setOwner(null);
                 (utilityList.get(j)).setHasOwner(false);
-
             }
         }
     }

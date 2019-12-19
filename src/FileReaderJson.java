@@ -38,8 +38,8 @@ public class FileReaderJson {
     private int[] pricePerHouse = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int maxHouseNumber;
     private int maxHotelNumber;
-    private ArrayList<String> communityChestCards;
-    private ArrayList<String> chanceCards;
+    private ArrayList<String> communityChestCards = new ArrayList<>();
+    private ArrayList<String> chanceCards = new ArrayList<>();
 
 
     public FileReaderJson() throws IOException, ParseException {
@@ -48,8 +48,7 @@ public class FileReaderJson {
         Object obj = new JSONParser().parse(new FileReader("input.json"));
         JSONObject jo = (JSONObject) obj;
 
-
-        //PROPETTIES
+        //PROPERTIES
         JSONArray japrop = (JSONArray) jo.get("properties");
         for (int k = 0; k < japrop.size(); k++) {
             JSONObject jsonProp = (JSONObject) japrop.get(k);
@@ -100,32 +99,28 @@ public class FileReaderJson {
             transportFine[m] = (int) a;
         }
 
-
         //TRANSPORT
         JSONArray jaTax = (JSONArray) jo.get("tax");
         for (int n = 0; n < jaTax.size(); n++) {
-
-
             JSONObject jsonTax = (JSONObject) jaTax.get(n);
             taxSquares[n] = (String) jsonTax.get("name");
             long a = (long) jsonTax.get("fine");
             taxFine[n] = (int) a;
         }
 
-
         //CHANCE CARDS
         JSONArray jaChance = (JSONArray) jo.get("Chance Cards");
-
+        System.out.println("chance  = " + jaChance.size());
         for (int g = 0; g < jaChance.size(); g++) {
             JSONObject jsonChance = (JSONObject) jaChance.get(g);
-            chanceCards.add((String) jsonChance.get("info"));
+            String temp = (String) jsonChance.get("info");
+            chanceCards.add(temp);
         }
-
 
         //COMMUNITY CHEST CARDS
         JSONArray jaCommunity = (JSONArray) jo.get("Community Chest");
 
-        for (int h = 0; h < jaChance.size(); h++) {
+        for (int h = 0; h < jaCommunity.size(); h++) {
             JSONObject jsonCommunity = (JSONObject) jaCommunity.get(h);
             communityChestCards.add((String) jsonCommunity.get("info"));
         }
