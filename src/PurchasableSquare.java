@@ -13,7 +13,7 @@ public abstract class PurchasableSquare extends Square {
 
     public abstract void setHasOwner(boolean hasOwner);
 
-    public abstract void payRent(Player player, Board board, MonopolyGame mpGame);
+    public abstract void payRent(Player player, Board board);
 
     public abstract boolean getHasOwner();
 }

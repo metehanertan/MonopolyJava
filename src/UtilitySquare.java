@@ -81,14 +81,19 @@ public class UtilitySquare extends PurchasableSquare {
     }
 
     @Override
-    public void payRent(Player player, Board board, MonopolyGame mpGame) {
+    public void payRent(Player player, Board board) {
         // Check if the owner is himself
         if (player != owner) {
             // Check if the owner is in jail
             if (!owner.isInJail()) {
                 int tempFine = owner.getUtilityCount() * getFine(player.getMoveDice().getTotal());
 
-                // Player sells his properties if he has not enough money to pay fine
+                if(player.isAbleDecreaseMoney(tempFine)){
+                    player.payMoneyToOwner(owner, tempFine);
+                }else{
+                    player.playerGoesToBankrupt(tempFine, owner);
+                }
+                /*// Player sells his properties if he has not enough money to pay fine
                 while (player.getMoney().getCurrentMoney() <= tempFine) {
                     if (!player.sellCheapest())
                         break;
@@ -110,7 +115,7 @@ public class UtilitySquare extends PurchasableSquare {
                     System.out.println("***" + player.getPlayerName() + " HAS PAID \'"
                             + tempFine + "$\' TO " + owner.getPlayerName() + "***");
                 }
-                owner.getMoney().increaseMoney(tempFine);
+                owner.getMoney().increaseMoney(tempFine);*/
             }
         }
     }

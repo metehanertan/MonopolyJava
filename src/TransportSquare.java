@@ -73,7 +73,7 @@ public class TransportSquare extends PurchasableSquare {
     }
 
     @Override
-    public void payRent(Player player, Board board, MonopolyGame mpGame) {
+    public void payRent(Player player, Board board) {
         // Check if the owner is himself
         if (player != owner) {
             // Check if the owner is in jail

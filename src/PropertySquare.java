@@ -90,7 +90,7 @@ public class PropertySquare extends PurchasableSquare {
         this.hasOwner = hasOwner;
     }
 
-    public void payRent(Player player, Board board, MonopolyGame mpGame) {
+    public void payRent(Player player, Board board) {
 
         if (player != owner) {
             if (!owner.isInJail()) {
@@ -132,7 +132,6 @@ public class PropertySquare extends PurchasableSquare {
 
     public void buyHouse(Player player, MonopolyGame mpGame,Board board) {
         player.rollChoiceDice();
-
 
         if (player.getMoney().getCurrentMoney() > housePrice && player.getChoiceDice().getTotal() > mpGame.getThreshold() && player.hasItAll(this,board)) {
             for(int i = 0; i < mpGame.getHouseList().size(); i++){
