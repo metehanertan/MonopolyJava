@@ -26,6 +26,8 @@ public class MonopolyGame {
     private int[] pricePerHouse;
     private int freeHouseNumber;
     private int freeHotelNumber;
+    private Dice moveDice;
+    private Dice choiceDice;
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
@@ -48,6 +50,8 @@ public class MonopolyGame {
         this.currentPlayerSize = playerSize;
         this.freeHotelNumber = hotelNumber;
         this.freeHouseNumber = houseNumber;
+        moveDice = new Dice();
+        choiceDice = new Dice();
     }
 
     // Play method to play the game.
@@ -69,7 +73,7 @@ public class MonopolyGame {
 
         // Determine player turns
         for (int i = 0; i < playerSize; i++) {
-            playerOldList[i] = new Player(NAMES[i], startMoney); //Create first player list (not ordered).
+            playerOldList[i] = new Player(NAMES[i], startMoney, moveDice, choiceDice); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
             playerOldList[i].setPiece(pieceList[i]); //Set players' pieces'.
             //Roll dices for each player to set the turn order.
