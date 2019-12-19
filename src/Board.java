@@ -27,7 +27,7 @@ public class Board {
     private int[] rent2;
     private int[] rent3;
     private int[] rent4;
-    private int[] hotel;
+    private int[] pricePerHotel;
     private int[] mortgage;
     private int[] pricePerHouse;
 
@@ -36,7 +36,7 @@ public class Board {
                  int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                  int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                  int[] transportPrice, int[] taxFine, String[] taxSquares, int goToJailNumber, int jailFine,
-                 int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse,
+                 int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] pricePerHotel, int[] mortgage, int[] pricePerHouse,
                  int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard) {
         this.squareList = new Square[BOARD_SIZE]; // Set the square list's size to board size.
         this.properties = properties;
@@ -57,7 +57,7 @@ public class Board {
         this.rent2 = rent2;
         this.rent3 = rent3;
         this.rent4 = rent4;
-        this.hotel = hotel;
+        this.pricePerHotel = pricePerHotel;
         this.mortgage = mortgage;
         this.pricePerHouse = pricePerHouse;
         this.houseNumber = houseNumber;
@@ -139,7 +139,7 @@ public class Board {
             //Set the remaining squares as PROPERTY squares.
             else {
                 this.squareList[id] = new PropertySquare(id, properties[propertyIndex], propertyFine[propertyIndex],
-                        propertyColor[colorIndex], propertyPrice[propertyIndex]);
+                        propertyColor[colorIndex], propertyPrice[propertyIndex], pricePerHouse[propertyIndex], pricePerHotel[propertyIndex]);
                 propertyIndex++;
                colorIndex++;
             }

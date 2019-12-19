@@ -17,6 +17,8 @@ public class Player {
     private Dice choiceDice;
     private boolean isBankrupted;
     private boolean outOfJailCard;
+    private int houseCount;
+    private int hotelCount;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney, Dice moveDice, Dice choiceDice) {
@@ -30,6 +32,8 @@ public class Player {
         this.choiceDice = choiceDice;
         this.isBankrupted = false;
         this.outOfJailCard = false;
+        this.hotelCount = 0;
+        this.houseCount = 0;
     }
 
 
@@ -46,14 +50,22 @@ public class Player {
     public void reportAfterRoll() {
         System.out.println();
         System.out.println("New location : Square " + this.piece.getSquare().getSquareID());
+        if(this.piece.getSquare() instanceof PurchasableSquare){
+            if(((PurchasableSquare) this.piece.getSquare()).getHasOwner()){
+                System.out.println(" Owner : " + ((PurchasableSquare) this.piece.getSquare()).getOwner().getPlayerName());
+            }
+            else{
+                System.out.println(" -This square has not an owner!-");
+            }
+        }
         System.out.println("Type of square : " + this.piece.getSquare().getSquareName());
-        if(this.piece.getSquare() instanceof TaxSquare){
-            System.out.println("The amount of tax : " + ((TaxSquare)this.piece.getSquare()).getFine());
+        if (this.piece.getSquare() instanceof TaxSquare) {
+            System.out.println("The amount of tax : " + ((TaxSquare) this.piece.getSquare()).getFine());
         }
         System.out.println();
     }
 
-    public void reportAfterAction(){
+    public void reportAfterAction() {
         System.out.println(playerName + "'s New balance : " + this.money.getCurrentMoney());
         System.out.println();
     }
@@ -174,11 +186,11 @@ public class Player {
         return choiceDice;
     }
 
-    public boolean getIsBankrupted(){
+    public boolean getIsBankrupted() {
         return this.isBankrupted;
     }
 
-    public void setIsBankrupted(boolean set){
+    public void setIsBankrupted(boolean set) {
         this.isBankrupted = set;
     }
 
@@ -262,7 +274,7 @@ public class Player {
         return true;
     }
 
-    public void buyProperty(PurchasableSquare pSquare,MonopolyGame mpGame) {
+    public void buyProperty(PurchasableSquare pSquare, MonopolyGame mpGame) {
         // If square has not an owner
         // Player roll the choice dice
         this.rollChoiceDice();
@@ -277,6 +289,42 @@ public class Player {
         }
     }
 
+    public boolean isAbleDecreaseMoney(int fine) {
+        if (money.getCurrentMoney() > fine) {
+            return true;
+        } else {
+            // Player sells his properties if he has not enough money to pay fine
+            while (money.getCurrentMoney() <= fine) {
+                if (!sellCheapest()) {
+                    break;
+                }
+            }
+            if (money.getCurrentMoney() > fine) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public void playerGoesToBankrupt(int fine, Player owner) {
+        money.decreaseMoney(fine);
+
+        owner.getMoney().increaseMoney(fine + money.getCurrentMoney());
+        System.out.println("***" + playerName + " HAS PAID \'" + (fine + money.getCurrentMoney()) + "$\' TO "
+                + owner.getPlayerName() + "***");
+
+        System.out.println("!!! " + playerName + " HAS GONE BANKRUPT!!!\n");
+
+        isBankrupted = true;
+
+    }
+
+    public void payMoneyToOwner(Player owner, int fine){
+        money.decreaseMoney(fine);
+        System.out.println("***" + playerName + " HAS PAID \'" + fine + "$\' TO " + owner.getPlayerName() + "***");
+        owner.getMoney().increaseMoney(fine);
+    }
 
 
 }

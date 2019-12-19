@@ -52,8 +52,10 @@ public class MonopolyGame {
         this.currentPlayerSize = playerSize;
         this.freeHotelNumber = hotelNumber;
         this.freeHouseNumber = houseNumber;
-        moveDice = new Dice();
-        choiceDice = new Dice();
+        this.moveDice = new Dice();
+        this.choiceDice = new Dice();
+        this.houseList = new ArrayList<>();
+        this.hotelList = new ArrayList<>();
 
         for(int i = 0; i < houseNumber; i++){
             this.houseList.add(new House());
@@ -170,7 +172,7 @@ public class MonopolyGame {
                 // Check current square and end of the game
                 if (tempSquare instanceof PurchasableSquare) {
                     if (((PurchasableSquare) tempSquare).getHasOwner()) {
-                        ((PurchasableSquare) tempSquare).payRent(playerList[i], board, this);
+                        ((PurchasableSquare) tempSquare).payRent(playerList[i], board);
 
                         if (playerList[i].getIsBankrupted()) {
                             currentPlayerSize--;
