@@ -16,6 +16,7 @@ public class Player {
     private Dice moveDice;
     private Dice choiceDice;
     private boolean isBankrupted;
+    private boolean outOfJailCard;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney) {
@@ -28,6 +29,7 @@ public class Player {
         this.moveDice = new Dice();
         this.choiceDice = new Dice();
         this.isBankrupted = false;
+        this.outOfJailCard = false;
     }
 
 
@@ -116,6 +118,14 @@ public class Player {
 
     public int getUtilityCount() {
         return utilityList.size();
+    }
+
+    public boolean getOutOfJailCard() {
+        return outOfJailCard;
+    }
+
+    public void setOutOfJailCard(boolean outOfJailCard) {
+        this.outOfJailCard = outOfJailCard;
     }
 
     // Add new properties to the transportList
