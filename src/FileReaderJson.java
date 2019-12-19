@@ -16,7 +16,7 @@ public class FileReaderJson {
     private int intGoMoney;
     private int intJailFine;
     private String[] properties = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
-    private String[] propertyColor = {"", "", "", "", "", "", "", ""};
+    private String[] propertyColor = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
     private int[] propertyFine = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int[] propertyPrice = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private String[] utilityName = {"", ""};
@@ -28,19 +28,19 @@ public class FileReaderJson {
     private String[] taxSquares = {"", ""};
     private int[] taxFine = {0, 0};
     private int intGoToJailNumber;
-    private int[] rent1 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
-    private int[] rent2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
-    private int[] rent3 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
-    private int[] rent4 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
-    private int[] hotel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
-    private int[] mortgage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
-    private int[] pricePerHouse = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+    private int[] rent1 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int[] rent2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int[] rent3 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int[] rent4 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int[] hotel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int[] mortgage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int[] pricePerHouse = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 
     public FileReaderJson() throws IOException, ParseException {
         int i = 0;
 
-        Object obj = new JSONParser().parse(new FileReader("input2.json"));
+        Object obj = new JSONParser().parse(new FileReader("input.json"));
         JSONObject jo = (JSONObject) obj;
 
 
@@ -49,6 +49,7 @@ public class FileReaderJson {
         for (int k = 0; k < japrop.size(); k++) {
             JSONObject jsonProp = (JSONObject) japrop.get(k);
             properties[k] = (String) jsonProp.get("name");
+            propertyColor[k] = (String) jsonProp.get("color");
             long a = (long) jsonProp.get("rent");
             long b = (long) jsonProp.get("cost");
             long c = (long) jsonProp.get("rent1");
@@ -103,6 +104,7 @@ public class FileReaderJson {
             long a = (long) jsonTax.get("fine");
             taxFine[n] = (int) a;
         }
+
 
 
         // Read inputs as string
