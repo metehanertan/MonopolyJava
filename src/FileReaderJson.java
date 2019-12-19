@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class FileReaderJson {
@@ -35,6 +36,10 @@ public class FileReaderJson {
     private int[] hotel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int[] mortgage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int[] pricePerHouse = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int maxHouseNumber;
+    private int maxHotelNumber;
+    private ArrayList<String> communityChestCards;
+    private ArrayList<String> chanceCards;
 
 
     public FileReaderJson() throws IOException, ParseException {
@@ -95,6 +100,8 @@ public class FileReaderJson {
             transportFine[m] = (int) a;
         }
 
+
+        //TRANSPORT
         JSONArray jaTax = (JSONArray) jo.get("tax");
         for (int n = 0; n < jaTax.size(); n++) {
 
@@ -106,6 +113,23 @@ public class FileReaderJson {
         }
 
 
+        //CHANCE CARDS
+        JSONArray jaChance = (JSONArray) jo.get("Chance Cards");
+
+        for (int g = 0; g < jaChance.size(); g++) {
+            JSONObject jsonChance = (JSONObject) jaChance.get(g);
+            chanceCards.add((String) jsonChance.get("info"));
+        }
+
+
+        //COMMUNITY CHEST CARDS
+        JSONArray jaCommunity = (JSONArray) jo.get("Community Chest");
+
+        for (int h = 0; h < jaChance.size(); h++) {
+            JSONObject jsonCommunity = (JSONObject) jaCommunity.get(h);
+            communityChestCards.add((String) jsonCommunity.get("info"));
+        }
+
 
         // Read inputs as string
         String playerSize = (String) jo.get("playerSize");
@@ -114,6 +138,8 @@ public class FileReaderJson {
         String goMoney = (String) jo.get("goMoney");
         String jailFine = (String) jo.get("jailFine");
         String goToJailNumber = (String) jo.get("goToJailNumber");
+        String smaxHouseNumber = (String) jo.get("maxHouseNumber");
+        String smaxHotelNumber = (String) jo.get("maxHotelNumber");
 
 
         // Cast given strings to integers
@@ -123,6 +149,8 @@ public class FileReaderJson {
         this.intGoMoney = Integer.parseInt(goMoney);
         this.intJailFine = Integer.parseInt(jailFine);
         this.intGoToJailNumber = Integer.parseInt(goToJailNumber);
+        this.maxHouseNumber = Integer.parseInt(smaxHouseNumber);
+        this.maxHotelNumber = Integer.parseInt(smaxHotelNumber);
     }
 
     public int getIntPlayerSize() {
@@ -197,7 +225,7 @@ public class FileReaderJson {
         return intGoToJailNumber;
     }
 
-    public int[] getRent1(){
+    public int[] getRent1() {
         return rent1;
     }
 
@@ -223,5 +251,21 @@ public class FileReaderJson {
 
     public int[] getPricePerHouse() {
         return pricePerHouse;
+    }
+
+    public int getMaxHotelNumber() {
+        return maxHotelNumber;
+    }
+
+    public int getMaxHouseNumber() {
+        return maxHouseNumber;
+    }
+
+    public ArrayList<String> getChanceCards() {
+        return chanceCards;
+    }
+
+    public ArrayList<String> getCommunityChestCards() {
+        return communityChestCards;
     }
 }

@@ -6,6 +6,111 @@
   "jailFine": "50",
   "threshold": "8",
   "goToJailNumber": "3",
+  "maxHouseNumber": "32",
+  "maxHotelNumber": "12",
+  "Chance Cards": [
+    {
+      "info": "Advance to GO. (Collect GO Money)"
+    },
+    {
+      "info": "Advance to Illinois Ave. {Avenue}. If you pass Go, collect $200. {Second sentence omitted.}"
+    },
+    {
+      "info": "Advance to St. Charles Place. If you pass Go, collect GO Money. "
+    },
+    {
+      "info": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total 10 times the amount thrown."
+    },
+    {
+      "info": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank."
+    },
+    {
+      "info": "Bank pays you dividend of $50."
+    },
+    {
+      "info": "Get out of Jail Free. This card may be kept until needed, or traded/sold. {This card may be kept until needed or sold/traded. Get Out of Jail Free.}{The first sentence is much smaller than the second}"
+    },
+    {
+      "info": "Go Back Three {3} Spaces."
+    },
+    {
+      "info": "Go to Jail. Go directly to Jail. Do not pass GO, do not collect GO Money."
+    },
+    {
+      "info": "Make general repairs on all your property: For each house pay $25, For each hotel {pay} $100."
+    },
+    {
+      "info": "Pay poor tax of $15 "
+    },
+    {
+      "info": "Take a trip to Reading Railroad. {Take a ride on the Reading. Advance token and} If you pass Go, collect GO Money."
+    },
+    {
+      "info": "Take a walk on the Boardwalk. Advance token to Boardwalk. {Board Walk in both sentences}"
+    },
+    {
+      "info": "You have been elected Chairman of the Board. Pay each player $50."
+    },
+    {
+      "info": "Your building {and} loan matures. Receive {Collect} $150."
+    },
+    {
+      "info": "You have won a crossword competition. Collect $100."
+    }
+  ],
+  "Community Chest": [
+    {
+      "info": "Advance to Go. (Collect GO Money)"
+    },
+    {
+      "info": "Bank error in your favor. Collect $200"
+    },
+    {
+      "info": "Doctor's fees. {fee} Pay $50"
+    },
+    {
+      "info": "From sale of stock you get $50. "
+    },
+    {
+      "info": "Get Out of Jail Free."
+    },
+    {
+      "info": "Go to Jail. Go directly to jail. Do not pass Go, Do not collect GO Money. "
+    },
+    {
+      "info": "Grand Opera Night. Collect $50 from every player for opening night seats."
+    },
+    {
+      "info": "Holiday Fund matures. Receive $100."
+    },
+    {
+      "info": "Income tax refund. Collect $20"
+    },
+    {
+      "info": "It is your birthday. Collect $10 from every player. "
+    },
+    {
+      "info": "Life insurance matures – Collect $100"
+    },
+    {
+      "info": "Hospital Fees. Pay $50."
+    },
+    {
+      "info": "School fees. Pay $50."
+    },
+    {
+      "info": "Receive $25 consultancy fee."
+    },
+    {
+      "info": "You are assessed for street repairs: Pay $40 per house and $115 per hotel you own."
+    },
+    {
+      "info": "You have won second prize in a beauty contest. Collect $10."
+    },
+    {
+      "info": "You inherit $100."
+    }
+  ],
   "properties": [
     {
       "name": "Old Kent Rd",
