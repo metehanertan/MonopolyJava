@@ -41,7 +41,7 @@ public class MonopolyGame {
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
                 taxFine, taxSquares, goToJailNumber, jailFine, rent1, rent2, rent3, rent4, hotel, mortgage,
-                pricePerHouse, comChest, chanceCard); //Create Board object.
+                pricePerHouse, houseNumber, hotelNumber, comChest, chanceCard); //Create Board object.
         this.goMoney = goMoney; //Assign GO money.
         this.jailFine = jailFine;
         this.goToJailNumber = goToJailNumber;
@@ -317,5 +317,10 @@ public class MonopolyGame {
     public int getThreshold() {
         return this.threshold;
     }
+
+    public int getGoMoney() {
+        return goMoney;
+    }
+
 
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // This class represents a Monopoly board
 public class Board {
 
@@ -17,6 +19,10 @@ public class Board {
     private String[] taxSquares; // String array that contains type of taxes.
     private int goToJailNumber; // Go to jail squares numbers in the board.
     private int jailFine; // Amount for go out from the jail
+    private int houseNumber;
+    private int hotelNumber;
+    private ArrayList<String> comChest;
+    private ArrayList<String> chanceCard;
     private int[] rent1;
     private int[] rent2;
     private int[] rent3;
@@ -30,7 +36,8 @@ public class Board {
                  int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                  int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                  int[] transportPrice, int[] taxFine, String[] taxSquares, int goToJailNumber, int jailFine,
-                 int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse) {
+                 int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse,
+                 int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard) {
         this.squareList = new Square[BOARD_SIZE]; // Set the square list's size to board size.
         this.properties = properties;
         this.propertyFine = propertyFine;
@@ -53,6 +60,10 @@ public class Board {
         this.hotel = hotel;
         this.mortgage = mortgage;
         this.pricePerHouse = pricePerHouse;
+        this.houseNumber = houseNumber;
+        this.hotelNumber = hotelNumber;
+        this.comChest = comChest;
+        this.chanceCard = chanceCard;
     }
 
     // Getter method for board size.
@@ -166,6 +177,10 @@ public class Board {
                 System.out.println();
             }
         }
+    }
+
+    public void setChanceCards(){
+
     }
 
     public JailSquare getJailSquare(){
