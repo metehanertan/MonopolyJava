@@ -42,8 +42,8 @@ public class Main {
         // Create MonopolyGame object with given parameters
         MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intGoMoney,
                 properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, intJailFine, intGoToJailNumber, rent1, rent2 ,rent3,rent4,hotel,
-                mortgage, pricePerHouse,maxHouseNumber,maxHotelNumber,communityChest,chanceCards);
+                transportFine, transportPrice, taxFine, taxSquares, intJailFine, intGoToJailNumber, rent1, rent2, rent3, rent4, hotel,
+                mortgage, pricePerHouse, maxHouseNumber, maxHotelNumber, communityChest, chanceCards);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 

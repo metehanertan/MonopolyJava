@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // Simulation continues in this class
 public class MonopolyGame {
     //String array which contains name of players
@@ -22,24 +24,30 @@ public class MonopolyGame {
     private int[] hotel;
     private int[] mortgage;
     private int[] pricePerHouse;
+    private int freeHouseNumber;
+    private int freeHotelNumber;
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                         int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber,
-                        int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse) {
+                        int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse,
+                        int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
         this.threshold = threshold;
         this.startMoney = startMoney;
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
-                taxFine, taxSquares, goToJailNumber, jailFine, rent1,rent2,rent3,rent4,hotel,mortgage,pricePerHouse); //Create Board object.
+                taxFine, taxSquares, goToJailNumber, jailFine, rent1, rent2, rent3, rent4, hotel, mortgage,
+                pricePerHouse, comChest, chanceCard); //Create Board object.
         this.goMoney = goMoney; //Assign GO money.
         this.jailFine = jailFine;
         this.goToJailNumber = goToJailNumber;
         this.currentPlayerSize = playerSize;
+        this.freeHotelNumber = hotelNumber;
+        this.freeHouseNumber = houseNumber;
     }
 
     // Play method to play the game.
@@ -163,7 +171,7 @@ public class MonopolyGame {
                         }
 
                     } else {
-                        playerList[i].buyProperty((PurchasableSquare)tempSquare,this);
+                        playerList[i].buyProperty((PurchasableSquare) tempSquare, this);
                     }
                 }
 
@@ -198,7 +206,7 @@ public class MonopolyGame {
                     }
                 }
 
-                if(playerList[i] != null){
+                if (playerList[i] != null) {
                     playerList[i].reportAfterAction();
                 }
 
