@@ -28,6 +28,8 @@ public class MonopolyGame {
     private int freeHotelNumber;
     private Dice moveDice;
     private Dice choiceDice;
+    private ArrayList<House> houseList;
+    private ArrayList<Hotel> hotelList;
 
     //Constructor of MonopolyGame Class calling from Main Class.
     public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
@@ -52,6 +54,14 @@ public class MonopolyGame {
         this.freeHouseNumber = houseNumber;
         moveDice = new Dice();
         choiceDice = new Dice();
+
+        for(int i = 0; i < houseNumber; i++){
+            this.houseList.add(new House());
+        }
+
+        for(int i = 0; i < hotelNumber; i++ ){
+            this.hotelList.add(new Hotel());
+        }
     }
 
     // Play method to play the game.
@@ -326,5 +336,19 @@ public class MonopolyGame {
         return goMoney;
     }
 
+    public ArrayList<House> getHouseList() {
+        return houseList;
+    }
 
+    public void setHouseList(ArrayList<House> houseList) {
+        this.houseList = houseList;
+    }
+
+    public ArrayList<Hotel> getHotelList() {
+        return hotelList;
+    }
+
+    public void setHotelList(ArrayList<Hotel> hotelList) {
+        this.hotelList = hotelList;
+    }
 }

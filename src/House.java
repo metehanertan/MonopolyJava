@@ -1,18 +1,31 @@
 public class House {
     private String name;
-    private PropertySquare pSquare;
+    private Player owner;
+    private boolean hasOwner;
 
-    public House(PropertySquare pSquare){
+
+    public House(){
         this.name = "HOUSE";
-        this.pSquare = pSquare;
+        this.hasOwner = false;
     }
 
-    public PropertySquare getPropertySquare(){
-        return this.pSquare;
+
+    public Player getOwner() {
+        return owner;
     }
 
-    public void setPropertySquare(PropertySquare pSquare){
-        this.pSquare = pSquare;
+    public void setOwner(Player player){
+        this.owner = player ;
+        this.hasOwner = true;
+
+    }
+
+    public boolean getHasOwner() {
+        return hasOwner;
+    }
+
+    public void setHasOwner(boolean hasOwner) {
+        this.hasOwner = hasOwner;
     }
 
 }

@@ -12,15 +12,18 @@ public class PropertySquare extends PurchasableSquare {
     private int hotelCount;
     private int housePrice;
     private int hotelPrice;
+    private int houseCounter;
 
     // Constructor
-    public PropertySquare(int squareID, String squareName, int fine, String color, int price) {
+    public PropertySquare(int squareID, String squareName, int fine, String color, int price, int housePrice, int hotelPrice) {
         this.squareID = squareID;
         this.squareName = squareName;
         this.color = color;
         this.fine = fine;
         this.price = price;
         this.hasOwner = false;
+        this.housePrice = housePrice;
+        this.hotelPrice = hotelPrice;
         houseCount = 0;
         hotelCount = 0;
     }
@@ -127,27 +130,27 @@ public class PropertySquare extends PurchasableSquare {
         }
     }
 
-    public void buyHouse(Player player, MonopolyGame mpGame) {
+    public void buyHouse(Player player, MonopolyGame mpGame,Board board) {
         player.rollChoiceDice();
 
-        if (player.getMoney().getCurrentMoney() > housePrice) {
-            if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
-                player.getMoney().decreaseMoney(housePrice);
-                houseCount++;
+
+        if (player.getMoney().getCurrentMoney() > housePrice && player.getChoiceDice().getTotal() > mpGame.getThreshold() && player.hasItAll(this,board)) {
+            for(int i = 0; i < mpGame.getHouseList().size(); i++){
+                if(!mpGame.getHouseList().get(i).getHasOwner()){
+                    mpGame.getHouseList().get(i).setOwner(player);
+                    player.getMoney().decreaseMoney(housePrice);
+                    houseCount++;
+                    break;
+                }
+                if(i == mpGame.getHouseList().size() - 1){
+                    System.out.println("There is no available house.");
+                }
             }
+
         }
     }
 
     public void buyHotel(Player player, MonopolyGame mpGame) {
-        player.rollChoiceDice();
-
-        if (player.getMoney().getCurrentMoney() > hotelPrice) {
-            if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
-                player.getMoney().decreaseMoney(hotelPrice);
-                hotelCount++;
-                houseCount = 0;
-            }
-        }
     }
 
     public void sellHouse(Player player, MonopolyGame mpGame) {
