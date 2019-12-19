@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.simple.parser.ParseException;
 
@@ -33,12 +34,16 @@ public class Main {
         int[] hotel = fileReader.getHotel();
         int[] mortgage = fileReader.getMortgage();
         int[] pricePerHouse = fileReader.getPricePerHouse();
+        int maxHouseNumber = fileReader.getMaxHouseNumber();
+        int maxHotelNumber = fileReader.getMaxHotelNumber();
+        ArrayList<String> communityChest = fileReader.getCommunityChestCards();
+        ArrayList<String> chanceCards = fileReader.getChanceCards();
 
         // Create MonopolyGame object with given parameters
         MonopolyGame monopolyGame = new MonopolyGame(intPlayerSize, intThreshold, intStartMoney, intGoMoney,
                 properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
                 transportFine, transportPrice, taxFine, taxSquares, intJailFine, intGoToJailNumber, rent1, rent2 ,rent3,rent4,hotel,
-                mortgage, pricePerHouse);
+                mortgage, pricePerHouse,maxHouseNumber,maxHotelNumber,communityChest,chanceCards);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 
