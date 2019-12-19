@@ -43,10 +43,18 @@ public class ChanceCard {
                             break;
                         } else {
                             player.getPiece().setSquare(board.getSquareList()[28]);
+                            if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
+                                //((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                                //player.getMoney().decreaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                            }
                             break;
                         }
                     } else {
                         player.getPiece().setSquare(board.getSquareList()[12]);
+                        if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
+                            //((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                            //player.getMoney().decreaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                        }
                         break;
                     }
                 } else if (player.getPiece().getSquare().getSquareID() > 12 && player.getPiece().getSquare().getSquareID() < 28) {
@@ -55,99 +63,43 @@ public class ChanceCard {
                             //KART ÇEKME METHODU
                         } else {
                             player.getPiece().setSquare(board.getSquareList()[12]);
+                            if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
+                                //((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                                //player.getMoney().decreaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                            }
                             break;
                         }
                     } else {
                         player.getPiece().setSquare(board.getSquareList()[28]);
+                        if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
+                            //((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                            //player.getMoney().decreaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                        }
                         break;
                     }
                 }
                 break;
             case 5:
                 if (player.getPiece().getSquare().getSquareID() < 5 || player.getPiece().getSquare().getSquareID() > 35) {
-                    int temp = 5;
-                    int control = 0;
-                    while (board.getSquareList()[temp] instanceof GoToJailSquare) {
-                        temp += 10;
-                        temp = temp % 40;
-                        control++;
-                        if (control == 4) {
-                            break;
-                        }
-                    }
-                    if (control != 4) {
-                        player.getPiece().setSquare(board.getSquareList()[temp]);
-                        break;
-                    } else {
-                        //KART ÇEKME METHODU
-                        break;
-                    }
-
+                    nearestTransport(player, board, 5);
+                    break;
                 } else if (player.getPiece().getSquare().getSquareID() > 5 && player.getPiece().getSquare().getSquareID() < 15) {
-                    int temp = 15;
-                    int control = 0;
-                    while (board.getSquareList()[temp] instanceof GoToJailSquare) {
-                        temp += 10;
-                        temp = temp % 40;
-                        control++;
-                        if (control == 4) {
-                            break;
-                        }
-                    }
-                    if (control != 4) {
-                        player.getPiece().setSquare(board.getSquareList()[temp]);
-                        break;
-                    } else {
-                        //KART ÇEKME METHODU
-                        break;
-                    }
-
+                    nearestTransport(player, board, 15);
+                    break;
                 } else if (player.getPiece().getSquare().getSquareID() > 15 && player.getPiece().getSquare().getSquareID() < 25) {
-                    int temp = 25;
-                    int control = 0;
-                    while (board.getSquareList()[temp] instanceof GoToJailSquare) {
-                        temp += 10;
-                        temp = temp % 40;
-                        control++;
-                        if (control == 4) {
-                            break;
-                        }
-                    }
-                    if (control != 4) {
-                        player.getPiece().setSquare(board.getSquareList()[temp]);
-                        break;
-                    } else {
-                        //KART ÇEKME METHODU
-                        break;
-                    }
-
+                    nearestTransport(player, board, 25);
+                    break;
                 } else if (player.getPiece().getSquare().getSquareID() > 25 && player.getPiece().getSquare().getSquareID() < 35) {
-                    int temp = 35;
-                    int control = 0;
-                    while (board.getSquareList()[temp] instanceof GoToJailSquare) {
-                        temp += 10;
-                        temp = temp % 40;
-                        control++;
-                        if (control == 4) {
-                            break;
-                        }
-                    }
-                    if (control != 4) {
-                        player.getPiece().setSquare(board.getSquareList()[temp]);
-                        break;
-                    } else {
-                        //KART ÇEKME METHODU
-                        break;
-                    }
-
+                   nearestTransport(player, board, 35);
+                   break;
                 }
             case 6:
                 player.getMoney().increaseMoney(50);
                 break;
-            case 7:
+            case 7: //jail free
                 break;
             case 8:
-                if (player.getPiece().getSquare().getSquareID() > 3) {
+                if (player.getPiece().getSquare().getSquareID() >= 3) {
                     player.getPiece().setSquare(board.getSquareList()[player.getPiece().getSquare().getSquareID() - 3]);
                 } else {
                     player.getPiece().setSquare(board.getSquareList()[player.getPiece().getSquare().getSquareID() + 40 - 3]);
@@ -156,16 +108,37 @@ public class ChanceCard {
             case 9:
                 player.getPiece().setSquare(board.getSquareList()[10]);
                 break;
-            case 10:
+            case 10: //house 25, hotel 100
                 break;
             case 11:
                 player.getMoney().decreaseMoney(15);
                 break;
             case 12:
-                break;
+                if (board.getSquareList()[25] instanceof GoToJailSquare) {
+                    //kart çekme methodu
+                    break;
+                } else {
+                    if (player.getPiece().getSquare().getSquareID() > 25) {
+                        player.getMoney().increaseMoney(mpGame.getGoMoney());
+                    }
+                    player.getPiece().setSquare(board.getSquareList()[25]);
+                    break;
+                }
             case 13:
-                break;
+                if (board.getSquareList()[39] instanceof GoToJailSquare) {
+                    //kart çekme methodu
+                    break;
+                } else {
+                    player.getPiece().setSquare(board.getSquareList()[39]);
+                    break;
+                }
             case 14:
+                for(int i = 0; i < mpGame.getPlayerList().length; i++){
+                    if(mpGame.getPlayerList()[i] != null && mpGame.getPlayerList()[i] != player){
+                        mpGame.getPlayerList()[i].getMoney().increaseMoney(50);
+                        player.getMoney().decreaseMoney(50);
+                    }
+                }
                 break;
             case 15:
                 player.getMoney().increaseMoney(150);
@@ -178,4 +151,28 @@ public class ChanceCard {
     }
 
     //ACTION METHODS
+
+    private void nearestTransport(Player player, Board board, int temp){
+        int control = 0;
+        while (board.getSquareList()[temp] instanceof GoToJailSquare) {
+            temp += 10;
+            temp = temp % 40;
+            control++;
+            if (control == 4) {
+                break;
+            }
+        }
+        if (control != 4) {
+            player.getPiece().setSquare(board.getSquareList()[temp]);
+            if( ((TransportSquare)board.getSquareList()[temp]).getHasOwner() ){
+                ((TransportSquare)board.getSquareList()[temp]).getOwner().getMoney().increaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
+                player.getMoney().decreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
+            }
+            return;
+        } else {
+            //KART ÇEKME METHODU
+            return;
+        }
+
+    }
 }
