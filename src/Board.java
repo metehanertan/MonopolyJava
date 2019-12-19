@@ -130,11 +130,7 @@ public class Board {
                 this.squareList[id] = new PropertySquare(id, properties[propertyIndex], propertyFine[propertyIndex],
                         propertyColor[colorIndex], propertyPrice[propertyIndex]);
                 propertyIndex++;
-                colorCount++;
-                if (colorCount == 3) {
-                    colorIndex++;
-                    colorCount = 0;
-                }
+               colorIndex++;
             }
 
             id++;
