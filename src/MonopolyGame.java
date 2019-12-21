@@ -42,7 +42,7 @@ public class MonopolyGame {
         this.playerSize = playerSize;
         this.threshold = threshold;
         this.startMoney = startMoney;
-        this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
+        this.board = Board.getInstance(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
                 taxFine, taxSquares, goToJailNumber, jailFine, rent1, rent2, rent3, rent4, hotel, mortgage,
                 pricePerHouse, houseNumber, hotelNumber, comChest, chanceCard); //Create Board object.
