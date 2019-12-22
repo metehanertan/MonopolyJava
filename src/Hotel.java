@@ -2,6 +2,7 @@ public class Hotel {
     private String name;
     private Player owner;
     private boolean hasOwner;
+    private PropertySquare square;
 
     public Hotel(){
 
@@ -15,8 +16,12 @@ public class Hotel {
 
     public void setOwner(Player player){
         this.owner = player ;
-        this.hasOwner = true;
-
+        if(player == null){
+            this.hasOwner = false;
+        }
+        else{
+            this.hasOwner = true;
+        }
     }
 
     public boolean getHasOwner() {
@@ -25,6 +30,22 @@ public class Hotel {
 
     public void setHasOwner(boolean hasOwner) {
         this.hasOwner = hasOwner;
+    }
+
+    public void setSquare(PropertySquare square) {
+        if(square == null){
+            setOwner(null);
+        }
+        else {
+            this.square = square;
+            setOwner(square.getOwner());
+        }
+
+    }
+
+
+    public PropertySquare getSquare() {
+        return square;
     }
 
 }

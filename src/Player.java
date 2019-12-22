@@ -289,6 +289,57 @@ public class Player {
         }
     }
 
+    public void buyHouseOrHotel(PropertySquare square, MonopolyGame mpGame,Board board) {
+        this.rollChoiceDice();
+
+        if (square.getHouseCount() < 4){
+            if (this.getMoney().getCurrentMoney() > square.getHousePrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square,board)) {
+                for(int i = 0; i < mpGame.getHouseList().size(); i++){
+                    if(!mpGame.getHouseList().get(i).getHasOwner()){
+                        mpGame.getHouseList().get(i).setOwner(this);
+                        mpGame.getHouseList().get(i).setSquare(square);
+                        this.getMoney().decreaseMoney(square.getHousePrice());
+                        square.setHouseCount(square.getHouseCount()+1);
+                        System.out.println("HOUSE COUNT: " + square.getHouseCount());
+                        System.out.println("HOTEL COUNT: " + square.getHotelCount());
+                        break;
+                    }
+                    if(i == mpGame.getHouseList().size() - 1){
+                        System.out.println("There is no available house.");
+                    }
+                }
+
+            }
+        }
+        else {
+            if (this.getMoney().getCurrentMoney() > square.getHotelPrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square,board)) {
+                for(int i = 0; i < mpGame.getHouseList().size(); i++) {
+                    if(mpGame.getHouseList().get(i).getSquare() == square){
+                        mpGame.getHouseList().get(i).setSquare(null);
+                        square.setHouseCount(square.getHouseCount() - 1);
+                    }
+                }
+                for(int i = 0; i < mpGame.getHotelList().size(); i++){
+                    if(!mpGame.getHotelList().get(i).getHasOwner()){
+                        mpGame.getHotelList().get(i).setOwner(this);
+                        mpGame.getHotelList().get(i).setSquare(square);
+                        this.getMoney().decreaseMoney(square.getHotelPrice());
+                        square.setHotelCount(square.getHotelCount()+1);
+                        System.out.println("HOUSE COUNT: " + square.getHouseCount());
+                        System.out.println("HOTEL COUNT: " + square.getHotelCount());
+                        break;
+                    }
+                    if(i == mpGame.getHotelList().size() - 1){
+                        System.out.println("There is no available hotel.");
+                    }
+                }
+            }
+
+
+        }
+
+    }
+
     public boolean isAbleDecreaseMoney(int fine) {
         if (money.getCurrentMoney() > fine) {
             return true;

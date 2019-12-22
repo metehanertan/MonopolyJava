@@ -172,7 +172,15 @@ public class MonopolyGame {
                 // Check current square and end of the game
                 if (tempSquare instanceof PurchasableSquare) {
                     if (((PurchasableSquare) tempSquare).getHasOwner()) {
-                        ((PurchasableSquare) tempSquare).payRent(playerList[i], board);
+
+
+                        if( ((PurchasableSquare) tempSquare).getOwner() == playerList[i] ){
+                            if (tempSquare instanceof PropertySquare)
+                            playerList[i].buyHouseOrHotel((PropertySquare) tempSquare, this, board);
+                        }
+                        else {
+                            ((PurchasableSquare) tempSquare).payRent(playerList[i], board);
+                        }
 
                         if (playerList[i].getIsBankrupted()) {
                             currentPlayerSize--;
@@ -186,7 +194,9 @@ public class MonopolyGame {
                             continue;
                         }
 
-                    } else {
+                    }
+
+                    else {
                         playerList[i].buyProperty((PurchasableSquare) tempSquare, this);
                     }
                 }
