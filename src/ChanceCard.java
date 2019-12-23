@@ -44,16 +44,16 @@ public class ChanceCard {
                         } else {
                             player.getPiece().setSquare(board.getSquareList()[28]);
                             if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
-                                //((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                                //player.getMoney().decreaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                                ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
                             }
                             break;
                         }
                     } else {
                         player.getPiece().setSquare(board.getSquareList()[12]);
                         if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
-                            //((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[12]).getFine());
-                            //player.getMoney().decreaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                            ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                            player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
                         }
                         break;
                     }
@@ -64,16 +64,16 @@ public class ChanceCard {
                         } else {
                             player.getPiece().setSquare(board.getSquareList()[12]);
                             if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
-                                //((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[12]).getFine());
-                                //player.getMoney().decreaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                                ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal()- ((UtilitySquare)board.getSquareList()[12]).getFine());
+                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
                             }
                             break;
                         }
                     } else {
                         player.getPiece().setSquare(board.getSquareList()[28]);
                         if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
-                            //((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                            //player.getMoney().decreaseMoney(10 * dice - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                            ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                            player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
                         }
                         break;
                     }

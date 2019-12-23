@@ -44,6 +44,8 @@ public class Player {
         System.out.println("Current balance : " + this.money.getCurrentMoney());
         System.out.println("Location : Square " + this.piece.getSquare().getSquareID());
         System.out.println("Type of square : " + this.piece.getSquare().getSquareName());
+        System.out.println("House count: " + this.getHouseCount());
+        System.out.println("Hotel count: " + this.getHotelCount());
     }
 
     //Print report about current player after roll the dice
@@ -300,6 +302,7 @@ public class Player {
                         mpGame.getHouseList().get(i).setSquare(square);
                         this.getMoney().decreaseMoney(square.getHousePrice());
                         square.setHouseCount(square.getHouseCount()+1);
+                        this.setHouseCount(this.getHouseCount()+1); // player için
                         System.out.println("HOUSE COUNT: " + square.getHouseCount());
                         System.out.println("HOTEL COUNT: " + square.getHotelCount());
                         break;
@@ -317,6 +320,7 @@ public class Player {
                     if(mpGame.getHouseList().get(i).getSquare() == square){
                         mpGame.getHouseList().get(i).setSquare(null);
                         square.setHouseCount(square.getHouseCount() - 1);
+                        this.setHouseCount(square.getHouseCount() - 1); // player için
                     }
                 }
                 for(int i = 0; i < mpGame.getHotelList().size(); i++){
@@ -325,6 +329,7 @@ public class Player {
                         mpGame.getHotelList().get(i).setSquare(square);
                         this.getMoney().decreaseMoney(square.getHotelPrice());
                         square.setHotelCount(square.getHotelCount()+1);
+                        this.setHotelCount(this.getHotelCount()+1); //player
                         System.out.println("HOUSE COUNT: " + square.getHouseCount());
                         System.out.println("HOTEL COUNT: " + square.getHotelCount());
                         break;
@@ -377,5 +382,22 @@ public class Player {
         owner.getMoney().increaseMoney(fine);
     }
 
+
+    public void setHouseCount(int houseCount) {
+        this.houseCount = houseCount;
+    }
+
+    public void setHotelCount(int hotelCount) {
+        this.hotelCount = hotelCount;
+    }
+
+
+    public int getHouseCount() {
+        return houseCount;
+    }
+
+    public int getHotelCount() {
+        return hotelCount;
+    }
 
 }
