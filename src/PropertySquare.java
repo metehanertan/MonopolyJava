@@ -130,27 +130,6 @@ public class PropertySquare extends PurchasableSquare {
         }
     }
 
-    public void buyHouse(Player player, MonopolyGame mpGame,Board board) {
-        player.rollChoiceDice();
-
-        if (player.getMoney().getCurrentMoney() > housePrice && player.getChoiceDice().getTotal() > mpGame.getThreshold() && player.hasItAll(this,board)) {
-            for(int i = 0; i < mpGame.getHouseList().size(); i++){
-                if(!mpGame.getHouseList().get(i).getHasOwner()){
-                    mpGame.getHouseList().get(i).setOwner(player);
-                    player.getMoney().decreaseMoney(housePrice);
-                    houseCount++;
-                    break;
-                }
-                if(i == mpGame.getHouseList().size() - 1){
-                    System.out.println("There is no available house.");
-                }
-            }
-
-        }
-    }
-
-    public void buyHotel(Player player, MonopolyGame mpGame) {
-    }
 
     public void sellHouse(Player player, MonopolyGame mpGame) {
         player.rollChoiceDice();
@@ -171,6 +150,38 @@ public class PropertySquare extends PurchasableSquare {
             houseCount = 4;
             hotelCount--;
         }
+    }
+
+    public boolean isHasOwner() {
+        return hasOwner;
+    }
+
+    public int getHouseCount() {
+        return houseCount;
+    }
+
+    public int getHotelCount() {
+        return hotelCount;
+    }
+
+    public int getHousePrice() {
+        return housePrice;
+    }
+
+    public int getHotelPrice() {
+        return hotelPrice;
+    }
+
+    public int getHouseCounter() {
+        return houseCounter;
+    }
+
+    public void setHouseCount(int houseCount) {
+        this.houseCount = houseCount;
+    }
+
+    public void setHotelCount(int hotelCount) {
+        this.hotelCount = hotelCount;
     }
 
 }
