@@ -4,29 +4,22 @@ public class House {
     private boolean hasOwner;
     private PropertySquare square;
 
-
-
-
-    public House(){
+    public House() {
         this.name = "HOUSE";
         this.hasOwner = false;
     }
-
 
     public Player getOwner() {
         return owner;
     }
 
-    public void setOwner(Player player){
-        this.owner = player ;
-        if(player == null){
+    public void setOwner(Player player) {
+        this.owner = player;
+        if (player == null) {
             this.hasOwner = false;
-        }
-        else{
+        } else {
             this.hasOwner = true;
         }
-
-
     }
 
     public boolean getHasOwner() {
@@ -34,17 +27,13 @@ public class House {
     }
 
     public void setSquare(PropertySquare square) {
-        if(square == null){
+        if (square == null) {
             setOwner(null);
-
-        }
-        else {
+        } else {
             this.square = square;
             setOwner(square.getOwner());
         }
-
     }
-
 
     public PropertySquare getSquare() {
         return square;

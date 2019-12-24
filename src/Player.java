@@ -52,12 +52,17 @@ public class Player {
     public void reportAfterRoll() {
         System.out.println();
         System.out.println("New location : Square " + this.piece.getSquare().getSquareID());
-        if(this.piece.getSquare() instanceof PurchasableSquare){
-            if(((PurchasableSquare) this.piece.getSquare()).getHasOwner()){
-                System.out.println(" Owner : " + ((PurchasableSquare) this.piece.getSquare()).getOwner().getPlayerName());
-            }
-            else{
-                System.out.println(" -This square has not an owner!-");
+        if (this.piece.getSquare() instanceof PurchasableSquare) {
+            if (((PurchasableSquare) this.piece.getSquare()).getHasOwner()) {
+                if (this.piece.getSquare() instanceof UtilitySquare) {
+                    System.out.println("Utility count : " + ((UtilitySquare) this.piece.getSquare()).getOwner().utilityList.size());
+                }
+                if (this.piece.getSquare() instanceof TransportSquare) {
+                    System.out.println("Transport count : " + ((TransportSquare) this.piece.getSquare()).getOwner().transportList.size());
+                }
+                System.out.println("Owner : " + ((PurchasableSquare) this.piece.getSquare()).getOwner().getPlayerName());
+            } else {
+                System.out.println("-This square has not an owner!-");
             }
         }
         System.out.println("Type of square : " + this.piece.getSquare().getSquareName());
@@ -143,7 +148,7 @@ public class Player {
     }
 
     // Add new properties to the transportList
-    public void addTransportLister(PurchasableSquare transportSquare) {
+    public void addTransportList(PurchasableSquare transportSquare) {
 
         this.transportList.add(transportSquare);
     }
@@ -285,64 +290,65 @@ public class Player {
         // If player wants to take this square and has enough money to buy
         if (choiceDiceValue > mpGame.getThreshold() && this.getMoney().getCurrentMoney() > pSquare.getPrice()) {
             pSquare.setOwner(this);
+            if (pSquare instanceof UtilitySquare) {
+                this.addUtilityList(pSquare);
+            }
+            if (pSquare instanceof TransportSquare) {
+                this.addTransportList(pSquare);
+            }
             this.addProperty(pSquare);
             this.getMoney().decreaseMoney(pSquare.getPrice());
             System.out.println("***" + this.getPlayerName() + " BOUGHT " + pSquare.getSquareName() + "***");
         }
     }
 
-    public void buyHouseOrHotel(PropertySquare square, MonopolyGame mpGame,Board board) {
+    public void buyHouseOrHotel(PropertySquare square, MonopolyGame mpGame, Board board) {
         this.rollChoiceDice();
 
-        if (square.getHouseCount() < 4){
-            if (this.getMoney().getCurrentMoney() > square.getHousePrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square,board)) {
-                for(int i = 0; i < mpGame.getHouseList().size(); i++){
-                    if(!mpGame.getHouseList().get(i).getHasOwner()){
+        if (square.getHouseCount() < 4) {
+            if (this.getMoney().getCurrentMoney() > square.getHousePrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square, board)) {
+                for (int i = 0; i < mpGame.getHouseList().size(); i++) {
+                    if (!mpGame.getHouseList().get(i).getHasOwner()) {
                         mpGame.getHouseList().get(i).setOwner(this);
                         mpGame.getHouseList().get(i).setSquare(square);
                         this.getMoney().decreaseMoney(square.getHousePrice());
-                        square.setHouseCount(square.getHouseCount()+1);
-                        this.setHouseCount(this.getHouseCount()+1); // player için
+                        square.setHouseCount(square.getHouseCount() + 1);
+                        this.setHouseCount(this.getHouseCount() + 1); // player için
                         System.out.println("HOUSE COUNT: " + square.getHouseCount());
                         System.out.println("HOTEL COUNT: " + square.getHotelCount());
                         break;
                     }
-                    if(i == mpGame.getHouseList().size() - 1){
+                    if (i == mpGame.getHouseList().size() - 1) {
                         System.out.println("There is no available house.");
                     }
                 }
-
             }
-        }
-        else {
-            if (this.getMoney().getCurrentMoney() > square.getHotelPrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square,board)) {
-                for(int i = 0; i < mpGame.getHouseList().size(); i++) {
-                    if(mpGame.getHouseList().get(i).getSquare() == square){
+        } else {
+            if (this.getMoney().getCurrentMoney() > square.getHotelPrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square, board)) {
+                for (int i = 0; i < mpGame.getHouseList().size(); i++) {
+                    if (mpGame.getHouseList().get(i).getSquare() == square) {
                         mpGame.getHouseList().get(i).setSquare(null);
                         square.setHouseCount(square.getHouseCount() - 1);
-                        this.setHouseCount(square.getHouseCount() - 1); // player için
+                        this.setHouseCount(this.getHouseCount() - 1); // player için
                     }
                 }
-                for(int i = 0; i < mpGame.getHotelList().size(); i++){
-                    if(!mpGame.getHotelList().get(i).getHasOwner()){
+                for (int i = 0; i < mpGame.getHotelList().size(); i++) {
+                    if (!mpGame.getHotelList().get(i).getHasOwner()) {
                         mpGame.getHotelList().get(i).setOwner(this);
                         mpGame.getHotelList().get(i).setSquare(square);
                         this.getMoney().decreaseMoney(square.getHotelPrice());
-                        square.setHotelCount(square.getHotelCount()+1);
-                        this.setHotelCount(this.getHotelCount()+1); //player
+                        square.setHotelCount(square.getHotelCount() + 1);
+                        this.setHotelCount(this.getHotelCount() + 1); //player
                         System.out.println("HOUSE COUNT: " + square.getHouseCount());
                         System.out.println("HOTEL COUNT: " + square.getHotelCount());
                         break;
                     }
-                    if(i == mpGame.getHotelList().size() - 1){
+                    if (i == mpGame.getHotelList().size() - 1) {
                         System.out.println("There is no available hotel.");
                     }
                 }
             }
-
-
         }
-
     }
 
     public boolean isAbleDecreaseMoney(int fine) {
@@ -376,12 +382,11 @@ public class Player {
 
     }
 
-    public void payMoneyToOwner(Player owner, int fine){
+    public void payMoneyToOwner(Player owner, int fine) {
         money.decreaseMoney(fine);
         System.out.println("***" + playerName + " HAS PAID \'" + fine + "$\' TO " + owner.getPlayerName() + "***");
         owner.getMoney().increaseMoney(fine);
     }
-
 
     public void setHouseCount(int houseCount) {
         this.houseCount = houseCount;
@@ -390,7 +395,6 @@ public class Player {
     public void setHotelCount(int hotelCount) {
         this.hotelCount = hotelCount;
     }
-
 
     public int getHouseCount() {
         return houseCount;
