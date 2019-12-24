@@ -316,8 +316,8 @@ public class Player {
                         mpGame.getHouseList().get(i).setOwner(this);
                         mpGame.getHouseList().get(i).setSquare(square);
                         this.getMoney().decreaseMoney(square.getHousePrice());
-                        square.setHouseCount(square.getHouseCount() + 1);
-                        this.setHouseCount(this.getHouseCount() + 1); // player için
+                        square.increaseHouseCount();
+                        this.houseCount++; // player için
                         System.out.println("SQUARE HOUSE COUNT: " + square.getHouseCount());
                         System.out.println("SQUARE HOTEL COUNT: " + square.getHotelCount());
                         System.out.println(playerName + " has bought a house on " + square.getSquareName());
@@ -333,8 +333,8 @@ public class Player {
                 for (int i = 0; i < mpGame.getHouseList().size(); i++) {
                     if (mpGame.getHouseList().get(i).getSquare() == square) {
                         mpGame.getHouseList().get(i).setSquare(null);
-                        square.setHouseCount(square.getHouseCount() - 1);
-                        this.setHouseCount(this.getHouseCount() - 1); // player için
+                        square.decreaseHouseCount();
+                        this.houseCount--; // player için
                     }
                 }
                 for (int i = 0; i < mpGame.getHotelList().size(); i++) {
@@ -342,8 +342,8 @@ public class Player {
                         mpGame.getHotelList().get(i).setOwner(this);
                         mpGame.getHotelList().get(i).setSquare(square);
                         this.getMoney().decreaseMoney(square.getHotelPrice());
-                        square.setHotelCount(square.getHotelCount() + 1);
-                        this.setHotelCount(this.getHotelCount() + 1); //player
+                        square.increaseHotelCount();
+                        this.hotelCount++; //player
                         System.out.println("SQUARE HOUSE COUNT: " + square.getHouseCount());
                         System.out.println("SQUARE HOTEL COUNT: " + square.getHotelCount());
                         System.out.println(playerName + " has bought a hotel on " + square.getSquareName());

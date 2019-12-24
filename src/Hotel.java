@@ -35,9 +35,9 @@ public class Hotel {
         if (square == null) {
             setOwner(null);
         } else {
-            this.square = square;
             setOwner(square.getOwner());
         }
+        this.square = square;
     }
 
     public PropertySquare getSquare() {

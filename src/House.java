@@ -30,9 +30,10 @@ public class House {
         if (square == null) {
             setOwner(null);
         } else {
-            this.square = square;
             setOwner(square.getOwner());
         }
+        this.square = square;
+
     }
 
     public PropertySquare getSquare() {
@@ -45,5 +46,6 @@ public class House {
         player.setHouseCount(player.getHouseCount() - 1); // player için
         player.getMoney().increaseMoney(square.getHousePrice() / 2);
     }
+
 
 }

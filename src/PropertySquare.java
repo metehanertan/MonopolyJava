@@ -165,4 +165,20 @@ public class PropertySquare extends PurchasableSquare {
         this.hotelCount = hotelCount;
     }
 
+    public void decreaseHouseCount(){
+        this.houseCount--;
+    }
+
+    public void increaseHouseCount(){
+        this.houseCount++;
+    }
+
+    public void decreaseHotelCount(){
+        this.hotelCount--;
+    }
+
+    public void increaseHotelCount(){
+        this.hotelCount++;
+    }
+
 }
