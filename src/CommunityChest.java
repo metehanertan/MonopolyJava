@@ -14,6 +14,7 @@ public class CommunityChest {
 
             case 1:
                 player.getPiece().setSquare(board.getSquareList()[0]);
+                player.getMoney().increaseMoney(mpGame.getGoMoney());
                 break;
             case 2:
                 player.getMoney().increaseMoney(200);
@@ -21,10 +22,9 @@ public class CommunityChest {
             case 3:
             case 12:
             case 13:
-                if(player.isAbleDecreaseMoney(50)){
+                if (player.isAbleDecreaseMoney(50)) {
                     player.getMoney().decreaseMoney(50);
-                }
-                else{
+                } else {
                     player.setIsBankrupted(true);
                 }
                 break;
@@ -32,12 +32,12 @@ public class CommunityChest {
                 player.getMoney().increaseMoney(50);
                 break;
             case 5:
-                if(this.hasOwner == false){
+                if (this.hasOwner == false) {
                     this.hasOwner = true;
                     player.setOutOfJailCard(true);
                     player.setCommunityOutOfJail(this);
                     System.out.println(player.getPlayerName() + " get community go out of jail card!!");
-                }else{
+                } else {
                     board.getComChest().add(board.getComChest().get(0));
                     board.getComChest().remove(0);
                     mpGame.takeCommunityCard(board.getComChest().get(0), player);
@@ -66,11 +66,13 @@ public class CommunityChest {
                 player.getMoney().increaseMoney(25);
                 break;
             case 15:
-                if(player.isAbleDecreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115 )){
-                    player.getProperties().forEach(propertySquare ->player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115 ));
-                }
-                else {
-                    player.setIsBankrupted(true);
+                for (int i = 0; i < player.getProperties().size(); i++) {
+                    if (player.isAbleDecreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115))
+                        player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115);
+
+                    else {
+                        player.setIsBankrupted(true);
+                    }
                 }
                 break;
             case 16:
@@ -81,7 +83,7 @@ public class CommunityChest {
         }
     }
 
-    public void collectMoneyFromAllPlayers(Player player, MonopolyGame mpGame, int tempFine){
+    public void collectMoneyFromAllPlayers(Player player, MonopolyGame mpGame, int tempFine) {
         for (int i = 0; i < mpGame.getPlayerList().length; i++) {
             if (mpGame.getPlayerList()[i] != null) {
                 if (mpGame.getPlayerList()[i] != player) {
@@ -92,10 +94,9 @@ public class CommunityChest {
                         }
                     }
 
-                    if(mpGame.getPlayerList()[i].isAbleDecreaseMoney(tempFine)){
+                    if (mpGame.getPlayerList()[i].isAbleDecreaseMoney(tempFine)) {
                         mpGame.getPlayerList()[i].getMoney().decreaseMoney(tempFine);
-                    }
-                    else{
+                    } else {
                         player.setIsBankrupted(true);
                         break;
                     }
