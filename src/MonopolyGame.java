@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 // Simulation continues in this class
 public class MonopolyGame {
@@ -67,6 +68,10 @@ public class MonopolyGame {
         for(int i = 0; i < hotelNumber; i++ ){
             this.hotelList.add(new Hotel());
         }
+
+
+        Collections.shuffle(board.getChanceCard());
+        Collections.shuffle(board.getComChest());
     }
 
     static public MonopolyGame getInstance(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
@@ -151,36 +156,61 @@ public class MonopolyGame {
                 // If player in the jail
                 if (tempSquare instanceof JailSquare) {
 
-                    if (firstDice != secondDice) {
-
-                        // Check if player wants to pay fine and go out to jail
-                        playerList[i].rollChoiceDice();
-
-                        if (playerList[i].getChoiceDice().getTotal() > threshold) {
-                            ((JailSquare) tempSquare).playerWantsPayForJail(playerList[i]);
-
-                        } else {
-                            int tempI = i;
-                            i = ((JailSquare) tempSquare).playerDoesntWantPayForJail(playerList[i], this, i);
-
-                            if (tempI != i) {
-                                break;
-                            }
-                            if (playerList[i].getIsBankrupted()) {
-                                currentPlayerSize--;
-                                playerList[i] = null;
-
-                                if (currentPlayerSize == 1) {
-                                    check = false;
-                                    break;
-                                }
-                                i++;
-                                continue;
+                    if(playerList[i].getChanceOutOfJail() != null){
+                        playerList[i].setInJail(false);
+                        playerList[i].setOutOfJailCard(false);
+                        playerList[i].getChanceOutOfJail().setHasOwner(false);
+                        playerList[i].setChanceOutOfJail(null);
+                        System.out.println(playerList[i].getPlayerName() + " used to change go out of jail card!!");
+                    }else if(playerList[i].getCommunityOutOfJail() != null){
+                        playerList[i].setInJail(false);
+                        playerList[i].setOutOfJailCard(false);
+                        playerList[i].getCommunityOutOfJail().setHasOwner(false);
+                        playerList[i].setCommunityOutOfJail(null);
+                        System.out.println(playerList[i].getPlayerName() + " used to community go out of jail card!!");
+                    }
+                   /* if(playerList[i].getOutOfJailCard()){
+                        for (int m = 0; m < board.getChanceCard().size(); m++){
+                            if(board.getChanceCard().get(m).hasOwner()){
+                                board.getChanceCard().get(m).setHasOwner(false);
                             }
                         }
-                    } else {
                         playerList[i].setInJail(false);
+                        playerList[i].setOutOfJailCard(false);
+                    }*/
+                    else{
+                        if (firstDice != secondDice) {
+
+                            // Check if player wants to pay fine and go out to jail
+                            playerList[i].rollChoiceDice();
+
+                            if (playerList[i].getChoiceDice().getTotal() > threshold) {
+                                ((JailSquare) tempSquare).playerWantsPayForJail(playerList[i]);
+
+                            } else {
+                                int tempI = i;
+                                i = ((JailSquare) tempSquare).playerDoesntWantPayForJail(playerList[i], this, i);
+
+                                if (tempI != i) {
+                                    break;
+                                }
+                                if (playerList[i].getIsBankrupted()) {
+                                    currentPlayerSize--;
+                                    playerList[i] = null;
+
+                                    if (currentPlayerSize == 1) {
+                                        check = false;
+                                        break;
+                                    }
+                                    i++;
+                                    continue;
+                                }
+                            }
+                        } else {
+                            playerList[i].setInJail(false);
+                        }
                     }
+
                 }
 
                 //Move the player according to dice values.
@@ -235,6 +265,18 @@ public class MonopolyGame {
                     playerList[i].setJailTurnCounter(0);
                     playerList[i].setInJail(true);
                     System.out.println("!!" + playerList[i].getPlayerName() + " HAS GONE TO JAIL!!");
+                }
+
+                if(tempSquare instanceof  ChanceSquare){
+                    System.out.println("CHANCE CARD");
+                    System.out.println("Card id=" + board.getChanceCard().get(0).getId() + "\n" + board.getChanceCard().get(0).getAction());
+                    takeChangeCard(board.getChanceCard().get(0), playerList[i]);
+                }
+
+                if(tempSquare instanceof  CommunityChestSquare){
+                    System.out.println("COMMUNITY CARD");
+                    System.out.println("Card id=" + board.getComChest().get(0).getId() + "\n" + board.getComChest().get(0).getAction());
+                    takeCommunityCard(board.getComChest().get(0), playerList[i]);
                 }
 
                 // If player's new square is Tax Square
@@ -339,6 +381,18 @@ public class MonopolyGame {
             System.out.println("Player size must be from 2 to 8.");
             System.exit(1);
         }
+    }
+
+    public void takeChangeCard(ChanceCard changeCard, Player player){
+        changeCard.chooseAction(changeCard.getId(), player, board, this);
+        board.getChanceCard().add(board.getChanceCard().get(0));
+        board.getChanceCard().remove(0);
+    }
+
+    public void takeCommunityCard(CommunityChest communityCard, Player player){
+        communityCard.chooseAction(communityCard.getId(), player, board, this);
+        board.getComChest().add(board.getComChest().get(0));
+        board.getComChest().remove(0);
     }
 
     // Getter and setter methods

@@ -1,11 +1,13 @@
-public class ChanceCard {
+public class ChanceCard{
 
     private String action;
     private int id;
+    private boolean hasOwner;
 
     public ChanceCard(int id, String action) {
         this.action = action;
         this.id = id;
+        this.hasOwner = false;
     }
 
     public void chooseAction(int id, Player player, Board board, MonopolyGame mpGame) {
@@ -15,7 +17,9 @@ public class ChanceCard {
                 break;
             case 2:
                 if (board.getSquareList()[24] instanceof GoToJailSquare) {
-                    //kart çekme methodu
+                    board.getChanceCard().add(board.getChanceCard().get(0));
+                    board.getChanceCard().remove(0);
+                    mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                     break;
                 } else {
                     if (player.getPiece().getSquare().getSquareID() > 24) {
@@ -26,7 +30,9 @@ public class ChanceCard {
                 }
             case 3:
                 if (board.getSquareList()[11] instanceof GoToJailSquare) {
-                    //KART ÇEKME METHODU
+                    board.getChanceCard().add(board.getChanceCard().get(0));
+                    board.getChanceCard().remove(0);
+                    mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                     break;
                 } else {
                     if (player.getPiece().getSquare().getSquareID() > 11) {
@@ -39,13 +45,20 @@ public class ChanceCard {
                 if (player.getPiece().getSquare().getSquareID() < 12 || player.getPiece().getSquare().getSquareID() > 28) {
                     if (board.getSquareList()[12] instanceof GoToJailSquare) {
                         if (board.getSquareList()[28] instanceof GoToJailSquare) {
-                            //KART ÇEKME METHODU
+                            board.getChanceCard().add(board.getChanceCard().get(0));
+                            board.getChanceCard().remove(0);
+                            mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                             break;
                         } else {
                             player.getPiece().setSquare(board.getSquareList()[28]);
                             if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
                                 ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                                if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine())){
+                                    player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                                }
+                                else{
+                                    player.setIsBankrupted(true);
+                                }
                             }
                             break;
                         }
@@ -53,19 +66,31 @@ public class ChanceCard {
                         player.getPiece().setSquare(board.getSquareList()[12]);
                         if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
                             ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
-                            player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                            if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine())){
+                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                            }
+                            else{
+                                player.setIsBankrupted(true);
+                            }
                         }
                         break;
                     }
                 } else if (player.getPiece().getSquare().getSquareID() > 12 && player.getPiece().getSquare().getSquareID() < 28) {
                     if (board.getSquareList()[28] instanceof GoToJailSquare) {
                         if (board.getSquareList()[12] instanceof GoToJailSquare) {
-                            //KART ÇEKME METHODU
+                            board.getChanceCard().add(board.getChanceCard().get(0));
+                            board.getChanceCard().remove(0);
+                            mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                         } else {
                             player.getPiece().setSquare(board.getSquareList()[12]);
                             if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
                                 ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal()- ((UtilitySquare)board.getSquareList()[12]).getFine());
-                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                                if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine())){
+                                    player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                                }
+                                else{
+                                    player.setIsBankrupted(true);
+                                }
                             }
                             break;
                         }
@@ -73,8 +98,12 @@ public class ChanceCard {
                         player.getPiece().setSquare(board.getSquareList()[28]);
                         if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
                             ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                            player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                        }
+                            if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine())){
+                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                            }
+                            else{
+                                player.setIsBankrupted(true);
+                            }                        }
                         break;
                     }
                 }
@@ -96,7 +125,17 @@ public class ChanceCard {
             case 6:
                 player.getMoney().increaseMoney(50);
                 break;
-            case 7: //jail free
+            case 7:
+                if(this.hasOwner == false){
+                    this.hasOwner = true;
+                    player.setOutOfJailCard(true);
+                    player.setChanceOutOfJail(this);
+                    System.out.println(player.getPlayerName() + " get change go out of jail card!!");
+                }else{
+                    board.getChanceCard().add(board.getChanceCard().get(0));
+                    board.getChanceCard().remove(0);
+                    mpGame.takeChangeCard(board.getChanceCard().get(0), player);
+                }
                 break;
             case 8:
                 if (player.getPiece().getSquare().getSquareID() >= 3) {
@@ -108,14 +147,36 @@ public class ChanceCard {
             case 9:
                 player.getPiece().setSquare(board.getSquareList()[10]);
                 break;
-            case 10: //house 25, hotel 100
+            case 10:
+                int decrease = 0;
+                for(int i = 0; i < board.getSquareList().length; i++){
+                    if(board.getSquareList()[i] instanceof PropertySquare){
+                        if(((PurchasableSquare)(board.getSquareList()[i])).getOwner() == player){
+                            decrease += ((PropertySquare)(board.getSquareList()[i])).getHouseCount() * 25;
+                            decrease += ((PropertySquare)(board.getSquareList()[i])).getHotelCount() * 100;
+                        }
+                    }
+                }
+                if(player.isAbleDecreaseMoney(decrease)){
+                    player.getMoney().decreaseMoney(decrease);
+                }
+                else{
+                    player.setIsBankrupted(true);
+                }
                 break;
             case 11:
-                player.getMoney().decreaseMoney(15);
+                if(player.isAbleDecreaseMoney(15)){
+                    player.getMoney().decreaseMoney(15);
+                }
+                else{
+                    player.setIsBankrupted(true);
+                }
                 break;
             case 12:
                 if (board.getSquareList()[25] instanceof GoToJailSquare) {
-                    //kart çekme methodu
+                    board.getChanceCard().add(board.getChanceCard().get(0));
+                    board.getChanceCard().remove(0);
+                    mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                     break;
                 } else {
                     if (player.getPiece().getSquare().getSquareID() > 25) {
@@ -126,7 +187,9 @@ public class ChanceCard {
                 }
             case 13:
                 if (board.getSquareList()[39] instanceof GoToJailSquare) {
-                    //kart çekme methodu
+                    board.getChanceCard().add(board.getChanceCard().get(0));
+                    board.getChanceCard().remove(0);
+                    mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                     break;
                 } else {
                     player.getPiece().setSquare(board.getSquareList()[39]);
@@ -136,7 +199,12 @@ public class ChanceCard {
                 for(int i = 0; i < mpGame.getPlayerList().length; i++){
                     if(mpGame.getPlayerList()[i] != null && mpGame.getPlayerList()[i] != player){
                         mpGame.getPlayerList()[i].getMoney().increaseMoney(50);
-                        player.getMoney().decreaseMoney(50);
+                        if(player.isAbleDecreaseMoney(50)){
+                            player.getMoney().decreaseMoney(50);
+                        }
+                        else{
+                            player.setIsBankrupted(true);
+                        }
                     }
                 }
                 break;
@@ -152,6 +220,15 @@ public class ChanceCard {
 
     //ACTION METHODS
 
+
+    public int getId() {
+        return id;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
     private void nearestTransport(Player player, Board board, int temp){
         int control = 0;
         while (board.getSquareList()[temp] instanceof GoToJailSquare) {
@@ -166,7 +243,12 @@ public class ChanceCard {
             player.getPiece().setSquare(board.getSquareList()[temp]);
             if( ((TransportSquare)board.getSquareList()[temp]).getHasOwner() ){
                 ((TransportSquare)board.getSquareList()[temp]).getOwner().getMoney().increaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
-                player.getMoney().decreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
+                if(player.isAbleDecreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine())){
+                    player.getMoney().decreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
+                }
+                else{
+                    player.setIsBankrupted(true);
+                }
             }
             return;
         } else {
@@ -174,5 +256,13 @@ public class ChanceCard {
             return;
         }
 
+    }
+
+    public boolean hasOwner() {
+        return hasOwner;
+    }
+
+    public void setHasOwner(boolean hasOwner) {
+        this.hasOwner = hasOwner;
     }
 }

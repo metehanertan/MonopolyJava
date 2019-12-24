@@ -19,6 +19,8 @@ public class Player {
     private boolean outOfJailCard;
     private int houseCount;
     private int hotelCount;
+    private CommunityChest communityOutOfJail;
+    private ChanceCard chanceOutOfJail;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney, Dice moveDice, Dice choiceDice) {
@@ -403,6 +405,22 @@ public class Player {
 
     public int getHotelCount() {
         return hotelCount;
+    }
+
+    public CommunityChest getCommunityOutOfJail() {
+        return communityOutOfJail;
+    }
+
+    public void setCommunityOutOfJail(CommunityChest communityOutOfJail) {
+        this.communityOutOfJail = communityOutOfJail;
+    }
+
+    public ChanceCard getChanceOutOfJail() {
+        return chanceOutOfJail;
+    }
+
+    public void setChanceOutOfJail(ChanceCard chanceOutOfJail) {
+        this.chanceOutOfJail = chanceOutOfJail;
     }
 
 }

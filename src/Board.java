@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 // This class represents a Monopoly board
 public class Board {
@@ -21,8 +22,8 @@ public class Board {
     private int jailFine; // Amount for go out from the jail
     private int houseNumber;
     private int hotelNumber;
-    private ArrayList<String> comChest;
-    private ArrayList<String> chanceCard;
+    private ArrayList<CommunityChest> comChest ;
+    private ArrayList<ChanceCard> chanceCard ;
     private int[] rent1;
     private int[] rent2;
     private int[] rent3;
@@ -64,8 +65,12 @@ public class Board {
         this.pricePerHouse = pricePerHouse;
         this.houseNumber = houseNumber;
         this.hotelNumber = hotelNumber;
-        this.comChest = comChest;
-        this.chanceCard = chanceCard;
+        this.comChest = new ArrayList<>();
+        this.chanceCard = new ArrayList<>();
+
+        setChanceCards(chanceCard);
+        setCommunityCards(comChest);
+
     }
 
 
@@ -98,9 +103,14 @@ public class Board {
                 this.squareList[id] = new GoSquare(0, "GO");
             }
 
-            //Set the squares with id number 2,7,17,22,33 and 36 as NORMAL square.
-            else if (id == 2 || id == 7 || id == 17 || id == 22 || id == 33 || id == 36) {
-                this.squareList[id] = new NormalSquare(id, "NORMAL");
+            //Set the squares with id number 2,17,33 as COMMUNITY square.
+            else if (id == 2 || id == 17 || id == 33 ) {
+                this.squareList[id] = new CommunityChestSquare(comChest, "COMMUNITY", id);
+            }
+
+            //Set the squares with id number 7,22,36 as CHANCE square.
+            else if(id == 7 || id == 22 || id == 36){
+                this.squareList[id] = new ChanceSquare(chanceCard, "CHANCE", id);
             }
 
             //Set the squares with id number 4 and 38 as TAX square.
@@ -183,11 +193,35 @@ public class Board {
         }
     }
 
-    public void setChanceCards(){
+    public void setChanceCards(ArrayList<String> infoChance) {
+
+        for(int i = 0; i < infoChance.size(); i++){
+            chanceCard.add(new ChanceCard(i + 1, infoChance.get(i)));
+        }
+
+    }
+
+    public void setCommunityCards(ArrayList<String> infoCommunity) {
+
+        for(int i = 0; i < infoCommunity.size(); i++){
+            comChest.add(new CommunityChest(i + 1, infoCommunity.get(i)));
+        }
 
     }
 
     public JailSquare getJailSquare(){
         return (JailSquare) squareList[10];
     }
+
+
+
+    public ArrayList<CommunityChest> getComChest() {
+        return comChest;
+    }
+
+    public ArrayList<ChanceCard> getChanceCard() {
+        return chanceCard;
+    }
+
+
 }
