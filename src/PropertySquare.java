@@ -100,32 +100,13 @@ public class PropertySquare extends PurchasableSquare {
                     System.out.println("Player " + owner.getPlayerName() + " has all " + color + " colors.");
                 }
 
-                // Player sells his properties if he has not enough money to pay fine
-                while (player.getMoney().getCurrentMoney() <= tempFine) {
-                    if (!player.sellCheapest()) {
-                        break;
-                    }
-                }
-
-                player.getMoney().decreaseMoney(tempFine);
-
-                // If player goes to bankruptcy
-                if (player.getMoney().getCurrentMoney() <= 0) {
-                    owner.getMoney().increaseMoney(tempFine
-                            + player.getMoney().getCurrentMoney());
-                    System.out.println("***" + player.getPlayerName() + " HAS PAID \'"
-                            + (tempFine + player.getMoney().getCurrentMoney()) + "$\' TO "
-                            + owner.getPlayerName() + "***");
-
-                    System.out.println("!!! " + player.getPlayerName() + " HAS GONE BANKRUPT!!!\n");
-
-                    player.setIsBankrupted(true);
-
+                if (player.isAbleDecreaseMoney(tempFine)) {
+                    player.payMoneyToOwner(owner, tempFine);
                 } else {
-                    System.out.println("***" + player.getPlayerName() + " HAS PAID \'"
-                            + tempFine + "$\' TO " + owner.getPlayerName() + "***");
+                    player.playerGoesToBankrupt(tempFine, owner);
                 }
-                owner.getMoney().increaseMoney(tempFine);
+            } else {
+                System.out.println("*The owner " + owner.getPlayerName() + " is in Jail*");
             }
         }
     }
