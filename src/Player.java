@@ -306,7 +306,8 @@ public class Player {
 
     public void buyHouseOrHotel(PropertySquare square, MonopolyGame mpGame, Board board) {
         this.rollChoiceDice();
-
+        System.out.println("**SQUARE HOUSE COUNT: " + square.getHouseCount());
+        System.out.println("**SQUARE HOTEL COUNT: " + square.getHotelCount());
         if (square.getHouseCount() < 4) {
             if (this.getMoney().getCurrentMoney() > square.getHousePrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square, board)) {
 
@@ -317,8 +318,9 @@ public class Player {
                         this.getMoney().decreaseMoney(square.getHousePrice());
                         square.setHouseCount(square.getHouseCount() + 1);
                         this.setHouseCount(this.getHouseCount() + 1); // player için
-                        System.out.println("HOUSE COUNT: " + square.getHouseCount());
-                        System.out.println("HOTEL COUNT: " + square.getHotelCount());
+                        System.out.println("SQUARE HOUSE COUNT: " + square.getHouseCount());
+                        System.out.println("SQUARE HOTEL COUNT: " + square.getHotelCount());
+                        System.out.println(playerName + " has bought a house on " + square.getSquareName());
                         break;
                     }
                     if (i == mpGame.getHouseList().size() - 1) {
@@ -342,8 +344,9 @@ public class Player {
                         this.getMoney().decreaseMoney(square.getHotelPrice());
                         square.setHotelCount(square.getHotelCount() + 1);
                         this.setHotelCount(this.getHotelCount() + 1); //player
-                        System.out.println("HOUSE COUNT: " + square.getHouseCount());
-                        System.out.println("HOTEL COUNT: " + square.getHotelCount());
+                        System.out.println("SQUARE HOUSE COUNT: " + square.getHouseCount());
+                        System.out.println("SQUARE HOTEL COUNT: " + square.getHotelCount());
+                        System.out.println(playerName + " has bought a hotel on " + square.getSquareName());
                         break;
                     }
                     if (i == mpGame.getHotelList().size() - 1) {
