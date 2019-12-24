@@ -51,7 +51,7 @@ public class CommunityChest {
                 player.getMoney().increaseMoney(25);
                 break;
             case 15:
-                //Pay $40 per house and $115 per hotel you own."
+               player.getProperties().forEach(propertySquare ->player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115 ));
                 break;
             case 16:
                 player.getMoney().increaseMoney(10);
@@ -92,5 +92,4 @@ public class CommunityChest {
         }
     }
 
-    //ACTION METHODS
 }
