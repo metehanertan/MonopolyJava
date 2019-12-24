@@ -92,8 +92,13 @@ public class CommunityChest {
                         }
                     }
 
-                    mpGame.getPlayerList()[i].getMoney().decreaseMoney(tempFine);
-
+                    if(mpGame.getPlayerList()[i].isAbleDecreaseMoney(tempFine)){
+                        mpGame.getPlayerList()[i].getMoney().decreaseMoney(tempFine);
+                    }
+                    else{
+                        player.setIsBankrupted(true);
+                        break;
+                    }
                     // If player goes to bankruptcy
                     if (mpGame.getPlayerList()[i].getMoney().getCurrentMoney() <= 0) {
                         player.getMoney().increaseMoney(tempFine
