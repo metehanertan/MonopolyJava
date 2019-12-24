@@ -1,10 +1,12 @@
 public class CommunityChest {
     private String action;
     private int id;
+    private boolean hasOwner;
 
     public CommunityChest(int id, String action) {
         this.action = action;
         this.id = id;
+        this.hasOwner = false;
     }
 
     public void chooseAction(int id, Player player, Board board, MonopolyGame mpGame) {
@@ -19,14 +21,27 @@ public class CommunityChest {
             case 3:
             case 12:
             case 13:
-                player.getMoney().decreaseMoney(50);
+                if(player.isAbleDecreaseMoney(50)){
+                    player.getMoney().decreaseMoney(50);
+                }
+                else{
+                    player.setIsBankrupted(true);
+                }
                 break;
             case 4:
                 player.getMoney().increaseMoney(50);
                 break;
             case 5:
-                //KART EKLENECEK
-                player.setOutOfJailCard(true);
+                if(this.hasOwner == false){
+                    this.hasOwner = true;
+                    player.setOutOfJailCard(true);
+                    player.setCommunityOutOfJail(this);
+                    System.out.println(player.getPlayerName() + " get community go out of jail card!!");
+                }else{
+                    board.getComChest().add(board.getComChest().get(0));
+                    board.getComChest().remove(0);
+                    mpGame.takeCommunityCard(board.getComChest().get(0), player);
+                }
                 break;
             case 6:
                 player.getPiece().setSquare(board.getSquareList()[10]);
@@ -51,7 +66,12 @@ public class CommunityChest {
                 player.getMoney().increaseMoney(25);
                 break;
             case 15:
-               player.getProperties().forEach(propertySquare ->player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115 ));
+                if(player.isAbleDecreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115 )){
+                    player.getProperties().forEach(propertySquare ->player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115 ));
+                }
+                else {
+                    player.setIsBankrupted(true);
+                }
                 break;
             case 16:
                 player.getMoney().increaseMoney(10);
@@ -92,4 +112,19 @@ public class CommunityChest {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public boolean hasOwner() {
+        return hasOwner;
+    }
+
+    public void setHasOwner(boolean hasOwner) {
+        this.hasOwner = hasOwner;
+    }
 }
