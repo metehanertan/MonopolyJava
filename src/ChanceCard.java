@@ -14,6 +14,7 @@ public class ChanceCard{
         switch (id) {
             case 1:
                 player.getPiece().setSquare(board.getSquareList()[0]);
+                player.getMoney().increaseMoney(mpGame.getGoMoney());
                 break;
             case 2:
                 if (board.getSquareList()[24] instanceof GoToJailSquare) {

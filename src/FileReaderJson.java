@@ -42,10 +42,17 @@ public class FileReaderJson {
     private ArrayList<String> chanceCards = new ArrayList<>();
 
 
-    public FileReaderJson() throws IOException, ParseException {
+    public FileReaderJson()  {
         int i = 0;
 
-        Object obj = new JSONParser().parse(new FileReader("input.json"));
+        Object obj = null;
+        try {
+            obj = new JSONParser().parse(new FileReader("input.json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         JSONObject jo = (JSONObject) obj;
 
         //PROPERTIES
