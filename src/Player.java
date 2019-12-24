@@ -307,6 +307,7 @@ public class Player {
 
         if (square.getHouseCount() < 4) {
             if (this.getMoney().getCurrentMoney() > square.getHousePrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square, board)) {
+
                 for (int i = 0; i < mpGame.getHouseList().size(); i++) {
                     if (!mpGame.getHouseList().get(i).getHasOwner()) {
                         mpGame.getHouseList().get(i).setOwner(this);
