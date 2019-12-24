@@ -30,12 +30,11 @@ public class Board {
     private int[] pricePerHotel;
     private int[] mortgage;
     private int[] pricePerHouse;
-    static Board instance = null;
 
 
 
     // Default constructor of Board Class.
-    private Board(String[] properties,
+    public Board(String[] properties,
                  int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                  int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                  int[] transportPrice, int[] taxFine, String[] taxSquares, int goToJailNumber, int jailFine,
@@ -69,24 +68,7 @@ public class Board {
         this.chanceCard = chanceCard;
     }
 
-    static public Board getInstance(String[] properties,
-                       int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
-                       int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
-                       int[] transportPrice, int[] taxFine, String[] taxSquares, int goToJailNumber, int jailFine,
-                       int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] pricePerHotel, int[] mortgage, int[] pricePerHouse,
-                       int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard){
 
-        if (instance == null)
-            instance = new Board(properties,
-        propertyFine,propertyPrice,  propertyColor, utilityName,
-        utilityRate,  utilityPrice,  transportName,  transportFine,
-         transportPrice, taxFine,  taxSquares,  goToJailNumber,  jailFine,
-         rent1, rent2,  rent3,  rent4,  pricePerHotel,  mortgage,  pricePerHouse,
-         houseNumber,  hotelNumber,  comChest,  chanceCard);
-
-        return instance;
-
-    }
 
     // Getter method for board size.
     public int getBoardSize() {

@@ -30,9 +30,12 @@ public class MonopolyGame {
     private Dice choiceDice;
     private ArrayList<House> houseList;
     private ArrayList<Hotel> hotelList;
+    private static MonopolyGame instance;
+
+
 
     //Constructor of MonopolyGame Class calling from Main Class.
-    public MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
+    private MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                         int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber,
@@ -42,7 +45,7 @@ public class MonopolyGame {
         this.playerSize = playerSize;
         this.threshold = threshold;
         this.startMoney = startMoney;
-        this.board = Board.getInstance(properties, propertyFine, propertyPrice, propertyColor,
+        this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
                 taxFine, taxSquares, goToJailNumber, jailFine, rent1, rent2, rent3, rent4, hotel, mortgage,
                 pricePerHouse, houseNumber, hotelNumber, comChest, chanceCard); //Create Board object.
@@ -64,6 +67,25 @@ public class MonopolyGame {
         for(int i = 0; i < hotelNumber; i++ ){
             this.hotelList.add(new Hotel());
         }
+    }
+
+    static public MonopolyGame getInstance(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
+                                           int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
+                                           int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
+                                           int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber,
+                                           int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse,
+                                           int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard){
+
+        if (instance == null)
+            instance = new MonopolyGame( playerSize,  threshold,  startMoney,  goMoney, properties,
+         propertyFine,  propertyPrice,  propertyColor,  utilityName,
+         utilityRate,  utilityPrice,  transportName,  transportFine,
+         transportPrice,  taxFine,  taxSquares,  jailFine,  goToJailNumber,
+         rent1, rent2,  rent3,  rent4,  hotel,  mortgage,  pricePerHouse,
+         houseNumber,  hotelNumber, comChest,  chanceCard);
+
+        return instance;
+
     }
 
     // Play method to play the game.
