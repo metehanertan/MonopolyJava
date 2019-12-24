@@ -154,7 +154,7 @@ public class MonopolyGame {
                 tempSquare = playerList[i].getPiece().getSquare();
 
                 // If player in the jail
-                if (tempSquare instanceof JailSquare) {
+                if (tempSquare instanceof JailSquare && playerList[i].isInJail()) {
 
                     if(playerList[i].getChanceOutOfJail() != null){
                         playerList[i].setInJail(false);
@@ -169,15 +169,6 @@ public class MonopolyGame {
                         playerList[i].setCommunityOutOfJail(null);
                         System.out.println(playerList[i].getPlayerName() + " used to community go out of jail card!!");
                     }
-                   /* if(playerList[i].getOutOfJailCard()){
-                        for (int m = 0; m < board.getChanceCard().size(); m++){
-                            if(board.getChanceCard().get(m).hasOwner()){
-                                board.getChanceCard().get(m).setHasOwner(false);
-                            }
-                        }
-                        playerList[i].setInJail(false);
-                        playerList[i].setOutOfJailCard(false);
-                    }*/
                     else{
                         if (firstDice != secondDice) {
 
