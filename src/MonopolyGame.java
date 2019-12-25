@@ -32,16 +32,17 @@ public class MonopolyGame {
     private ArrayList<House> houseList;
     private ArrayList<Hotel> hotelList;
     private static MonopolyGame instance;
-
-
+    private int[] utilityMortgage;
+    private int[] transportMortgage;
 
     //Constructor of MonopolyGame Class calling from Main Class.
     private MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
-                        int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
-                        int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
-                        int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber,
-                        int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse,
-                        int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard) {
+                         int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
+                         int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
+                         int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber,
+                         int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse,
+                         int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard,
+                         int[] utilityMortgage, int[] transportMortgage) {
         checkPlayerSize(playerSize);
         this.playerSize = playerSize;
         this.threshold = threshold;
@@ -49,7 +50,7 @@ public class MonopolyGame {
         this.board = new Board(properties, propertyFine, propertyPrice, propertyColor,
                 utilityName, utilityRate, utilityPrice, transportName, transportFine, transportPrice,
                 taxFine, taxSquares, goToJailNumber, jailFine, rent1, rent2, rent3, rent4, hotel, mortgage,
-                pricePerHouse, houseNumber, hotelNumber, comChest, chanceCard); //Create Board object.
+                pricePerHouse, houseNumber, hotelNumber, comChest, chanceCard, utilityMortgage, transportMortgage); //Create Board object.
         this.goMoney = goMoney; //Assign GO money.
         this.jailFine = jailFine;
         this.goToJailNumber = goToJailNumber;
@@ -60,12 +61,17 @@ public class MonopolyGame {
         this.choiceDice = new Dice();
         this.houseList = new ArrayList<>();
         this.hotelList = new ArrayList<>();
+        this.rent1 = rent1;
+        this.rent2 = rent2;
+        this.rent3 = rent3;
+        this.rent4 = rent4;
+        this.mortgage = mortgage;
 
-        for(int i = 0; i < houseNumber; i++){
+        for (int i = 0; i < houseNumber; i++) {
             this.houseList.add(new House());
         }
 
-        for(int i = 0; i < hotelNumber; i++ ){
+        for (int i = 0; i < hotelNumber; i++) {
             this.hotelList.add(new Hotel());
         }
 
@@ -79,15 +85,16 @@ public class MonopolyGame {
                                            int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                                            int[] transportPrice, int[] taxFine, String[] taxSquares, int jailFine, int goToJailNumber,
                                            int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotel, int[] mortgage, int[] pricePerHouse,
-                                           int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard){
+                                           int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard,
+                                           int[] utilityMortgage, int[] transportMortgage) {
 
         if (instance == null)
-            instance = new MonopolyGame( playerSize,  threshold,  startMoney,  goMoney, properties,
-         propertyFine,  propertyPrice,  propertyColor,  utilityName,
-         utilityRate,  utilityPrice,  transportName,  transportFine,
-         transportPrice,  taxFine,  taxSquares,  jailFine,  goToJailNumber,
-         rent1, rent2,  rent3,  rent4,  hotel,  mortgage,  pricePerHouse,
-         houseNumber,  hotelNumber, comChest,  chanceCard);
+            instance = new MonopolyGame(playerSize, threshold, startMoney, goMoney, properties,
+                    propertyFine, propertyPrice, propertyColor, utilityName,
+                    utilityRate, utilityPrice, transportName, transportFine,
+                    transportPrice, taxFine, taxSquares, jailFine, goToJailNumber,
+                    rent1, rent2, rent3, rent4, hotel, mortgage, pricePerHouse,
+                    houseNumber, hotelNumber, comChest, chanceCard, utilityMortgage, transportMortgage);
 
         return instance;
 
@@ -156,20 +163,19 @@ public class MonopolyGame {
                 // If player in the jail
                 if (tempSquare instanceof JailSquare && playerList[i].isInJail()) {
 
-                    if(playerList[i].getChanceOutOfJail() != null){
+                    if (playerList[i].getChanceOutOfJail() != null) {
                         playerList[i].setInJail(false);
                         playerList[i].setOutOfJailCard(false);
                         playerList[i].getChanceOutOfJail().setHasOwner(false);
                         playerList[i].setChanceOutOfJail(null);
                         System.out.println(playerList[i].getPlayerName() + " used to change go out of jail card!!");
-                    }else if(playerList[i].getCommunityOutOfJail() != null){
+                    } else if (playerList[i].getCommunityOutOfJail() != null) {
                         playerList[i].setInJail(false);
                         playerList[i].setOutOfJailCard(false);
                         playerList[i].getCommunityOutOfJail().setHasOwner(false);
                         playerList[i].setCommunityOutOfJail(null);
                         System.out.println(playerList[i].getPlayerName() + " used to community go out of jail card!!");
-                    }
-                    else{
+                    } else {
                         if (firstDice != secondDice) {
 
                             // Check if player wants to pay fine and go out to jail
@@ -217,11 +223,10 @@ public class MonopolyGame {
                     if (((PurchasableSquare) tempSquare).getHasOwner()) {
 
 
-                        if( ((PurchasableSquare) tempSquare).getOwner() == playerList[i] ){
+                        if (((PurchasableSquare) tempSquare).getOwner() == playerList[i]) {
                             if (tempSquare instanceof PropertySquare)
-                            playerList[i].buyHouseOrHotel((PropertySquare) tempSquare, this, board);
-                        }
-                        else {
+                                playerList[i].buyHouseOrHotel((PropertySquare) tempSquare, this, board);
+                        } else {
                             ((PurchasableSquare) tempSquare).payRent(playerList[i], board);
                         }
 
@@ -237,9 +242,7 @@ public class MonopolyGame {
                             continue;
                         }
 
-                    }
-
-                    else {
+                    } else {
                         playerList[i].buyProperty((PurchasableSquare) tempSquare, this);
                     }
                 }
@@ -258,13 +261,13 @@ public class MonopolyGame {
                     System.out.println("!!" + playerList[i].getPlayerName() + " HAS GONE TO JAIL!!");
                 }
 
-                if(tempSquare instanceof  ChanceSquare){
+                if (tempSquare instanceof ChanceSquare) {
                     System.out.println("CHANCE CARD");
                     System.out.println("Card id=" + board.getChanceCard().get(0).getId() + "\n" + board.getChanceCard().get(0).getAction());
                     takeChangeCard(board.getChanceCard().get(0), playerList[i]);
                 }
 
-                if(tempSquare instanceof  CommunityChestSquare){
+                if (tempSquare instanceof CommunityChestSquare) {
                     System.out.println("COMMUNITY CARD");
                     System.out.println("Card id=" + board.getComChest().get(0).getId() + "\n" + board.getComChest().get(0).getAction());
                     takeCommunityCard(board.getComChest().get(0), playerList[i]);
@@ -374,13 +377,13 @@ public class MonopolyGame {
         }
     }
 
-    public void takeChangeCard(ChanceCard changeCard, Player player){
+    public void takeChangeCard(ChanceCard changeCard, Player player) {
         changeCard.chooseAction(changeCard.getId(), player, board, this);
         board.getChanceCard().add(board.getChanceCard().get(0));
         board.getChanceCard().remove(0);
     }
 
-    public void takeCommunityCard(CommunityChest communityCard, Player player){
+    public void takeCommunityCard(CommunityChest communityCard, Player player) {
         communityCard.chooseAction(communityCard.getId(), player, board, this);
         board.getComChest().add(board.getComChest().get(0));
         board.getComChest().remove(0);

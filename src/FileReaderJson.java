@@ -40,9 +40,10 @@ public class FileReaderJson {
     private int maxHotelNumber;
     private ArrayList<String> communityChestCards = new ArrayList<>();
     private ArrayList<String> chanceCards = new ArrayList<>();
+    private int[] utilityMortgage = {0, 0};
+    private int[] transportMortgage = {0, 0, 0, 0};
 
-
-    public FileReaderJson()  {
+    public FileReaderJson() {
         int i = 0;
 
         Object obj = null;
@@ -91,6 +92,8 @@ public class FileReaderJson {
             long b = (long) jsonUtil.get("price");
             utilityPrice[j] = (int) b;
             utilityRate[j] = (int) a;
+            long c = (long) jsonUtil.get("mortgage");
+            utilityMortgage[j] = (int) c;
         }
 
         //TRANSPORT
@@ -104,15 +107,18 @@ public class FileReaderJson {
             long b = (long) jsonTransport.get("fine");
             transportPrice[m] = (int) b;
             transportFine[m] = (int) a;
+            long c = (long) jsonTransport.get("mortgage");
+            transportMortgage[m] = (int) c;
         }
 
-        //TRANSPORT
+        //TAX
         JSONArray jaTax = (JSONArray) jo.get("tax");
         for (int n = 0; n < jaTax.size(); n++) {
             JSONObject jsonTax = (JSONObject) jaTax.get(n);
             taxSquares[n] = (String) jsonTax.get("name");
             long a = (long) jsonTax.get("fine");
             taxFine[n] = (int) a;
+
         }
 
         //CHANCE CARDS
@@ -269,5 +275,13 @@ public class FileReaderJson {
 
     public ArrayList<String> getCommunityChestCards() {
         return communityChestCards;
+    }
+
+    public int[] getTransportMortgage() {
+        return transportMortgage;
+    }
+
+    public int[] getUtilityMortgage() {
+        return utilityMortgage;
     }
 }

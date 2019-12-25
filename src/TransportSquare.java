@@ -8,14 +8,16 @@ public class TransportSquare extends PurchasableSquare {
     private Player owner;
     private int price;
     private boolean hasOwner;
+    private int mortgage;
 
     // Constructor
-    public TransportSquare(int id, String name, int fine, int price) {
+    public TransportSquare(int id, String name, int fine, int price, int mortgage) {
         this.squareID = id;
         this.squareName = name;
         this.transportFine = fine;
         this.hasOwner = false;
         this.price = price;
+        this.mortgage = mortgage;
     }
 
     // Getter and setter methods
@@ -88,6 +90,11 @@ public class TransportSquare extends PurchasableSquare {
                 System.out.println("*The owner " + owner.getPlayerName() + " is in Jail*");
             }
         }
+    }
+
+    @Override
+    public int getMortgage() {
+        return mortgage;
     }
 }
 

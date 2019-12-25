@@ -402,35 +402,41 @@
   "utilities": [
     {
       "name": "Electric",
-      "price": 15,
-      "rate": 1
+      "price": 150,
+      "rate": 4,
+      "mortgage": 75
     },
     {
       "name": "Water",
-      "price": 15,
-      "rate": 1
+      "price": 150,
+      "rate": 4,
+      "mortgage": 75
     }
   ],
   "transport": [
     {
       "name": "Otobus",
-      "fine": 5,
-      "price": 20
+      "fine": 50,
+      "price": 200,
+      "mortgage": 100
     },
     {
       "name": "Metrobus",
-      "fine": 5,
-      "price": 20
+      "fine": 50,
+      "price": 200,
+      "mortgage": 100
     },
     {
       "name": "Ucak",
-      "fine": 5,
-      "price": 20
+      "fine": 50,
+      "price": 200,
+      "mortgage": 100
     },
     {
       "name": "Metro",
-      "fine": 5,
-      "price": 20
+      "fine": 50,
+      "price": 200,
+      "mortgage": 100
     }
   ],
   "tax": [
