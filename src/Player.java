@@ -381,7 +381,9 @@ public class Player {
             if (pSquare instanceof TransportSquare) {
                 this.addTransportList(pSquare);
             }
-            this.addProperty(pSquare);
+            if(pSquare instanceof PropertySquare){
+                this.addProperty(pSquare);
+            }
             this.getMoney().decreaseMoney(pSquare.getPrice());
             System.out.println("***" + this.getPlayerName() + " BOUGHT " + pSquare.getSquareName() + "***");
         }
@@ -447,28 +449,26 @@ public class Player {
             // Player sells his properties if he has not enough money to pay fine
             while (money.getCurrentMoney() <= fine) {
 
+                for(int i = 0; i < board.getSquareList().length; i++){
+                    if(board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare)board.getSquareList()[i]).getOwner() == this){
+                        if(((PropertySquare)board.getSquareList()[i]).getHouseCount() > 0){
+                            ((PropertySquare)board.getSquareList()[i]).sellHouse(this, mpGame );
+                            break;
+                        }
+                    }
+                }
+                for(int i = 0; i < board.getSquareList().length; i++){
+                    if(board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare)board.getSquareList()[i]).getOwner() == this){
+                        if(((PropertySquare)board.getSquareList()[i]).getHotelCount() > 0){
+                            ((PropertySquare)board.getSquareList()[i]).sellHotel(this, mpGame);
+                            break;
+                        }
+                    }
+                }
                 if (!isAllPropertiesSet(board)) {
                     if (!mortgageProperty()) {
                         break;
                     }
-                }else{
-                    for(int i = 0; i < board.getSquareList().length; i++){
-                        if(board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare)board.getSquareList()[i]).getOwner() == this){
-                            if(((PropertySquare)board.getSquareList()[i]).getHouseCount() > 0){
-                                ((PropertySquare)board.getSquareList()[i]).sellHouse(this, mpGame );
-                                break;
-                            }
-                        }
-                    }
-                    for(int i = 0; i < board.getSquareList().length; i++){
-                        if(board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare)board.getSquareList()[i]).getOwner() == this){
-                            if(((PropertySquare)board.getSquareList()[i]).getHotelCount() > 0){
-                                ((PropertySquare)board.getSquareList()[i]).sellHotel(this, mpGame);
-                                break;
-                            }
-                        }
-                    }
-                    //SELL HOUSE AND HOTEL
                 }
             }
             if (money.getCurrentMoney() > fine) {
