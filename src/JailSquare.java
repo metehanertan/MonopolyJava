@@ -55,7 +55,7 @@ public class JailSquare extends Square {
         } else {
             // Player sells his properties if he has not enough money to pay fine
             while (player.getMoney().getCurrentMoney() <= jailFine) {
-                if (!player.sellCheapest()){
+                if (!player.mortgageProperty()){
                     break;
                 }
             }

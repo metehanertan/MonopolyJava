@@ -150,6 +150,11 @@ public class MonopolyGame {
                     i++;
                     continue;
                 }
+
+                if (playerList[i].getHasMortgaged()) {
+                    playerList[i].getBackMortgaged(this);
+                }
+
                 playerList[i].reportBeforeRoll();
 
                 // Current player roll dices
@@ -221,7 +226,6 @@ public class MonopolyGame {
                 // Check current square and end of the game
                 if (tempSquare instanceof PurchasableSquare) {
                     if (((PurchasableSquare) tempSquare).getHasOwner()) {
-
 
                         if (((PurchasableSquare) tempSquare).getOwner() == playerList[i]) {
                             if (tempSquare instanceof PropertySquare)

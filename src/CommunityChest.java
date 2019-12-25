@@ -22,7 +22,7 @@ public class CommunityChest {
             case 3:
             case 12:
             case 13:
-                if (player.isAbleDecreaseMoney(50)) {
+                if (player.isAbleDecreaseMoney(50, board)) {
                     player.getMoney().decreaseMoney(50);
                 } else {
                     player.setIsBankrupted(true);
@@ -48,7 +48,7 @@ public class CommunityChest {
                 break;
             case 7:
                 int tempFine = 50;
-                collectMoneyFromAllPlayers(player, mpGame, tempFine);
+                collectMoneyFromAllPlayers(player, mpGame, tempFine, board);
                 break;
             case 8:
             case 11:
@@ -60,14 +60,14 @@ public class CommunityChest {
                 break;
             case 10:
                 tempFine = 10;
-                collectMoneyFromAllPlayers(player, mpGame, tempFine);
+                collectMoneyFromAllPlayers(player, mpGame, tempFine, board);
                 break;
             case 14:
                 player.getMoney().increaseMoney(25);
                 break;
             case 15:
                 for (int i = 0; i < player.getProperties().size(); i++) {
-                    if (player.isAbleDecreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115))
+                    if (player.isAbleDecreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115, board))
                         player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115);
 
                     else {
@@ -83,18 +83,18 @@ public class CommunityChest {
         }
     }
 
-    public void collectMoneyFromAllPlayers(Player player, MonopolyGame mpGame, int tempFine) {
+    public void collectMoneyFromAllPlayers(Player player, MonopolyGame mpGame, int tempFine, Board board) {
         for (int i = 0; i < mpGame.getPlayerList().length; i++) {
             if (mpGame.getPlayerList()[i] != null) {
                 if (mpGame.getPlayerList()[i] != player) {
                     // Player sells his properties if he has not enough money to pay fine
                     while (mpGame.getPlayerList()[i].getMoney().getCurrentMoney() <= tempFine) {
-                        if (!mpGame.getPlayerList()[i].sellCheapest()) {
+                        if (!mpGame.getPlayerList()[i].mortgageProperty()) {
                             break;
                         }
                     }
 
-                    if (mpGame.getPlayerList()[i].isAbleDecreaseMoney(tempFine)) {
+                    if (mpGame.getPlayerList()[i].isAbleDecreaseMoney(tempFine, board)) {
                         mpGame.getPlayerList()[i].getMoney().decreaseMoney(tempFine);
                     } else {
                         player.setIsBankrupted(true);

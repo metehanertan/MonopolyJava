@@ -9,6 +9,7 @@ public class TransportSquare extends PurchasableSquare {
     private int price;
     private boolean hasOwner;
     private int mortgage;
+    private boolean isMortgaged;
 
     // Constructor
     public TransportSquare(int id, String name, int fine, int price, int mortgage) {
@@ -18,6 +19,7 @@ public class TransportSquare extends PurchasableSquare {
         this.hasOwner = false;
         this.price = price;
         this.mortgage = mortgage;
+        this.isMortgaged = false;
     }
 
     // Getter and setter methods
@@ -77,11 +79,11 @@ public class TransportSquare extends PurchasableSquare {
     @Override
     public void payRent(Player player, Board board) {
         // Check if the owner is himself
-        if (player != owner) {
+        if (player != owner && isMortgaged == false) {
             // Check if the owner is in jail
             if (!owner.isInJail()) {
                 int tempFine = owner.getTransportCount() * transportFine;
-                if (player.isAbleDecreaseMoney(tempFine)) {
+                if (player.isAbleDecreaseMoney(tempFine, board)) {
                     player.payMoneyToOwner(owner, tempFine);
                 } else {
                     player.playerGoesToBankrupt(tempFine, owner);
@@ -95,6 +97,15 @@ public class TransportSquare extends PurchasableSquare {
     @Override
     public int getMortgage() {
         return mortgage;
+    }
+
+    @Override
+    public boolean getIsMortgaged() {
+        return false;
+    }
+
+    public void setMortgaged(boolean mortgaged) {
+        isMortgaged = mortgaged;
     }
 }
 

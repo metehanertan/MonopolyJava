@@ -10,6 +10,7 @@ public class UtilitySquare extends PurchasableSquare {
     private int fine;
     private boolean hasOwner;
     private int mortgage;
+    private boolean isMortgaged;
 
     // Constructor
     public UtilitySquare(int squareID, String utilityName, int rate, int price, int mortgage) {
@@ -19,6 +20,7 @@ public class UtilitySquare extends PurchasableSquare {
         this.price = price;
         this.hasOwner = false;
         this.mortgage = mortgage;
+        this.isMortgaged = false;
     }
 
     // Return square id
@@ -85,12 +87,12 @@ public class UtilitySquare extends PurchasableSquare {
     @Override
     public void payRent(Player player, Board board) {
         // Check if the owner is himself
-        if (player != owner) {
+        if (player != owner && isMortgaged == false) {
             // Check if the owner is in jail
             if (!owner.isInJail()) {
                 int tempFine = owner.getUtilityCount() * getFine(player.getMoveDice().getTotal());
 
-                if(player.isAbleDecreaseMoney(tempFine)){
+                if(player.isAbleDecreaseMoney(tempFine, board)){
                     player.payMoneyToOwner(owner, tempFine);
                 }else{
                     player.playerGoesToBankrupt(tempFine, owner);
@@ -105,5 +107,14 @@ public class UtilitySquare extends PurchasableSquare {
     @Override
     public int getMortgage() {
         return mortgage;
+    }
+
+    @Override
+    public boolean getIsMortgaged() {
+        return false;
+    }
+
+    public void setMortgaged(boolean mortgaged) {
+        isMortgaged = mortgaged;
     }
 }
