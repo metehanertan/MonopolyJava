@@ -18,4 +18,8 @@ public abstract class PurchasableSquare extends Square {
     public abstract boolean getHasOwner();
 
     public abstract int getMortgage();
+
+    public abstract boolean getIsMortgaged();
+
+    public abstract void setMortgaged(boolean bool);
 }

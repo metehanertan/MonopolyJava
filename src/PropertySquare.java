@@ -17,7 +17,8 @@ public class PropertySquare extends PurchasableSquare {
     private int rent3;
     private int rent4;
     private int mortgage;
-
+    private boolean isMortgaged;
+    private boolean hasAllColors;
 
     // Constructor
     public PropertySquare(int squareID, String squareName, int fine, String color, int price, int housePrice,
@@ -37,7 +38,8 @@ public class PropertySquare extends PurchasableSquare {
         this.mortgage = mortgage;
         this.houseCount = 0;
         this.hotelCount = 0;
-
+        this.isMortgaged = false;
+        this.hasAllColors = false;
     }
 
     // Return square id
@@ -104,7 +106,7 @@ public class PropertySquare extends PurchasableSquare {
 
     public void payRent(Player player, Board board) {
 
-        if (player != owner) {
+        if (player != owner && isMortgaged == false) {
             if (!owner.isInJail()) {
                 int tempFine = fine;
                 if (owner.hasItAll(this, board)) {
@@ -112,7 +114,7 @@ public class PropertySquare extends PurchasableSquare {
                     System.out.println("Player " + owner.getPlayerName() + " has all " + color + " colors.");
                 }
 
-                if (player.isAbleDecreaseMoney(tempFine)) {
+                if (player.isAbleDecreaseMoney(tempFine, board)) {
                     player.payMoneyToOwner(owner, tempFine);
                 } else {
                     player.playerGoesToBankrupt(tempFine, owner);
@@ -169,19 +171,19 @@ public class PropertySquare extends PurchasableSquare {
         this.hotelCount = hotelCount;
     }
 
-    public void decreaseHouseCount(){
+    public void decreaseHouseCount() {
         this.houseCount--;
     }
 
-    public void increaseHouseCount(){
+    public void increaseHouseCount() {
         this.houseCount++;
     }
 
-    public void decreaseHotelCount(){
+    public void decreaseHotelCount() {
         this.hotelCount--;
     }
 
-    public void increaseHotelCount(){
+    public void increaseHotelCount() {
         this.hotelCount++;
     }
 
@@ -207,5 +209,22 @@ public class PropertySquare extends PurchasableSquare {
 
     public int getMortgage() {
         return mortgage;
+    }
+
+    @Override
+    public boolean getIsMortgaged() {
+        return false;
+    }
+
+    public void setMortgaged(boolean mortgaged) {
+        isMortgaged = mortgaged;
+    }
+
+    public void setHasAllColors(boolean bool){
+        this.hasAllColors = bool;
+    }
+
+    public boolean getHasAllColors(){
+        return this.hasAllColors;
     }
 }

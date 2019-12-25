@@ -54,7 +54,7 @@ public class ChanceCard{
                             player.getPiece().setSquare(board.getSquareList()[28]);
                             if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
                                 ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                                if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine())){
+                                if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine(), board)){
                                     player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
                                 }
                                 else{
@@ -67,7 +67,7 @@ public class ChanceCard{
                         player.getPiece().setSquare(board.getSquareList()[12]);
                         if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
                             ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
-                            if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine())){
+                            if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine(), board)){
                                 player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
                             }
                             else{
@@ -86,7 +86,7 @@ public class ChanceCard{
                             player.getPiece().setSquare(board.getSquareList()[12]);
                             if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
                                 ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal()- ((UtilitySquare)board.getSquareList()[12]).getFine());
-                                if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine())){
+                                if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine(), board)){
                                     player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
                                 }
                                 else{
@@ -99,7 +99,7 @@ public class ChanceCard{
                         player.getPiece().setSquare(board.getSquareList()[28]);
                         if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
                             ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                            if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine())){
+                            if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine(), board)){
                                 player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
                             }
                             else{
@@ -158,7 +158,7 @@ public class ChanceCard{
                         }
                     }
                 }
-                if(player.isAbleDecreaseMoney(decrease)){
+                if(player.isAbleDecreaseMoney(decrease, board)){
                     player.getMoney().decreaseMoney(decrease);
                 }
                 else{
@@ -166,7 +166,7 @@ public class ChanceCard{
                 }
                 break;
             case 11:
-                if(player.isAbleDecreaseMoney(15)){
+                if(player.isAbleDecreaseMoney(15, board)){
                     player.getMoney().decreaseMoney(15);
                 }
                 else{
@@ -200,7 +200,7 @@ public class ChanceCard{
                 for(int i = 0; i < mpGame.getPlayerList().length; i++){
                     if(mpGame.getPlayerList()[i] != null && mpGame.getPlayerList()[i] != player){
                         mpGame.getPlayerList()[i].getMoney().increaseMoney(50);
-                        if(player.isAbleDecreaseMoney(50)){
+                        if(player.isAbleDecreaseMoney(50, board)){
                             player.getMoney().decreaseMoney(50);
                         }
                         else{
@@ -244,7 +244,7 @@ public class ChanceCard{
             player.getPiece().setSquare(board.getSquareList()[temp]);
             if( ((TransportSquare)board.getSquareList()[temp]).getHasOwner() ){
                 ((TransportSquare)board.getSquareList()[temp]).getOwner().getMoney().increaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
-                if(player.isAbleDecreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine())){
+                if(player.isAbleDecreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine(), board)){
                     player.getMoney().decreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
                 }
                 else{

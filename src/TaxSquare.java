@@ -42,7 +42,7 @@ public class TaxSquare extends Square {
 
         // Player sells his properties if he has not enough money to pay fine
         while (player.getMoney().getCurrentMoney() <= fine) {
-            if (!player.sellCheapest()){
+            if (!player.mortgageProperty()){
                 break;
             }
         }

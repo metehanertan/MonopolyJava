@@ -21,6 +21,7 @@ public class Player {
     private int hotelCount;
     private CommunityChest communityOutOfJail;
     private ChanceCard chanceOutOfJail;
+    private boolean hasMortgaged;
 
     //Constructor of Player Class with given parameters.
     public Player(String playerName, int startMoney, Dice moveDice, Dice choiceDice) {
@@ -36,6 +37,7 @@ public class Player {
         this.outOfJailCard = false;
         this.hotelCount = 0;
         this.houseCount = 0;
+        this.hasMortgaged = false;
     }
 
 
@@ -262,7 +264,7 @@ public class Player {
     }
 
     // Sell the cheapest property
-    public boolean sellCheapest() {
+   /* public boolean sellCheapest() {
 
         if (properties.size() == 0) {
             return false;
@@ -281,26 +283,76 @@ public class Player {
         tempSquare.setHasOwner(false);
         properties.remove(tempSquare);
         return true;
-    }
+    }*/
 
-    public void mortgageProperty(){
+    public boolean mortgageProperty() {
         if (properties.size() == 0) {
-            return;
+            return false;
         }
 
         PurchasableSquare tempSquare = properties.get(0);
 
         for (int i = 1; i < properties.size(); i++) {
             if (tempSquare.getMortgage() > properties.get(i).getMortgage()) {
-                tempSquare = properties.get(i);
+                if (properties.get(i) instanceof PropertySquare) {
+                    if (!((PropertySquare) properties.get(i)).getHasAllColors()) {
+                        tempSquare = properties.get(i);
+                    }
+                } else {
+                    tempSquare = properties.get(i);
+                }
+
             }
         }
 
-        money.increaseMoney(tempSquare.getPrice());
-        tempSquare.setOwner(null);
-        tempSquare.setHasOwner(false);
+        money.increaseMoney(tempSquare.getMortgage());
+        tempSquare.setMortgaged(true);
+        this.hasMortgaged = true;
         properties.remove(tempSquare);
+        return true;
 
+    }
+
+    public void getBackMortgaged(MonopolyGame mpGame) {
+
+        rollChoiceDice();
+        boolean check = true;
+        if (choiceDice.getTotal() > mpGame.getThreshold()) {
+            for (int j = 0; j < properties.size(); j++) {
+                if (properties.get(j).getIsMortgaged()) {
+                    check = true;
+                    if (money.getCurrentMoney() > properties.get(j).getMortgage()) {
+                        check = false;
+                        money.decreaseMoney(properties.get(j).getMortgage());
+                        properties.get(j).setMortgaged(false);
+                    }
+                }
+            }
+        }
+
+        hasMortgaged = check;
+    }
+
+    public boolean isAllPropertiesSet(Board board) {
+        boolean check = false;
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i) instanceof PropertySquare) {
+                if (hasItAll((PropertySquare) properties.get(i), board)) {
+                    ((PropertySquare) properties.get(i)).setHasAllColors(true);
+                }
+            }
+        }
+
+        for (int i = 0; i < properties.size(); i++) {
+            if (((PropertySquare) properties.get(i)).getHasAllColors()) {
+                check = true;
+            } else {
+                check = false;
+                break;
+            }
+        }
+
+        return check;
     }
 
     public void buyProperty(PurchasableSquare pSquare, MonopolyGame mpGame) {
@@ -377,14 +429,19 @@ public class Player {
         }
     }
 
-    public boolean isAbleDecreaseMoney(int fine) {
+    public boolean isAbleDecreaseMoney(int fine, Board board) {
         if (money.getCurrentMoney() > fine) {
             return true;
         } else {
             // Player sells his properties if he has not enough money to pay fine
             while (money.getCurrentMoney() <= fine) {
-                if (!sellCheapest()) {
-                    break;
+
+                if (!isAllPropertiesSet(board)) {
+                    if (!mortgageProperty()) {
+                        break;
+                    }
+                }else{
+                    //SELL HOUSE AND HOTEL
                 }
             }
             if (money.getCurrentMoney() > fine) {
@@ -444,6 +501,14 @@ public class Player {
 
     public void setChanceOutOfJail(ChanceCard chanceOutOfJail) {
         this.chanceOutOfJail = chanceOutOfJail;
+    }
+
+    public boolean getHasMortgaged() {
+        return this.hasMortgaged;
+    }
+
+    public void setHasMortgaged(boolean bool) {
+        this.hasMortgaged = bool;
     }
 
 }
