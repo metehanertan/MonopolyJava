@@ -11,11 +11,17 @@ public class PropertySquare extends PurchasableSquare {
     private int houseCount;
     private int hotelCount;
     private int housePrice;
-    private int hotelPrice;
-    private int houseCounter;
+    private int hotelRent;
+    private int rent1;
+    private int rent2;
+    private int rent3;
+    private int rent4;
+    private int mortgage;
+
 
     // Constructor
-    public PropertySquare(int squareID, String squareName, int fine, String color, int price, int housePrice, int hotelPrice) {
+    public PropertySquare(int squareID, String squareName, int fine, String color, int price, int housePrice,
+                          int hotelRent, int rent1, int rent2, int rent3, int rent4, int mortgage) {
         this.squareID = squareID;
         this.squareName = squareName;
         this.color = color;
@@ -23,9 +29,15 @@ public class PropertySquare extends PurchasableSquare {
         this.price = price;
         this.hasOwner = false;
         this.housePrice = housePrice;
-        this.hotelPrice = hotelPrice;
-        houseCount = 0;
-        hotelCount = 0;
+        this.hotelRent = hotelRent;
+        this.rent1 = rent1;
+        this.rent2 = rent2;
+        this.rent3 = rent3;
+        this.rent4 = rent4;
+        this.mortgage = mortgage;
+        this.houseCount = 0;
+        this.hotelCount = 0;
+
     }
 
     // Return square id
@@ -127,7 +139,7 @@ public class PropertySquare extends PurchasableSquare {
 
         if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
             // BURADA SIKINTI ÇIKABİLİR GİRİLEN SAYILARA GÖRE DOUBLE OLMASINI İSTEYECEK
-            player.getMoney().increaseMoney((int) (hotelPrice / 2));
+            player.getMoney().increaseMoney((int) (housePrice / 2));
             houseCount = 4;
             hotelCount--;
         }
@@ -147,14 +159,6 @@ public class PropertySquare extends PurchasableSquare {
 
     public int getHousePrice() {
         return housePrice;
-    }
-
-    public int getHotelPrice() {
-        return hotelPrice;
-    }
-
-    public int getHouseCounter() {
-        return houseCounter;
     }
 
     public void setHouseCount(int houseCount) {
@@ -181,4 +185,27 @@ public class PropertySquare extends PurchasableSquare {
         this.hotelCount++;
     }
 
+    public int getRent1() {
+        return rent1;
+    }
+
+    public int getRent2() {
+        return rent2;
+    }
+
+    public int getHotelRent() {
+        return hotelRent;
+    }
+
+    public int getRent3() {
+        return rent3;
+    }
+
+    public int getRent4() {
+        return rent4;
+    }
+
+    public int getMortgage() {
+        return mortgage;
+    }
 }

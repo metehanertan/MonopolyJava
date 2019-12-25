@@ -283,6 +283,26 @@ public class Player {
         return true;
     }
 
+    public void mortgageProperty(){
+        if (properties.size() == 0) {
+            return;
+        }
+
+        PurchasableSquare tempSquare = properties.get(0);
+
+        for (int i = 1; i < properties.size(); i++) {
+            if (tempSquare.getMortgage() > properties.get(i).getMortgage()) {
+                tempSquare = properties.get(i);
+            }
+        }
+
+        money.increaseMoney(tempSquare.getPrice());
+        tempSquare.setOwner(null);
+        tempSquare.setHasOwner(false);
+        properties.remove(tempSquare);
+
+    }
+
     public void buyProperty(PurchasableSquare pSquare, MonopolyGame mpGame) {
         // If square has not an owner
         // Player roll the choice dice
@@ -329,7 +349,7 @@ public class Player {
                 }
             }
         } else {
-            if (this.getMoney().getCurrentMoney() > square.getHotelPrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square, board)) {
+            if (this.getMoney().getCurrentMoney() > square.getHousePrice() && this.getChoiceDice().getTotal() > mpGame.getThreshold() && this.hasItAll(square, board)) {
                 for (int i = 0; i < mpGame.getHouseList().size(); i++) {
                     if (mpGame.getHouseList().get(i).getSquare() == square) {
                         mpGame.getHouseList().get(i).setSquare(null);
@@ -341,7 +361,7 @@ public class Player {
                     if (!mpGame.getHotelList().get(i).getHasOwner()) {
                         mpGame.getHotelList().get(i).setOwner(this);
                         mpGame.getHotelList().get(i).setSquare(square);
-                        this.getMoney().decreaseMoney(square.getHotelPrice());
+                        this.getMoney().decreaseMoney(square.getHousePrice());
                         square.increaseHotelCount();
                         this.hotelCount++; //player
                         System.out.println("SQUARE HOUSE COUNT: " + square.getHouseCount());

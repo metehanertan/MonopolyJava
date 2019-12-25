@@ -38,12 +38,14 @@ public class Main {
         int maxHotelNumber = fileReader.getMaxHotelNumber();
         ArrayList<String> communityChest = fileReader.getCommunityChestCards();
         ArrayList<String> chanceCards = fileReader.getChanceCards();
+        int[] transportMortgage = fileReader.getTransportMortgage();
+        int[] utilityMortgage = fileReader.getUtilityMortgage();
 
         // Create MonopolyGame object with given parameters
         MonopolyGame monopolyGame = MonopolyGame.getInstance(intPlayerSize, intThreshold, intStartMoney, intGoMoney,
                 properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
                 transportFine, transportPrice, taxFine, taxSquares, intJailFine, intGoToJailNumber, rent1, rent2, rent3, rent4, hotel,
-                mortgage, pricePerHouse, maxHouseNumber, maxHotelNumber, communityChest, chanceCards);
+                mortgage, pricePerHouse, maxHouseNumber, maxHotelNumber, communityChest, chanceCards, utilityMortgage, transportMortgage);
         // Call the Play function of MonopolyGame to start the game
         monopolyGame.Play();
 

@@ -9,14 +9,16 @@ public class UtilitySquare extends PurchasableSquare {
     private int price;
     private int fine;
     private boolean hasOwner;
+    private int mortgage;
 
     // Constructor
-    public UtilitySquare(int squareID, String utilityName, int rate, int price) {
+    public UtilitySquare(int squareID, String utilityName, int rate, int price, int mortgage) {
         this.squareID = squareID;
         this.utilityName = utilityName;
         this.rate = rate;
         this.price = price;
         this.hasOwner = false;
+        this.mortgage = mortgage;
     }
 
     // Return square id
@@ -100,4 +102,8 @@ public class UtilitySquare extends PurchasableSquare {
         }
     }
 
+    @Override
+    public int getMortgage() {
+        return mortgage;
+    }
 }

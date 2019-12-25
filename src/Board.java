@@ -22,16 +22,17 @@ public class Board {
     private int jailFine; // Amount for go out from the jail
     private int houseNumber;
     private int hotelNumber;
-    private ArrayList<CommunityChest> comChest ;
-    private ArrayList<ChanceCard> chanceCard ;
+    private ArrayList<CommunityChest> comChest;
+    private ArrayList<ChanceCard> chanceCard;
     private int[] rent1;
     private int[] rent2;
     private int[] rent3;
     private int[] rent4;
-    private int[] pricePerHotel;
+    private int[] hotelRent;
     private int[] mortgage;
     private int[] pricePerHouse;
-
+    private int[] utilityMortgage;
+    private int[] transportMortgage;
 
 
     // Default constructor of Board Class.
@@ -39,8 +40,9 @@ public class Board {
                  int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                  int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
                  int[] transportPrice, int[] taxFine, String[] taxSquares, int goToJailNumber, int jailFine,
-                 int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] pricePerHotel, int[] mortgage, int[] pricePerHouse,
-                 int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard) {
+                 int[] rent1, int[] rent2, int[] rent3, int[] rent4, int[] hotelRent, int[] mortgage, int[] pricePerHouse,
+                 int houseNumber, int hotelNumber, ArrayList<String> comChest, ArrayList<String> chanceCard,
+                 int[] utilityMortgage, int[] transportMortgage) {
         this.squareList = new Square[BOARD_SIZE]; // Set the square list's size to board size.
         this.properties = properties;
         this.propertyFine = propertyFine;
@@ -60,19 +62,20 @@ public class Board {
         this.rent2 = rent2;
         this.rent3 = rent3;
         this.rent4 = rent4;
-        this.pricePerHotel = pricePerHotel;
+        this.hotelRent = hotelRent;
         this.mortgage = mortgage;
         this.pricePerHouse = pricePerHouse;
         this.houseNumber = houseNumber;
         this.hotelNumber = hotelNumber;
         this.comChest = new ArrayList<>();
         this.chanceCard = new ArrayList<>();
+        this.transportMortgage = transportMortgage;
+        this.utilityMortgage = utilityMortgage;
 
         setChanceCards(chanceCard);
         setCommunityCards(comChest);
 
     }
-
 
 
     // Getter method for board size.
@@ -104,12 +107,12 @@ public class Board {
             }
 
             //Set the squares with id number 2,17,33 as COMMUNITY square.
-            else if (id == 2 || id == 17 || id == 33 ) {
+            else if (id == 2 || id == 17 || id == 33) {
                 this.squareList[id] = new CommunityChestSquare(comChest, "COMMUNITY", id);
             }
 
             //Set the squares with id number 7,22,36 as CHANCE square.
-            else if(id == 7 || id == 22 || id == 36){
+            else if (id == 7 || id == 22 || id == 36) {
                 this.squareList[id] = new ChanceSquare(chanceCard, "CHANCE", id);
             }
 
@@ -133,14 +136,14 @@ public class Board {
             else if (id == 5 || id == 15 || id == 25 || id == 35) {
 
                 this.squareList[id] = new TransportSquare(id, transportName[transportIndex],
-                        transportFine[transportIndex], transportPrice[transportIndex]);
+                        transportFine[transportIndex], transportPrice[transportIndex], transportMortgage[transportIndex]);
                 transportIndex++;
             }
 
             //Set the squares with id number 12 and 28 as UTILITY square.
             else if (id == 12 || id == 28) {
                 this.squareList[id] = new UtilitySquare(id, utilityName[utilityIndex],
-                        utilityRate[utilityIndex], utilityPrice[utilityIndex]);
+                        utilityRate[utilityIndex], utilityPrice[utilityIndex], utilityMortgage[utilityIndex]);
                 utilityIndex++;
             }
 
@@ -153,9 +156,10 @@ public class Board {
             //Set the remaining squares as PROPERTY squares.
             else {
                 this.squareList[id] = new PropertySquare(id, properties[propertyIndex], propertyFine[propertyIndex],
-                        propertyColor[colorIndex], propertyPrice[propertyIndex], pricePerHouse[propertyIndex], pricePerHotel[propertyIndex]);
+                        propertyColor[colorIndex], propertyPrice[propertyIndex], pricePerHouse[propertyIndex], hotelRent[propertyIndex],
+                        rent1[propertyIndex], rent2[propertyIndex], rent3[propertyIndex], rent4[propertyIndex], mortgage[propertyIndex]);
                 propertyIndex++;
-               colorIndex++;
+                colorIndex++;
             }
 
             id++;
@@ -169,12 +173,11 @@ public class Board {
         //Place GO TO JAIL squares with the given input value of go to jail.
         while (true) {
             int rand = (int) (Math.random() * 38) + 1;
-            if(goToJailNumber == 0){
+            if (goToJailNumber == 0) {
                 System.out.println("goToJailNumber can be at least 1, the variable was set to 1.");
                 goToJailNumber = 1;
                 break;
-            }
-            else if (goToJailNumber == 1) {
+            } else if (goToJailNumber == 1) {
                 break;
             } else if (squareList[rand] instanceof PropertySquare || squareList[rand] instanceof TransportSquare || squareList[rand] instanceof UtilitySquare) {
                 this.squareList[rand] = new GoToJailSquare(rand, "GOTOJAIL");
@@ -195,7 +198,7 @@ public class Board {
 
     public void setChanceCards(ArrayList<String> infoChance) {
 
-        for(int i = 0; i < infoChance.size(); i++){
+        for (int i = 0; i < infoChance.size(); i++) {
             chanceCard.add(new ChanceCard(i + 1, infoChance.get(i)));
         }
 
@@ -203,16 +206,15 @@ public class Board {
 
     public void setCommunityCards(ArrayList<String> infoCommunity) {
 
-        for(int i = 0; i < infoCommunity.size(); i++){
+        for (int i = 0; i < infoCommunity.size(); i++) {
             comChest.add(new CommunityChest(i + 1, infoCommunity.get(i)));
         }
 
     }
 
-    public JailSquare getJailSquare(){
+    public JailSquare getJailSquare() {
         return (JailSquare) squareList[10];
     }
-
 
 
     public ArrayList<CommunityChest> getComChest() {
