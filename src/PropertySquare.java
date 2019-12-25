@@ -131,6 +131,7 @@ public class PropertySquare extends PurchasableSquare {
 
         if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
             // BURADA SIKINTI ÇIKABİLİR GİRİLEN SAYILARA GÖRE DOUBLE OLMASINI İSTEYECEK
+            System.out.println("EV SATTI");
             player.getMoney().increaseMoney((int) (housePrice / 2));
             houseCount--;
         }
@@ -141,6 +142,7 @@ public class PropertySquare extends PurchasableSquare {
 
         if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
             // BURADA SIKINTI ÇIKABİLİR GİRİLEN SAYILARA GÖRE DOUBLE OLMASINI İSTEYECEK
+            System.out.println("OTEL SATTI");
             player.getMoney().increaseMoney((int) (housePrice / 2));
             houseCount = 4;
             hotelCount--;

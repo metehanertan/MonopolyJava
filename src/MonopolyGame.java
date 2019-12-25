@@ -119,7 +119,7 @@ public class MonopolyGame {
 
         // Determine player turns
         for (int i = 0; i < playerSize; i++) {
-            playerOldList[i] = new Player(NAMES[i], startMoney, moveDice, choiceDice); //Create first player list (not ordered).
+            playerOldList[i] = new Player(NAMES[i], startMoney, moveDice, choiceDice,this); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
             playerOldList[i].setPiece(pieceList[i]); //Set players' pieces'.
             //Roll dices for each player to set the turn order.
@@ -198,6 +198,7 @@ public class MonopolyGame {
                                 }
                                 if (playerList[i].getIsBankrupted()) {
                                     currentPlayerSize--;
+
                                     playerList[i] = null;
 
                                     if (currentPlayerSize == 1) {

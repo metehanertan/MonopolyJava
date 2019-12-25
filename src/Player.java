@@ -22,9 +22,10 @@ public class Player {
     private CommunityChest communityOutOfJail;
     private ChanceCard chanceOutOfJail;
     private boolean hasMortgaged;
+    private MonopolyGame mpGame;
 
     //Constructor of Player Class with given parameters.
-    public Player(String playerName, int startMoney, Dice moveDice, Dice choiceDice) {
+    public Player(String playerName, int startMoney, Dice moveDice, Dice choiceDice, MonopolyGame mpGame) {
         this.playerName = playerName;
         this.money = new Money(startMoney);
         this.properties = new ArrayList<PurchasableSquare>();
@@ -38,6 +39,7 @@ public class Player {
         this.hotelCount = 0;
         this.houseCount = 0;
         this.hasMortgaged = false;
+        this.mpGame = mpGame;
     }
 
 
@@ -298,7 +300,10 @@ public class Player {
                     if (!((PropertySquare) properties.get(i)).getHasAllColors()) {
                         tempSquare = properties.get(i);
                     }
-                } else {
+                    else {
+                        tempSquare = properties.get(i);
+                    }
+                }else {
                     tempSquare = properties.get(i);
                 }
 
@@ -309,9 +314,13 @@ public class Player {
         tempSquare.setMortgaged(true);
         this.hasMortgaged = true;
         properties.remove(tempSquare);
+        transportList.remove(tempSquare);
+        utilityList.remove(tempSquare);
+        System.out.println("PROPERTY MORTGAGE" + tempSquare.getSquareName());
         return true;
 
     }
+
 
     public void getBackMortgaged(MonopolyGame mpGame) {
 
@@ -333,6 +342,7 @@ public class Player {
         hasMortgaged = check;
     }
 
+    //aynı renkler mi
     public boolean isAllPropertiesSet(Board board) {
         boolean check = false;
         for (int i = 0; i < properties.size(); i++) {
@@ -344,12 +354,13 @@ public class Player {
         }
 
         for (int i = 0; i < properties.size(); i++) {
+            if(properties.get(i) instanceof PropertySquare){
             if (((PropertySquare) properties.get(i)).getHasAllColors()) {
                 check = true;
             } else {
                 check = false;
                 break;
-            }
+            }}
         }
 
         return check;
@@ -441,6 +452,22 @@ public class Player {
                         break;
                     }
                 }else{
+                    for(int i = 0; i < board.getSquareList().length; i++){
+                        if(board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare)board.getSquareList()[i]).getOwner() == this){
+                            if(((PropertySquare)board.getSquareList()[i]).getHouseCount() > 0){
+                                ((PropertySquare)board.getSquareList()[i]).sellHouse(this, mpGame );
+                                break;
+                            }
+                        }
+                    }
+                    for(int i = 0; i < board.getSquareList().length; i++){
+                        if(board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare)board.getSquareList()[i]).getOwner() == this){
+                            if(((PropertySquare)board.getSquareList()[i]).getHotelCount() > 0){
+                                ((PropertySquare)board.getSquareList()[i]).sellHotel(this, mpGame);
+                                break;
+                            }
+                        }
+                    }
                     //SELL HOUSE AND HOTEL
                 }
             }
