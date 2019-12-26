@@ -3,7 +3,7 @@
   "taxValue": "50",
   "startMoney": "1000",
   "goMoney": "35",
-  "jailFine": "50",
+  "jailFine": "100",
   "threshold": "8",
   "goToJailNumber": "3",
   "maxHouseNumber": "32",

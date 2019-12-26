@@ -119,7 +119,7 @@ public class MonopolyGame {
 
         // Determine player turns
         for (int i = 0; i < playerSize; i++) {
-            playerOldList[i] = new Player(NAMES[i], startMoney, moveDice, choiceDice,this); //Create first player list (not ordered).
+            playerOldList[i] = new Player(NAMES[i], startMoney, moveDice, choiceDice, this); //Create first player list (not ordered).
             pieceList[i] = new Piece(PIECES[i], this.board); //Create Piece List.
             playerOldList[i].setPiece(pieceList[i]); //Set players' pieces'.
             //Roll dices for each player to set the turn order.
@@ -188,14 +188,13 @@ public class MonopolyGame {
 
                             if (playerList[i].getChoiceDice().getTotal() > threshold) {
                                 ((JailSquare) tempSquare).playerWantsPayForJail(playerList[i]);
-
                             } else {
-                                int tempI = i;
-                                i = ((JailSquare) tempSquare).playerDoesntWantPayForJail(playerList[i], this, i);
 
-                                if (tempI != i) {
+                                if(((JailSquare) tempSquare).playerDoesntWantPayForJail(playerList[i], board, i)){
+                                    i++;
                                     break;
                                 }
+
                                 if (playerList[i].getIsBankrupted()) {
                                     currentPlayerSize--;
 
@@ -280,7 +279,7 @@ public class MonopolyGame {
 
                 // If player's new square is Tax Square
                 if (tempSquare instanceof TaxSquare) {
-                    ((TaxSquare) tempSquare).payTax(playerList[i]);
+                    ((TaxSquare) tempSquare).payTax(playerList[i], board);
 
                     if (playerList[i].getIsBankrupted()) {
                         currentPlayerSize--;
