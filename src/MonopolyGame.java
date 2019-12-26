@@ -15,7 +15,7 @@ public class MonopolyGame {
     private int goMoney; //Given money amount while passing through GO square
     private int cycle; //Cycle counter
     private int[] dices; //Dice values array to order turns of players
-    private int jailFine; // Fine for go our from the jail
+    private int jailFine; // Fine for go out from the jail
     private int goToJailNumber; // Number of GoToJail squares
     private int currentPlayerSize; // Non-bankrupted player number
     private int[] rent1;
@@ -226,7 +226,7 @@ public class MonopolyGame {
 
                 // Check current square and end of the game
                 if (tempSquare instanceof PurchasableSquare) {
-                    if (((PurchasableSquare) tempSquare).getHasOwner()) {
+                    if (((PurchasableSquare) tempSquare).getHasOwner() && !((PurchasableSquare) tempSquare).getIsMortgaged()) {
 
                         if (((PurchasableSquare) tempSquare).getOwner() == playerList[i]) {
                             if (tempSquare instanceof PropertySquare)
