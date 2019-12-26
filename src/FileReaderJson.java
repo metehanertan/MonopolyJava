@@ -105,8 +105,8 @@ public class FileReaderJson {
             transportName[m] = (String) jsonTransport.get("name");
             long a = (long) jsonTransport.get("price");
             long b = (long) jsonTransport.get("fine");
-            transportPrice[m] = (int) b;
-            transportFine[m] = (int) a;
+            transportPrice[m] = (int) a;
+            transportFine[m] = (int) b;
             long c = (long) jsonTransport.get("mortgage");
             transportMortgage[m] = (int) c;
         }

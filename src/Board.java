@@ -169,7 +169,6 @@ public class Board {
             }
         }
 
-
         //Place GO TO JAIL squares with the given input value of go to jail.
         while (true) {
             int rand = (int) (Math.random() * 38) + 1;

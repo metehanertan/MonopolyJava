@@ -151,6 +151,12 @@ public class MonopolyGame {
                     continue;
                 }
 
+                if(playerList[i].getIsBankrupted()){
+                    playerList[i] = null;
+                    i++;
+                    continue;
+                }
+
                 if (playerList[i].getHasMortgaged()) {
                     playerList[i].getBackMortgaged(this);
                 }

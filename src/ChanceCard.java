@@ -1,4 +1,4 @@
-public class ChanceCard{
+public class ChanceCard {
 
     private String action;
     private int id;
@@ -11,6 +11,7 @@ public class ChanceCard{
     }
 
     public void chooseAction(int id, Player player, Board board, MonopolyGame mpGame) {
+        int tempFine;
         switch (id) {
             case 1:
                 player.getPiece().setSquare(board.getSquareList()[0]);
@@ -51,29 +52,37 @@ public class ChanceCard{
                             mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                             break;
                         } else {
-                            player.getPiece().setSquare(board.getSquareList()[28]);
-                            if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
-                                ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                                if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine(), board)){
-                                    player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
+                            //player.getPiece().setSquare(board.getSquareList()[28]);
+                            payUtility((UtilitySquare) board.getSquareList()[28], player, board);
+                            /*if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
+                                tempFine = 10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine();
+                                if(player.isAbleDecreaseMoney(tempFine, board)){
+                                    player.getMoney().decreaseMoney(tempFine);
+                                    ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(tempFine);
                                 }
                                 else{
-                                    player.setIsBankrupted(true);
+                                    //player.setIsBankrupted(true);
+                                    player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
                                 }
-                            }
+                            }*/
                             break;
                         }
                     } else {
-                        player.getPiece().setSquare(board.getSquareList()[12]);
+                        payUtility((UtilitySquare) board.getSquareList()[12], player, board);
+
+                      /*  player.getPiece().setSquare(board.getSquareList()[12]);
+
                         if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
-                            ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
-                            if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine(), board)){
-                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
+                            tempFine = 10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine();
+                            if(player.isAbleDecreaseMoney(tempFine, board)){
+                                player.getMoney().decreaseMoney(tempFine);
+                                ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(tempFine);
                             }
                             else{
-                                player.setIsBankrupted(true);
+                               // player.setIsBankrupted(true);
+                                player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
                             }
-                        }
+                        }*/
                         break;
                     }
                 } else if (player.getPiece().getSquare().getSquareID() > 12 && player.getPiece().getSquare().getSquareID() < 28) {
@@ -83,7 +92,9 @@ public class ChanceCard{
                             board.getChanceCard().remove(0);
                             mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                         } else {
-                            player.getPiece().setSquare(board.getSquareList()[12]);
+                            payUtility((UtilitySquare) board.getSquareList()[12], player, board);
+
+                     /*      player.getPiece().setSquare(board.getSquareList()[12]);
                             if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
                                 ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal()- ((UtilitySquare)board.getSquareList()[12]).getFine());
                                 if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine(), board)){
@@ -92,19 +103,21 @@ public class ChanceCard{
                                 else{
                                     player.setIsBankrupted(true);
                                 }
-                            }
+                            }*/
                             break;
                         }
                     } else {
-                        player.getPiece().setSquare(board.getSquareList()[28]);
-                        if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
-                            ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                            if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine(), board)){
-                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine());
-                            }
-                            else{
+                        payUtility((UtilitySquare)board.getSquareList()[28], player, board);
+
+                     /*   player.getPiece().setSquare(board.getSquareList()[28]);
+                        if (((UtilitySquare) (board.getSquareList()[28])).getHasOwner()) {
+                            ((UtilitySquare) board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare) board.getSquareList()[28]).getFine());
+                            if (player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare) board.getSquareList()[28]).getFine(), board)) {
+                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare) board.getSquareList()[28]).getFine());
+                            } else {
                                 player.setIsBankrupted(true);
-                            }                        }
+                            }
+                        }*/
                         break;
                     }
                 }
@@ -120,19 +133,19 @@ public class ChanceCard{
                     nearestTransport(player, board, 25);
                     break;
                 } else if (player.getPiece().getSquare().getSquareID() > 25 && player.getPiece().getSquare().getSquareID() < 35) {
-                   nearestTransport(player, board, 35);
-                   break;
+                    nearestTransport(player, board, 35);
+                    break;
                 }
             case 6:
                 player.getMoney().increaseMoney(50);
                 break;
             case 7:
-                if(this.hasOwner == false){
+                if (this.hasOwner == false) {
                     this.hasOwner = true;
                     player.setOutOfJailCard(true);
                     player.setChanceOutOfJail(this);
                     System.out.println(player.getPlayerName() + " get change go out of jail card!!");
-                }else{
+                } else {
                     board.getChanceCard().add(board.getChanceCard().get(0));
                     board.getChanceCard().remove(0);
                     mpGame.takeChangeCard(board.getChanceCard().get(0), player);
@@ -149,28 +162,21 @@ public class ChanceCard{
                 player.getPiece().setSquare(board.getSquareList()[10]);
                 break;
             case 10:
-                int decrease = 0;
-                for(int i = 0; i < board.getSquareList().length; i++){
-                    if(board.getSquareList()[i] instanceof PropertySquare){
-                        if(((PurchasableSquare)(board.getSquareList()[i])).getOwner() == player){
-                            decrease += ((PropertySquare)(board.getSquareList()[i])).getHouseCount() * 25;
-                            decrease += ((PropertySquare)(board.getSquareList()[i])).getHotelCount() * 100;
-                        }
-                    }
-                }
-                if(player.isAbleDecreaseMoney(decrease, board)){
-                    player.getMoney().decreaseMoney(decrease);
-                }
-                else{
-                    player.setIsBankrupted(true);
+                tempFine = player.getHouseCount() * 40 + player.getHotelCount() * 115;
+                if (player.isAbleDecreaseMoney(tempFine, board))
+                    player.getMoney().decreaseMoney(tempFine);
+
+                else {
+                   // player.setIsBankrupted(true);
+                    player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
                 }
                 break;
             case 11:
-                if(player.isAbleDecreaseMoney(15, board)){
+                if (player.isAbleDecreaseMoney(15, board)) {
                     player.getMoney().decreaseMoney(15);
-                }
-                else{
-                    player.setIsBankrupted(true);
+                } else {
+                   // player.setIsBankrupted(true);
+                    player.playerGoesToBankrupt(15, player.getPiece().getSquare());
                 }
                 break;
             case 12:
@@ -197,14 +203,14 @@ public class ChanceCard{
                     break;
                 }
             case 14:
-                for(int i = 0; i < mpGame.getPlayerList().length; i++){
-                    if(mpGame.getPlayerList()[i] != null && mpGame.getPlayerList()[i] != player){
+                for (int i = 0; i < mpGame.getPlayerList().length; i++) {
+                    if (mpGame.getPlayerList()[i] != null && mpGame.getPlayerList()[i] != player) {
                         mpGame.getPlayerList()[i].getMoney().increaseMoney(50);
-                        if(player.isAbleDecreaseMoney(50, board)){
+                        if (player.isAbleDecreaseMoney(50, board)) {
                             player.getMoney().decreaseMoney(50);
-                        }
-                        else{
-                            player.setIsBankrupted(true);
+                        } else {
+                           // player.setIsBankrupted(true);
+                            player.playerGoesToBankrupt(50, player.getPiece().getSquare());
                         }
                     }
                 }
@@ -219,9 +225,6 @@ public class ChanceCard{
         }
     }
 
-    //ACTION METHODS
-
-
     public int getId() {
         return id;
     }
@@ -230,7 +233,7 @@ public class ChanceCard{
         return action;
     }
 
-    private void nearestTransport(Player player, Board board, int temp){
+    private void nearestTransport(Player player, Board board, int temp) {
         int control = 0;
         while (board.getSquareList()[temp] instanceof GoToJailSquare) {
             temp += 10;
@@ -242,12 +245,11 @@ public class ChanceCard{
         }
         if (control != 4) {
             player.getPiece().setSquare(board.getSquareList()[temp]);
-            if( ((TransportSquare)board.getSquareList()[temp]).getHasOwner() ){
-                ((TransportSquare)board.getSquareList()[temp]).getOwner().getMoney().increaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
-                if(player.isAbleDecreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine(), board)){
-                    player.getMoney().decreaseMoney(((TransportSquare)board.getSquareList()[temp]).getFine());
-                }
-                else{
+            if (((TransportSquare) board.getSquareList()[temp]).getHasOwner()) {
+                ((TransportSquare) board.getSquareList()[temp]).getOwner().getMoney().increaseMoney(((TransportSquare) board.getSquareList()[temp]).getFine());
+                if (player.isAbleDecreaseMoney(((TransportSquare) board.getSquareList()[temp]).getFine(), board)) {
+                    player.getMoney().decreaseMoney(((TransportSquare) board.getSquareList()[temp]).getFine());
+                } else {
                     player.setIsBankrupted(true);
                 }
             }
@@ -257,6 +259,21 @@ public class ChanceCard{
             return;
         }
 
+    }
+
+    public void payUtility(UtilitySquare utility, Player player, Board board) {
+        player.getPiece().setSquare(utility);
+        int tempFine;
+        if (utility.getHasOwner()) {
+            tempFine = 10 * player.getChoiceDice().getTotal() - utility.getFine();
+            if (player.isAbleDecreaseMoney(tempFine, board)) {
+                player.getMoney().decreaseMoney(tempFine);
+                utility.getOwner().getMoney().increaseMoney(tempFine);
+            } else {
+                //player.setIsBankrupted(true);
+                player.playerGoesToBankrupt(tempFine, utility);
+            }
+        }
     }
 
     public boolean hasOwner() {

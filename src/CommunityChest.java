@@ -25,7 +25,8 @@ public class CommunityChest {
                 if (player.isAbleDecreaseMoney(50, board)) {
                     player.getMoney().decreaseMoney(50);
                 } else {
-                    player.setIsBankrupted(true);
+                   // player.setIsBankrupted(true);
+                    player.playerGoesToBankrupt(50, player.getPiece().getSquare());
                 }
                 break;
             case 4:
@@ -66,14 +67,15 @@ public class CommunityChest {
                 player.getMoney().increaseMoney(25);
                 break;
             case 15:
-                for (int i = 0; i < player.getProperties().size(); i++) {
-                    if (player.isAbleDecreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115, board))
-                        player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115);
 
-                    else {
-                        player.setIsBankrupted(true);
-                    }
+                if (player.isAbleDecreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115, board))
+                    player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115);
+
+                else {
+                   // player.setIsBankrupted(true);
+                    player.playerGoesToBankrupt(player.getHouseCount() * 40 + player.getHotelCount() * 115, player.getPiece().getSquare());
                 }
+
                 break;
             case 16:
                 player.getMoney().increaseMoney(10);
@@ -97,7 +99,8 @@ public class CommunityChest {
                     if (mpGame.getPlayerList()[i].isAbleDecreaseMoney(tempFine, board)) {
                         mpGame.getPlayerList()[i].getMoney().decreaseMoney(tempFine);
                     } else {
-                        player.setIsBankrupted(true);
+                        //player.setIsBankrupted(true);
+                        player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
                         break;
                     }
                     // If player goes to bankruptcy
