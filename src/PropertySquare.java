@@ -126,27 +126,43 @@ public class PropertySquare extends PurchasableSquare {
     }
 
 
-    public void sellHouse(Player player, MonopolyGame mpGame) {
-        player.rollChoiceDice();
+    public void sellHouse(Player player) {
 
-        if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
-            // BURADA SIKINTI ÇIKABİLİR GİRİLEN SAYILARA GÖRE DOUBLE OLMASINI İSTEYECEK
-            System.out.println("EV SATTI");
-            player.getMoney().increaseMoney((int) (housePrice / 2));
-            houseCount--;
-        }
+        System.out.println("EV SATTI");
+        player.getMoney().increaseMoney(housePrice / 2);
+        houseCount--;
+
     }
 
+    // Şaibeli
     public void sellHotel(Player player, MonopolyGame mpGame) {
-        player.rollChoiceDice();
 
-        if (player.getChoiceDice().getTotal() > mpGame.getThreshold()) {
-            // BURADA SIKINTI ÇIKABİLİR GİRİLEN SAYILARA GÖRE DOUBLE OLMASINI İSTEYECEK
-            System.out.println("OTEL SATTI");
-            player.getMoney().increaseMoney((int) (housePrice / 2));
-            houseCount = 4;
-            hotelCount--;
+        System.out.println("OTEL SATTI");
+        player.getMoney().increaseMoney(housePrice / 2);
+
+
+        for (int i = 0; i < mpGame.getHouseList().size(); i++) {
+            if (mpGame.getHouseList().get(i).getSquare() == null) {
+                mpGame.getHouseList().get(i).setSquare(this);
+                this.increaseHouseCount();
+                player.increaseHouseCount(); // player için
+            }
         }
+        for (int i = 0; i < mpGame.getHotelList().size(); i++) {
+            if (mpGame.getHotelList().get(i).getOwner() == player) {
+                mpGame.getHotelList().get(i).setOwner(null);
+                mpGame.getHotelList().get(i).setSquare(null);
+                this.decreaseHotelCount();
+                player.decreaseHotelCount(); //player
+                System.out.println("SQUARE HOUSE COUNT: " + this.getHouseCount());
+                System.out.println("SQUARE HOTEL COUNT: " + this.getHotelCount());
+                System.out.println(player.getPlayerName() + " has sattı a hotel on " + this.getSquareName());
+                break;
+            }
+        }
+
+        player.getMoney().increaseMoney((housePrice / 2) * (5 - hotelCount));
+
     }
 
     public boolean isHasOwner() {
@@ -215,18 +231,18 @@ public class PropertySquare extends PurchasableSquare {
 
     @Override
     public boolean getIsMortgaged() {
-        return false;
+        return isMortgaged;
     }
 
     public void setMortgaged(boolean mortgaged) {
         isMortgaged = mortgaged;
     }
 
-    public void setHasAllColors(boolean bool){
+    public void setHasAllColors(boolean bool) {
         this.hasAllColors = bool;
     }
 
-    public boolean getHasAllColors(){
+    public boolean getHasAllColors() {
         return this.hasAllColors;
     }
 }

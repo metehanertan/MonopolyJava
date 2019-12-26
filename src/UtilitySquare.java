@@ -111,7 +111,7 @@ public class UtilitySquare extends PurchasableSquare {
 
     @Override
     public boolean getIsMortgaged() {
-        return false;
+        return isMortgaged;
     }
 
     public void setMortgaged(boolean mortgaged) {
