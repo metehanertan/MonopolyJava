@@ -309,7 +309,6 @@ public class Player {
         if(tempSquare.getIsMortgaged() == false){
             money.increaseMoney(tempSquare.getMortgage());
             tempSquare.setMortgaged(true);
-            System.out.println(tempSquare.getIsMortgaged());
             this.hasMortgaged = true;
             System.out.println("PROPERTY MORTGAGE " + tempSquare.getSquareName());
         }
@@ -335,7 +334,6 @@ public class Player {
                 tempSquare = properties.get(i);
             }
         }
-
 
         if(tempSquare.getIsMortgaged() == false){
             money.increaseMoney(tempSquare.getMortgage());
@@ -364,6 +362,7 @@ public class Player {
                         check = false;
                         money.decreaseMoney(properties.get(j).getMortgage());
                         properties.get(j).setMortgaged(false);
+                        System.out.println(playerName + " get back '" + properties.get(j).getSquareName() + "' from mortgage!");
                     }
                 }
             }
@@ -372,7 +371,6 @@ public class Player {
         hasMortgaged = check;
     }
 
-    //aynı renkler mi
     public boolean isAllPropertiesSet(Board board) {
         boolean check = false;
         for (int i = 0; i < properties.size(); i++) {
@@ -412,9 +410,8 @@ public class Player {
             if (pSquare instanceof TransportSquare) {
                 this.addTransportList(pSquare);
             }
-            //     if(pSquare instanceof PropertySquare){
             this.addProperty(pSquare);
-            //       }
+
             this.getMoney().decreaseMoney(pSquare.getPrice());
             System.out.println("***" + this.getPlayerName() + " BOUGHT " + pSquare.getSquareName() + "***");
         }
@@ -507,7 +504,6 @@ public class Player {
                 } else {
                     if (!mortgageSets()) {
                         break;
-
                     }
                 }
             }
@@ -519,12 +515,17 @@ public class Player {
         }
     }
 
-    public void playerGoesToBankrupt(int fine, Player owner) {
+    public void playerGoesToBankrupt(int fine, Square square) {
         money.decreaseMoney(fine);
 
-        owner.getMoney().increaseMoney(fine + money.getCurrentMoney());
-        System.out.println("***" + playerName + " HAS PAID \'" + (fine + money.getCurrentMoney()) + "$\' TO "
-                + owner.getPlayerName() + "***");
+        if(square instanceof PurchasableSquare){
+            ((PurchasableSquare) square).getOwner().getMoney().increaseMoney(fine + money.getCurrentMoney());
+            System.out.println("***" + playerName + " HAS PAID \'" + (fine + money.getCurrentMoney()) + "$\' TO "
+                    + ((PurchasableSquare) square).getOwner().getPlayerName() + "***");
+        }else{
+            System.out.println("***" + playerName + " CAN NOT PAID \'" + fine
+                    + "$\' TO THE BANK***");
+        }
 
         System.out.println("!!! " + playerName + " HAS GONE BANKRUPT!!!\n");
 

@@ -90,12 +90,17 @@ public class UtilitySquare extends PurchasableSquare {
         if (player != owner && isMortgaged == false) {
             // Check if the owner is in jail
             if (!owner.isInJail()) {
-                int tempFine = owner.getUtilityCount() * getFine(player.getMoveDice().getTotal());
+                int tempFine = getFine(player.getMoveDice().getTotal());;
+
+                if(owner.getUtilityCount() == 2){
+                    int tempRate = 10;
+                    tempFine = tempRate * player.getMoveDice().getTotal();
+                }
 
                 if(player.isAbleDecreaseMoney(tempFine, board)){
                     player.payMoneyToOwner(owner, tempFine);
                 }else{
-                    player.playerGoesToBankrupt(tempFine, owner);
+                    player.playerGoesToBankrupt(tempFine, this);
                 }
             }
             else{

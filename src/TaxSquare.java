@@ -38,8 +38,18 @@ public class TaxSquare extends Square {
         return this.fine;
     }
 
-    public void payTax(Player player){
+    public void payTax(Player player, Board board){
 
+        if (player.isAbleDecreaseMoney(fine, board)) {
+            player.getMoney().decreaseMoney(fine);
+            System.out.println("***" + player.getPlayerName() + " HAS PAID \'" + fine + "$\' TO BANK FOR TAXES***");
+            player.setInJail(false);
+        } else {
+            System.out.println("!!! " + player.getPlayerName() + " HAS GONE BANKRUPT!!!\n");
+            player.setIsBankrupted(true);
+        }
+
+        /*
         // Player sells his properties if he has not enough money to pay fine
         while (player.getMoney().getCurrentMoney() <= fine) {
             if (!player.mortgageProperty()){
@@ -59,6 +69,6 @@ public class TaxSquare extends Square {
 
         }else{
             System.out.println("***" + player.getPlayerName() + " HAS PAID \'" + fine + "$\' TO BANK***");
-        }
+        }*/
     }
 }

@@ -46,16 +46,29 @@ public class JailSquare extends Square {
         }
     }
 
-    public int playerDoesntWantPayForJail(Player player, MonopolyGame mpGame, int i){
+    public boolean playerDoesntWantPayForJail(Player player, Board board, int i) {
         // Check the player how many turns in the jail
         if (player.getJailTurnCounter() < 3) {
             player.increaseJailTurnCounter();
-            i++;
-            return i;
+            System.out.println(player.getPlayerName() + " stays in the jail! JailCount = " + player.getJailTurnCounter());
+           // i++;
+          //  return i;
+            return true;
         } else {
+
+            if (player.isAbleDecreaseMoney(jailFine, board)) {
+                player.getMoney().decreaseMoney(jailFine);
+                System.out.println("***" + player.getPlayerName() + " HAS PAID \'" + jailFine
+                        + "$\' TO THE BANK FOR GO OUT FROM JAIL***");
+                player.setInJail(false);
+            } else {
+                System.out.println("!!! " + player.getPlayerName() + " HAS GONE BANKRUPT!!!\n");
+                player.setIsBankrupted(true);
+            }
+            /*
             // Player sells his properties if he has not enough money to pay fine
             while (player.getMoney().getCurrentMoney() <= jailFine) {
-                if (!player.mortgageProperty()){
+                if (!player.mortgageProperty()) {
                     break;
                 }
             }
@@ -69,9 +82,10 @@ public class JailSquare extends Square {
                 player.setIsBankrupted(true);
 
             }
-            player.setInJail(false);
+            player.setInJail(false);*/
         }
-        return i;
+        //return i;
+        return false;
     }
 
 

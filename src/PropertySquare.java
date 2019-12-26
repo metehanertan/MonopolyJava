@@ -117,7 +117,7 @@ public class PropertySquare extends PurchasableSquare {
                 if (player.isAbleDecreaseMoney(tempFine, board)) {
                     player.payMoneyToOwner(owner, tempFine);
                 } else {
-                    player.playerGoesToBankrupt(tempFine, owner);
+                    player.playerGoesToBankrupt(tempFine, this);
                 }
             } else {
                 System.out.println("*The owner " + owner.getPlayerName() + " is in Jail*");
