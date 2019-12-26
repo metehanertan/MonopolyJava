@@ -471,11 +471,12 @@ public class Player {
     }
 
     public boolean isAbleDecreaseMoney(int fine, Board board) {
+        System.out.println(playerName + " needs " + fine + "$ and has " + money.getCurrentMoney() + "$");
         if (money.getCurrentMoney() > fine) {
             return true;
         } else {
             // Player sells his properties if he has not enough money to pay fine
-            while (money.getCurrentMoney() <= fine) {
+            while (money.getCurrentMoney() <= fine && isBankrupted == false) {
 
                 if (!isAllPropertiesSet(board)) {
                     if (!mortgageProperty()) {
@@ -529,6 +530,17 @@ public class Player {
 
         System.out.println("!!! " + playerName + " HAS GONE BANKRUPT!!!\n");
 
+        if(properties != null && properties.size() > 0){
+            for(PurchasableSquare pSquare : properties){
+                pSquare.setOwner(null);
+                pSquare.setHasOwner(false);
+                pSquare.setMortgaged(false);
+            }
+        }
+
+        properties = null;
+        transportList = null;
+        utilityList = null;
         isBankrupted = true;
 
     }

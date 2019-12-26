@@ -128,16 +128,14 @@ public class PropertySquare extends PurchasableSquare {
 
     public void sellHouse(Player player) {
 
-        System.out.println("EV SATTI");
+        System.out.println(player.getPlayerName() + " has sold a house on " + this.getSquareName());
         player.getMoney().increaseMoney(housePrice / 2);
         houseCount--;
 
     }
 
-    // Şaibeli
     public void sellHotel(Player player, MonopolyGame mpGame) {
 
-        System.out.println("OTEL SATTI");
         player.getMoney().increaseMoney(housePrice / 2);
 
 
@@ -156,7 +154,7 @@ public class PropertySquare extends PurchasableSquare {
                 player.decreaseHotelCount(); //player
                 System.out.println("SQUARE HOUSE COUNT: " + this.getHouseCount());
                 System.out.println("SQUARE HOTEL COUNT: " + this.getHotelCount());
-                System.out.println(player.getPlayerName() + " has sattı a hotel on " + this.getSquareName());
+                System.out.println(player.getPlayerName() + " has sold a hotel on " + this.getSquareName());
                 break;
             }
         }
