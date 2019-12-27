@@ -80,8 +80,10 @@ public class Player {
 
     // Print report after any action
     public void reportAfterAction() {
-        System.out.println(playerName + "'s New balance : " + this.money.getCurrentMoney());
-        System.out.println();
+        if(isBankrupted == false){
+            System.out.println(playerName + "'s New balance : " + this.money.getCurrentMoney());
+            System.out.println();
+        }
     }
 
     // Check if player has all same property colors
