@@ -51,8 +51,7 @@ public class JailSquare extends Square {
         if (player.getJailTurnCounter() < 3) {
             player.increaseJailTurnCounter();
             System.out.println(player.getPlayerName() + " stays in the jail! JailCount = " + player.getJailTurnCounter());
-           // i++;
-          //  return i;
+
             return true;
         } else {
 
@@ -65,26 +64,9 @@ public class JailSquare extends Square {
                 System.out.println("!!! " + player.getPlayerName() + " HAS GONE BANKRUPT!!!\n");
                 player.setIsBankrupted(true);
             }
-            /*
-            // Player sells his properties if he has not enough money to pay fine
-            while (player.getMoney().getCurrentMoney() <= jailFine) {
-                if (!player.mortgageProperty()) {
-                    break;
-                }
-            }
 
-            player.getMoney().decreaseMoney(jailFine);
-            System.out.println("***" + player.getPlayerName() + " HAS PAID \'" + jailFine
-                    + "$\' TO THE BANK FOR GO OUT FROM JAIL***");
-            if (player.getMoney().getCurrentMoney() <= 0) {
-                System.out.println("!!! " + player.getPlayerName() + " HAS GONE BANKRUPT!!!\n");
-
-                player.setIsBankrupted(true);
-
-            }
-            player.setInJail(false);*/
         }
-        //return i;
+
         return false;
     }
 

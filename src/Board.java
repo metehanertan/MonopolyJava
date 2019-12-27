@@ -78,11 +78,6 @@ public class Board {
     }
 
 
-    // Getter method for board size.
-    public int getBoardSize() {
-        return BOARD_SIZE;
-    }
-
     // Getter method for square list
     public Square[] getSquareList() {
         return this.squareList;

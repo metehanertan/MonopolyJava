@@ -75,9 +75,7 @@ public class PropertySquare extends PurchasableSquare {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+
 
     public Player getOwner() {
         return owner;
@@ -174,9 +172,6 @@ public class PropertySquare extends PurchasableSquare {
 
     }
 
-    public boolean isHasOwner() {
-        return hasOwner;
-    }
 
     public int getHouseCount() {
         return houseCount;
@@ -190,13 +185,7 @@ public class PropertySquare extends PurchasableSquare {
         return housePrice;
     }
 
-    public void setHouseCount(int houseCount) {
-        this.houseCount = houseCount;
-    }
 
-    public void setHotelCount(int hotelCount) {
-        this.hotelCount = hotelCount;
-    }
 
     public void decreaseHouseCount() {
         this.houseCount--;

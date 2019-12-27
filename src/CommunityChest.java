@@ -26,7 +26,7 @@ public class CommunityChest {
                 if (player.isAbleDecreaseMoney(50, board)) {
                     player.getMoney().decreaseMoney(50);
                 } else {
-                    // player.setIsBankrupted(true);
+
                     player.playerGoesToBankrupt(50, player.getPiece().getSquare());
                 }
                 break;
@@ -74,7 +74,7 @@ public class CommunityChest {
                     System.out.println(player.getPlayerName() + " HAS PAID " + tempFine + "$ TO BANK!!");
                 }
                 else{
-                // player.setIsBankrupted(true);
+
                 player.playerGoesToBankrupt(player.getHouseCount() * 40 + player.getHotelCount() * 115, player.getPiece().getSquare());
             }
 
@@ -101,7 +101,7 @@ public class CommunityChest {
                     if (mpGame.getPlayerList()[i].isAbleDecreaseMoney(tempFine, board)) {
                         mpGame.getPlayerList()[i].getMoney().decreaseMoney(tempFine);
                     } else {
-                        //player.setIsBankrupted(true);
+
                         player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
                         break;
                     }
@@ -129,10 +129,6 @@ public class CommunityChest {
 
     public String getAction() {
         return action;
-    }
-
-    public boolean hasOwner() {
-        return hasOwner;
     }
 
     public void setHasOwner(boolean hasOwner) {

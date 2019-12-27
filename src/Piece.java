@@ -19,9 +19,6 @@ public class Piece {
     }
 
     //Setter method for piece.
-    public void setPieceType(String pieceType) {
-        this.pieceType = pieceType;
-    }
 
     //move method.
     public void move(int move, Player player, int goMoney) {

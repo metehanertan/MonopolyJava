@@ -52,37 +52,15 @@ public class ChanceCard {
                             mpGame.takeChangeCard(board.getChanceCard().get(0), player);
                             break;
                         } else {
-                            //player.getPiece().setSquare(board.getSquareList()[28]);
+
                             payUtility((UtilitySquare) board.getSquareList()[28], player, board);
-                            /*if(((UtilitySquare)(board.getSquareList()[28])).getHasOwner()){
-                                tempFine = 10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[28]).getFine();
-                                if(player.isAbleDecreaseMoney(tempFine, board)){
-                                    player.getMoney().decreaseMoney(tempFine);
-                                    ((UtilitySquare)board.getSquareList()[28]).getOwner().getMoney().increaseMoney(tempFine);
-                                }
-                                else{
-                                    //player.setIsBankrupted(true);
-                                    player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
-                                }
-                            }*/
+
                             break;
                         }
                     } else {
                         payUtility((UtilitySquare) board.getSquareList()[12], player, board);
 
-                      /*  player.getPiece().setSquare(board.getSquareList()[12]);
 
-                        if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
-                            tempFine = 10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine();
-                            if(player.isAbleDecreaseMoney(tempFine, board)){
-                                player.getMoney().decreaseMoney(tempFine);
-                                ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(tempFine);
-                            }
-                            else{
-                               // player.setIsBankrupted(true);
-                                player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
-                            }
-                        }*/
                         break;
                     }
                 } else if (player.getPiece().getSquare().getSquareID() > 12 && player.getPiece().getSquare().getSquareID() < 28) {
@@ -94,30 +72,11 @@ public class ChanceCard {
                         } else {
                             payUtility((UtilitySquare) board.getSquareList()[12], player, board);
 
-                     /*      player.getPiece().setSquare(board.getSquareList()[12]);
-                            if(((UtilitySquare)(board.getSquareList()[12])).getHasOwner()){
-                                ((UtilitySquare)board.getSquareList()[12]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal()- ((UtilitySquare)board.getSquareList()[12]).getFine());
-                                if(player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine(), board)){
-                                    player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare)board.getSquareList()[12]).getFine());
-                                }
-                                else{
-                                    player.setIsBankrupted(true);
-                                }
-                            }*/
                             break;
                         }
                     } else {
                         payUtility((UtilitySquare)board.getSquareList()[28], player, board);
 
-                     /*   player.getPiece().setSquare(board.getSquareList()[28]);
-                        if (((UtilitySquare) (board.getSquareList()[28])).getHasOwner()) {
-                            ((UtilitySquare) board.getSquareList()[28]).getOwner().getMoney().increaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare) board.getSquareList()[28]).getFine());
-                            if (player.isAbleDecreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare) board.getSquareList()[28]).getFine(), board)) {
-                                player.getMoney().decreaseMoney(10 * player.getChoiceDice().getTotal() - ((UtilitySquare) board.getSquareList()[28]).getFine());
-                            } else {
-                                player.setIsBankrupted(true);
-                            }
-                        }*/
                         break;
                     }
                 }
@@ -168,7 +127,7 @@ public class ChanceCard {
                     System.out.println(player.getPlayerName() + " HAS PAID " + tempFine + "$ TO BANK!!");
                 }
                 else {
-                   // player.setIsBankrupted(true);
+
                     player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
                 }
                 break;
@@ -176,7 +135,7 @@ public class ChanceCard {
                 if (player.isAbleDecreaseMoney(15, board)) {
                     player.getMoney().decreaseMoney(15);
                 } else {
-                   // player.setIsBankrupted(true);
+
                     player.playerGoesToBankrupt(15, player.getPiece().getSquare());
                 }
                 break;
@@ -210,7 +169,7 @@ public class ChanceCard {
                         if (player.isAbleDecreaseMoney(50, board)) {
                             player.getMoney().decreaseMoney(50);
                         } else {
-                           // player.setIsBankrupted(true);
+
                             player.playerGoesToBankrupt(50, player.getPiece().getSquare());
                         }
                     }
@@ -271,15 +230,13 @@ public class ChanceCard {
                 player.getMoney().decreaseMoney(tempFine);
                 utility.getOwner().getMoney().increaseMoney(tempFine);
             } else {
-                //player.setIsBankrupted(true);
+
                 player.playerGoesToBankrupt(tempFine, utility);
             }
         }
     }
 
-    public boolean hasOwner() {
-        return hasOwner;
-    }
+
 
     public void setHasOwner(boolean hasOwner) {
         this.hasOwner = hasOwner;
