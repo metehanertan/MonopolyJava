@@ -1,33 +1,45 @@
 import org.junit.Test;
+
 import static org.junit.Assert.*;
-
-import java.io.IOException;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import java.io.FileReader;
+import java.util.ArrayList;
 
 public class BoardTest {
-    String[] properties = {"KADIKÖY", "TAKSİM", "KARAKÖY", "ÇANAKKALE", "4.LEVENT", "BAĞDAT CADDESİ", "ACIBADEM", "EMİNÖNÜ", "FATİH", "BURSA",
-            "ESKİŞEHİR", "ANKARA", "BEŞİKTAŞ", "OSMANBEY", "HALKALI", "GÖZTEPE", "ERENKÖY","BEYLİKDÜZÜ", "BEYOĞLU", "ŞİŞLİ", "BEYKOZ", "ÜMRANİYE"};
-    int[] propertyFine = {3, 3, 5, 5, 6, 7, 7, 8, 9, 9, 10, 11, 11, 12, 13, 13, 14, 15, 15, 16, 18, 20};
-    int[] propertyPrice = {6, 6, 10, 10, 12, 14, 14, 16, 18, 18, 20, 22, 22, 24, 26, 26, 28, 30, 30, 32, 36, 40};
-    String[] propertyColor = {"Blue", "Brown", "Red", "Yellow", "Orange", "Green", "Black", "Gray"};
-    String[] utilityName = {"ELECTRIC", "WATER"};
-    int[] utilityRate = {1, 1};
-    int[] utilityPrice = {15, 15};
-    String[] transportName = {"OTOBUS","METRO","METROBUS","UCAK"};
-    int[] transportFine = {5, 5, 5, 5};
-    int[] transportPrice = {20, 20, 20, 20};
-    int[] taxFine = {20, 10};
-    String[] taxSquares = {"INCOME TAX", "LUXURY TAX"};
-    int goToJailNumber = 3;
-/*
+    FileReaderJson fileReader = new FileReaderJson();
+
+
+    String[] properties = fileReader.getProperties();
+    int[] propertyFine = fileReader.getPropertyFine();
+    int[] propertyPrice = fileReader.getPropertyPrice();
+    String[] propertyColor = fileReader.getPropertyColor();
+    String[] utilityName = fileReader.getUtilityName();
+    int[] utilityRate = fileReader.getUtilityRate();
+    int[] utilityPrice = fileReader.getUtilityPrice();
+    String[] transportName = fileReader.getTransportName();
+    int[] transportFine = fileReader.getTransportFine();
+    int[] transportPrice = fileReader.getTransportPrice();
+    int[] taxFine = fileReader.getTaxFine();
+    String[] taxSquares = fileReader.getTaxSquares();
+    int goToJailNumber = fileReader.getIntGoToJailNumber();
+    int jailFine = fileReader.getIntJailFine();
+    int houseNumber = fileReader.getMaxHouseNumber();
+    int hotelNumber = fileReader.getMaxHotelNumber();
+    int[] rent1 = fileReader.getRent1();
+    int[] rent2 = fileReader.getRent2();
+    int[] rent3 = fileReader.getRent3();
+    int[] rent4 = fileReader.getRent4();
+    int[] hotelRent = fileReader.getHotel();
+    int[] mortgage = fileReader.getMortgage();
+    int[] pricePerHouse = fileReader.getPricePerHouse();
+    int[] utilityMortgage = fileReader.getUtilityMortgage();
+    int[] transportMortgage = fileReader.getTransportMortgage();
+    ArrayList<String> comChest = fileReader.getCommunityChestCards();
+    ArrayList<String> chanceCard = fileReader.getChanceCards();
+
     @Test
     public void testGoSquare(){
         Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
+                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber,jailFine,rent1,rent2,rent3,rent4,hotelRent,mortgage,pricePerHouse,houseNumber,
+                hotelNumber,comChest,chanceCard,utilityMortgage,transportMortgage);
         board.setSquareList();
         Square[] squares = board.getSquareList();
 
@@ -37,7 +49,8 @@ public class BoardTest {
     @Test
     public void testGoJailSquares(){
         Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
+                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber,jailFine,rent1,rent2,rent3,rent4,hotelRent,mortgage,pricePerHouse,houseNumber,
+                hotelNumber,comChest,chanceCard,utilityMortgage,transportMortgage);
         board.setSquareList();
         Square[] squares = board.getSquareList();
 
@@ -55,7 +68,8 @@ public class BoardTest {
     @Test
     public void testJailSquare(){
         Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
+                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber,jailFine,rent1,rent2,rent3,rent4,hotelRent,mortgage,pricePerHouse,houseNumber,
+                hotelNumber,comChest,chanceCard,utilityMortgage,transportMortgage);
         board.setSquareList();
         Square[] squares = board.getSquareList();
 
@@ -65,7 +79,8 @@ public class BoardTest {
     @Test
     public void testFreeParkingSquare(){
         Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
+                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber,jailFine,rent1,rent2,rent3,rent4,hotelRent,mortgage,pricePerHouse,houseNumber,
+                hotelNumber,comChest,chanceCard,utilityMortgage,transportMortgage);
         board.setSquareList();
         Square[] squares = board.getSquareList();
 
@@ -73,64 +88,5 @@ public class BoardTest {
     }
 
 
-    @Test
-    public void testFirstNormalSquare(){
-        Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
-        board.setSquareList();
-        Square[] squares = board.getSquareList();
 
-        assertTrue("2nd square must be Normal Square.",squares[2] instanceof NormalSquare);
-    }
-
-    @Test
-    public void testSecondNormalSquare(){
-        Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
-        board.setSquareList();
-        Square[] squares = board.getSquareList();
-
-        assertTrue("7th square must be Normal Square.",squares[7] instanceof NormalSquare);
-    }
-
-    @Test
-    public void testThirdNormalSquare(){
-        Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
-        board.setSquareList();
-        Square[] squares = board.getSquareList();
-
-        assertTrue("17th square must be Normal Square.",squares[17] instanceof NormalSquare);
-    }
-
-    @Test
-    public void testFourthNormalSquare(){
-        Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
-        board.setSquareList();
-        Square[] squares = board.getSquareList();
-
-        assertTrue("22th square must be Normal Square.",squares[22] instanceof NormalSquare);
-    }
-
-    @Test
-    public void testFifthNormalSquare(){
-        Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
-        board.setSquareList();
-        Square[] squares = board.getSquareList();
-
-        assertTrue("33th square must be Normal Square.",squares[33] instanceof NormalSquare);
-    }
-
-    @Test
-    public void testSixthNormalSquare(){
-        Board board = new Board(properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
-                transportFine, transportPrice, taxFine, taxSquares, goToJailNumber);
-        board.setSquareList();
-        Square[] squares = board.getSquareList();
-
-        assertTrue("36th square must be Normal Square.",squares[36] instanceof NormalSquare);
-    }
-*/
 }
