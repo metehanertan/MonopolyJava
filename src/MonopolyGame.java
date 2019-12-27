@@ -429,6 +429,10 @@ public class MonopolyGame {
         return this.threshold;
     }
 
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
     public int getGoMoney() {
         return goMoney;
     }

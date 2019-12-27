@@ -224,5 +224,7 @@ public class Board {
         return chanceCard;
     }
 
-
+    public void setGoToJailNumber(int goToJailNumber) {
+        this.goToJailNumber = goToJailNumber;
+    }
 }
