@@ -10,6 +10,7 @@ public class CommunityChest {
     }
 
     public void chooseAction(int id, Player player, Board board, MonopolyGame mpGame) {
+        int tempFine;
         switch (id) {
 
             case 1:
@@ -25,7 +26,7 @@ public class CommunityChest {
                 if (player.isAbleDecreaseMoney(50, board)) {
                     player.getMoney().decreaseMoney(50);
                 } else {
-                   // player.setIsBankrupted(true);
+                    // player.setIsBankrupted(true);
                     player.playerGoesToBankrupt(50, player.getPiece().getSquare());
                 }
                 break;
@@ -48,7 +49,7 @@ public class CommunityChest {
                 player.getPiece().setSquare(board.getSquareList()[10]);
                 break;
             case 7:
-                int tempFine = 50;
+                tempFine = 50;
                 collectMoneyFromAllPlayers(player, mpGame, tempFine, board);
                 break;
             case 8:
@@ -67,16 +68,17 @@ public class CommunityChest {
                 player.getMoney().increaseMoney(25);
                 break;
             case 15:
-
-                if (player.isAbleDecreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115, board))
-                    player.getMoney().decreaseMoney(player.getHouseCount() * 40 + player.getHotelCount() * 115);
-
-                else {
-                   // player.setIsBankrupted(true);
-                    player.playerGoesToBankrupt(player.getHouseCount() * 40 + player.getHotelCount() * 115, player.getPiece().getSquare());
+                tempFine = player.getHouseCount() * 40 + player.getHotelCount() * 115;
+                if (player.isAbleDecreaseMoney(tempFine, board)){
+                    player.getMoney().decreaseMoney(tempFine);
+                    System.out.println(player.getPlayerName() + " HAS PAID " + tempFine + "$ TO BANK!!");
                 }
+                else{
+                // player.setIsBankrupted(true);
+                player.playerGoesToBankrupt(player.getHouseCount() * 40 + player.getHotelCount() * 115, player.getPiece().getSquare());
+            }
 
-                break;
+            break;
             case 16:
                 player.getMoney().increaseMoney(10);
                 break;

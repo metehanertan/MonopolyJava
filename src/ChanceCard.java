@@ -163,9 +163,10 @@ public class ChanceCard {
                 break;
             case 10:
                 tempFine = player.getHouseCount() * 40 + player.getHotelCount() * 115;
-                if (player.isAbleDecreaseMoney(tempFine, board))
+                if (player.isAbleDecreaseMoney(tempFine, board)){
                     player.getMoney().decreaseMoney(tempFine);
-
+                    System.out.println(player.getPlayerName() + " HAS PAID " + tempFine + "$ TO BANK!!");
+                }
                 else {
                    // player.setIsBankrupted(true);
                     player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());

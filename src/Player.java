@@ -306,13 +306,14 @@ public class Player {
             }
         }
 
-        if(tempSquare.getIsMortgaged() == false){
+        if (tempSquare.getIsMortgaged() == false) {
             money.increaseMoney(tempSquare.getMortgage());
             tempSquare.setMortgaged(true);
             this.hasMortgaged = true;
             System.out.println("PROPERTY MORTGAGE " + tempSquare.getSquareName());
-        }
-        else{
+            System.out.println(playerName + "'s new balance = " + money.getCurrentMoney());
+
+        } else {
             System.out.println(playerName + " has not got any un-mortgaged property!!");
             return false;
         }
@@ -322,6 +323,7 @@ public class Player {
     }
 
     public boolean mortgageSets() {
+     //   System.out.println("GİRİYÜÜRR");
         if (properties.size() == 0) {
             return false;
         }
@@ -335,14 +337,15 @@ public class Player {
             }
         }
 
-        if(tempSquare.getIsMortgaged() == false){
+        if (tempSquare.getIsMortgaged() == false) {
             money.increaseMoney(tempSquare.getMortgage());
             tempSquare.setMortgaged(true);
             this.hasMortgaged = true;
             System.out.println("PROPERTY MORTGAGE " + tempSquare.getSquareName());
-        }
-        else{
-            System.out.println(playerName + " has not got any un-mortgaged property!!");
+            System.out.println(playerName + "'s new balance = " + money.getCurrentMoney());
+
+        } else {
+            System.out.println(playerName + " has not got any un-mortgaged sets!!");
             return false;
         }
 
@@ -472,13 +475,71 @@ public class Player {
 
     public boolean isAbleDecreaseMoney(int fine, Board board) {
         System.out.println(playerName + " needs " + fine + "$ and has " + money.getCurrentMoney() + "$");
+        boolean mortgagePropertyCheck = false;
+        boolean mortgageSetsCheck = false;
         if (money.getCurrentMoney() > fine) {
             return true;
         } else {
             // Player sells his properties if he has not enough money to pay fine
             while (money.getCurrentMoney() <= fine && isBankrupted == false) {
+//                System.out.println("prop = " + mortgagePropertyCheck + " sets = " + mortgageSetsCheck + " hotel = " + hotelCount + " house = " + houseCount);
 
-                if (hotelCount > 0){
+                if (mortgagePropertyCheck && mortgageSetsCheck && houseCount == 0 && hotelCount == 0) {
+                    break;
+                }
+
+                if (!isAllPropertiesSet(board) && mortgagePropertyCheck == false) {
+                    if (!mortgageProperty()) {
+                        mortgagePropertyCheck = true;
+                        continue;
+                        // break;
+                    }
+                }else if (hotelCount > 0){
+                    for(int i = 0; i < properties.size(); i++){
+                        if(properties.get(i) instanceof PropertySquare && ((PropertySquare)properties.get(i)).getHotelCount() > 0 && properties.get(i).getOwner() == this){
+                            ((PropertySquare)properties.get(i)).sellHotel(this, mpGame);
+                            break;
+                        }
+                    }
+                }
+                else if (houseCount > 0){
+                    for(int i = 0; i < properties.size(); i++){
+                        if(properties.get(i) instanceof PropertySquare && ((PropertySquare)properties.get(i)).getHouseCount() > 0 && properties.get(i).getOwner() == this){
+                            ((PropertySquare)properties.get(i)).sellHouse(this, mpGame);
+                            break;
+                        }
+                    }
+                /*else if (hotelCount >= 0 || houseCount >= 0) {
+                    if (hotelCount == 0) {
+                        for (PurchasableSquare pSquare : properties) {
+                            if (pSquare instanceof PropertySquare) {
+                                if (((PropertySquare) pSquare).getHouseCount() > 0) {
+                                    ((PropertySquare) pSquare).sellHouse(this, mpGame);
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        for (PurchasableSquare pSquare : properties) {
+                            if (pSquare instanceof PropertySquare) {
+                                if (((PropertySquare) pSquare).getHouseCount() > 0) {
+                                    ((PropertySquare) pSquare).sellHotel(this, mpGame);
+                                    break;
+                                }
+                            }
+                        }
+                    }*/
+                } else if (mortgageSetsCheck == false) {
+         //           System.out.println("GİRİYÜR-2");
+                    if (!mortgageSets()) {
+                        mortgageSetsCheck = true;
+                        continue;
+                        //  break;
+                    }
+                }
+
+
+              /*  if (hotelCount > 0){
                    for(int i = 0; i < properties.size(); i++){
                        if(properties.get(i) instanceof PropertySquare && ((PropertySquare)properties.get(i)).getHotelCount() > 0 && properties.get(i).getOwner() == this){
                            ((PropertySquare)properties.get(i)).sellHotel(this, mpGame);
@@ -504,7 +565,7 @@ public class Player {
                     else {
                         playerGoesToBankrupt(fine, this.square);
                     }
-                }
+                }*/
             }
             if (money.getCurrentMoney() > fine) {
                 return true;
@@ -516,13 +577,12 @@ public class Player {
 
     public void playerGoesToBankrupt(int fine, Square square) {
 
-
+        money.decreaseMoney(fine);
 
         if(square instanceof PurchasableSquare){
-            ((PurchasableSquare) square).getOwner().getMoney().increaseMoney(money.getCurrentMoney());
-            System.out.println("***" + playerName + " HAS PAID \'" + (money.getCurrentMoney()) + "$\' TO "
+            ((PurchasableSquare) square).getOwner().getMoney().increaseMoney(fine + money.getCurrentMoney());
+            System.out.println("***" + playerName + " HAS PAID \'" + (fine + money.getCurrentMoney()) + "$\' TO "
                     + ((PurchasableSquare) square).getOwner().getPlayerName() + "***");
-            money.decreaseMoney(money.getCurrentMoney());
         }else{
             System.out.println("***" + playerName + " CAN NOT PAID \'" + fine
                     + "$\' TO THE BANK***");
@@ -530,8 +590,20 @@ public class Player {
 
         System.out.println("!!! " + playerName + " HAS GONE BANKRUPT!!!\n");
 
-        if(properties != null && properties.size() > 0){
-            for(PurchasableSquare pSquare : properties){
+      /*  if (square instanceof PurchasableSquare) {
+            ((PurchasableSquare) square).getOwner().getMoney().increaseMoney(money.getCurrentMoney());
+            System.out.println("***" + playerName + " HAS PAID \'" + (money.getCurrentMoney()) + "$\' TO "
+                    + ((PurchasableSquare) square).getOwner().getPlayerName() + "***");
+            money.decreaseMoney(money.getCurrentMoney());
+        } else {
+            System.out.println("***" + playerName + " CAN NOT PAID \'" + fine
+                    + "$\' TO THE BANK***");
+        }
+
+        System.out.println("!!! " + playerName + " HAS GONE BANKRUPT!!!\n");*/
+
+        if (properties != null && properties.size() > 0) {
+            for (PurchasableSquare pSquare : properties) {
                 pSquare.setOwner(null);
                 pSquare.setHasOwner(false);
                 pSquare.setMortgaged(false);
