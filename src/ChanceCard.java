@@ -75,7 +75,7 @@ public class ChanceCard {
                             break;
                         }
                     } else {
-                        payUtility((UtilitySquare)board.getSquareList()[28], player, board);
+                        payUtility((UtilitySquare) board.getSquareList()[28], player, board);
 
                         break;
                     }
@@ -83,16 +83,16 @@ public class ChanceCard {
                 break;
             case 5:
                 if (player.getPiece().getSquare().getSquareID() < 5 || player.getPiece().getSquare().getSquareID() > 35) {
-                    nearestTransport(player, board, 5);
+                    nearestTransport(player, board, 5, mpGame);
                     break;
                 } else if (player.getPiece().getSquare().getSquareID() > 5 && player.getPiece().getSquare().getSquareID() < 15) {
-                    nearestTransport(player, board, 15);
+                    nearestTransport(player, board, 15, mpGame);
                     break;
                 } else if (player.getPiece().getSquare().getSquareID() > 15 && player.getPiece().getSquare().getSquareID() < 25) {
-                    nearestTransport(player, board, 25);
+                    nearestTransport(player, board, 25, mpGame);
                     break;
                 } else if (player.getPiece().getSquare().getSquareID() > 25 && player.getPiece().getSquare().getSquareID() < 35) {
-                    nearestTransport(player, board, 35);
+                    nearestTransport(player, board, 35, mpGame);
                     break;
                 }
             case 6:
@@ -122,11 +122,10 @@ public class ChanceCard {
                 break;
             case 10:
                 tempFine = player.getHouseCount() * 40 + player.getHotelCount() * 115;
-                if (player.isAbleDecreaseMoney(tempFine, board)){
+                if (player.isAbleDecreaseMoney(tempFine, board)) {
                     player.getMoney().decreaseMoney(tempFine);
                     System.out.println(player.getPlayerName() + " HAS PAID " + tempFine + "$ TO BANK!!");
-                }
-                else {
+                } else {
 
                     player.playerGoesToBankrupt(tempFine, player.getPiece().getSquare());
                 }
@@ -193,7 +192,7 @@ public class ChanceCard {
         return action;
     }
 
-    private void nearestTransport(Player player, Board board, int temp) {
+    private void nearestTransport(Player player, Board board, int temp, MonopolyGame mpGame) {
         int control = 0;
         while (board.getSquareList()[temp] instanceof GoToJailSquare) {
             temp += 10;
@@ -215,7 +214,7 @@ public class ChanceCard {
             }
             return;
         } else {
-            //KART ÇEKME METHODU
+            mpGame.takeChangeCard(this, player);
             return;
         }
 
@@ -235,7 +234,6 @@ public class ChanceCard {
             }
         }
     }
-
 
 
     public void setHasOwner(boolean hasOwner) {
