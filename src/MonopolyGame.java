@@ -166,7 +166,6 @@ public class MonopolyGame {
                     playerList[i].getBackMortgaged(this);
                 }
 
-
                 playerList[i].reportBeforeRoll();
 
                 // Current player roll dices
@@ -263,11 +262,6 @@ public class MonopolyGame {
                     }
                 }
 
-                if (currentPlayerSize == 1) {
-                    check = false;
-                    break;
-                }
-
                 // If player's new square is Go To Jail Square
                 if (tempSquare instanceof GoToJailSquare) {
                     ((GoToJailSquare) playerList[i].getPiece().getSquare()).goToJail(playerList[i].getPiece().getSquare(), board.getJailSquare());
@@ -317,6 +311,11 @@ public class MonopolyGame {
                 //Check if dices are equal each other.
                 if (firstDice != secondDice) {
                     i++;
+                }
+
+                if (currentPlayerSize == 1) {
+                    check = false;
+                    break;
                 }
             }
         }
