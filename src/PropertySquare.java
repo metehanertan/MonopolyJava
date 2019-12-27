@@ -107,6 +107,21 @@ public class PropertySquare extends PurchasableSquare {
         if (player != owner && isMortgaged == false) {
             if (!owner.isInJail()) {
                 int tempFine = fine;
+
+                if(owner.getHouseCount() == 1){
+                    tempFine = getRent1();
+                }else if(owner.getHouseCount() == 2){
+                    tempFine = getRent2();
+                }else if(owner.getHouseCount() == 3){
+                    tempFine = getRent3();
+                }else if(owner.getHouseCount() == 4){
+                    tempFine = getRent4();
+                }
+
+                if(owner.getHotelCount() > 0){
+                    tempFine = getHotelRent();
+                }
+
                 if (owner.hasItAll(this, board)) {
                     tempFine = 2 * tempFine;
                     System.out.println("Player " + owner.getPlayerName() + " has all " + color + " colors.");
