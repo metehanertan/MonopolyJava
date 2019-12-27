@@ -405,25 +405,12 @@ public class MonopolyGame {
     }
 
     // Getter and setter methods
-    public Player[] getPlayerOldList() {
-        return playerOldList;
-    }
+
 
     public Player[] getPlayerList() {
         return playerList;
     }
 
-    public void decreasePlayerSize() {
-        this.currentPlayerSize--;
-    }
-
-    public int getPlayerSize() {
-        return this.playerSize;
-    }
-
-    public int getCurrentPlayerSize() {
-        return this.currentPlayerSize;
-    }
 
     public int getThreshold() {
         return this.threshold;
@@ -441,15 +428,8 @@ public class MonopolyGame {
         return houseList;
     }
 
-    public void setHouseList(ArrayList<House> houseList) {
-        this.houseList = houseList;
-    }
-
     public ArrayList<Hotel> getHotelList() {
         return hotelList;
     }
 
-    public void setHotelList(ArrayList<Hotel> hotelList) {
-        this.hotelList = hotelList;
-    }
 }

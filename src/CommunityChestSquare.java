@@ -28,6 +28,6 @@ public class CommunityChestSquare extends Square{
 
     // Set square name
     public void setSquareName(String squareName){
-        this.name = name;
+        this.name = squareName;
     };
 }

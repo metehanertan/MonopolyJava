@@ -40,12 +40,6 @@ public class House {
         return square;
     }
 
-    public void sellHouse(Player player, MonopolyGame mpGame){
-        this.setSquare(null);
-        square.setHouseCount(square.getHouseCount() - 1);
-        player.setHouseCount(player.getHouseCount() - 1); // player için
-        player.getMoney().increaseMoney(square.getHousePrice() / 2);
-    }
 
 
 }
