@@ -1,12 +1,16 @@
-/*package test.java;
+
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class testTransportSquare {
 
-    TransportSquare ts = new TransportSquare(15, "METRO", 1, 15);
-    Player player = new Player("Minel", 200);
+
+    Dice moveDice = new Dice();
+    Dice choiceDice =  new Dice();
+    MonopolyGame mpGame;
+    TransportSquare ts = new TransportSquare(15, "Reading Railroad", 50, 200,100 );
+    Player player = new Player("Minel", 200,moveDice,choiceDice,mpGame );
 
 
     @Test
@@ -21,5 +25,8 @@ public class testTransportSquare {
         assertTrue("Error occured while setting owner.", ts.getHasOwner());
     }
 
+    public void payRent(Player player, Board board){
+
+    }
+
 }
-*/
