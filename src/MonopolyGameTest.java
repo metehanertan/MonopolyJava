@@ -1,6 +1,4 @@
-package test.java;
-
-/*import org.junit.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
@@ -27,7 +25,7 @@ public class MonopolyGameTest {
     String[] taxSquares = {"INCOME TAX", "LUXURY TAX"};
     int jailFine = 50;
     int goToJailNumber = 3;
-
+/*
     MonopolyGame monopolyGame = new MonopolyGame(playerSize, threshold, startMoney, goMoney,
             properties, propertyFine, propertyPrice, propertyColor, utilityName, utilityRate, utilityPrice, transportName,
             transportFine, transportPrice, taxFine, taxSquares, jailFine, goToJailNumber);
@@ -59,9 +57,8 @@ public class MonopolyGameTest {
 
         assertEquals("Winner player is not richest player.", richestPlayer, winnerPlayer);
     }
-
+*/
 
 
 
 }
-*/

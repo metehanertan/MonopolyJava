@@ -129,7 +129,7 @@ public class PropertySquare extends PurchasableSquare {
     public void sellHouse(Player player, MonopolyGame mpGame) {
 
         for (int i = 0; i < mpGame.getHouseList().size(); i++) {
-            if (mpGame.getHouseList().get(i).getSquare() == this) {
+            if (mpGame.getHouseList().get(i).getSquare() == this && mpGame.getHouseList().get(i).getSquare().getOwner() == player) {
                 mpGame.getHouseList().get(i).setSquare(null);
                 mpGame.getHouseList().get(i).setOwner(null);
                 houseCount--;

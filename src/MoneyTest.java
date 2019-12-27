@@ -1,4 +1,4 @@
-/*package test.java;
+
 
 import org.junit.Test;
 
@@ -18,4 +18,3 @@ public class MoneyTest {
         assertEquals("Money is not assigned properly.", money.getCurrentMoney(), moneyValue);
     }
 }
-*/
