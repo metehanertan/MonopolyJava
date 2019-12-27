@@ -487,7 +487,7 @@ public class Player {
                         for (int i = 0; i < board.getSquareList().length; i++) {
                             if (board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare) board.getSquareList()[i]).getOwner() == this) {
                                 if (((PropertySquare) board.getSquareList()[i]).getHouseCount() > 0) {
-                                    ((PropertySquare) board.getSquareList()[i]).sellHouse(this);
+                                    ((PropertySquare) board.getSquareList()[i]).sellHouse(this, mpGame);
                                     break;
                                 }
                             }
