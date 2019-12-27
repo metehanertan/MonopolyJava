@@ -135,7 +135,7 @@ public class PropertySquare extends PurchasableSquare {
                 houseCount--;
                 player.decreaseHouseCount();
                 player.getMoney().increaseMoney(housePrice / 2);
-                System.out.println(player.getPlayerName() + " has sold a house on " + this.getSquareName() + " and takes " + housePrice + "$");
+                System.out.println(player.getPlayerName() + " has sold a house on " + this.getSquareName() + " and takes " + housePrice/2 + "$");
                 break;
             }
         }
@@ -143,14 +143,14 @@ public class PropertySquare extends PurchasableSquare {
     }
 
     public void sellHotel(Player player, MonopolyGame mpGame) {
-
+        /*
         for (int i = 0; i < mpGame.getHouseList().size(); i++) {
             if (mpGame.getHouseList().get(i).getSquare() == null) {
                 mpGame.getHouseList().get(i).setSquare(this);
                 this.increaseHouseCount();
                 player.increaseHouseCount(); // player için
             }
-        }
+        }*/
         for (int i = 0; i < mpGame.getHotelList().size(); i++) {
             if (mpGame.getHotelList().get(i).getOwner() == player) {
                 mpGame.getHotelList().get(i).setOwner(null);
@@ -164,8 +164,8 @@ public class PropertySquare extends PurchasableSquare {
             }
         }
 
-        player.getMoney().increaseMoney((housePrice / 2) * (5 - houseCount));
-        System.out.println(player.getPlayerName() + " has taken " + (housePrice / 2) * (5 - houseCount) + "$ from selling hotel and houses!");
+        player.getMoney().increaseMoney((housePrice / 2) * (5));
+        System.out.println(player.getPlayerName() + " has taken " + (housePrice / 2) * (5) + "$ from selling hotel!");
 
     }
 
