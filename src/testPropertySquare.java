@@ -1,10 +1,9 @@
-/*package test.java;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class testPropertySquare {
-
+/*
     PropertySquare ps = new PropertySquare(15, "KADIKÖY", 3,"Blue", 6);
     Player player = new Player("Minel", 200);
 
@@ -20,5 +19,5 @@ public class testPropertySquare {
         ps.setOwner(player);
         assertTrue("Error occured while setting owner.", ps.getHasOwner());
     }
-
-}*/
+*/
+}

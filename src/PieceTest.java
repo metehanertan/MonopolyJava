@@ -3,9 +3,9 @@ import org.junit.Test;
 import java.awt.event.HierarchyBoundsAdapter;
 
 import static org.junit.Assert.*;
-/*
-public class PieceTest {
 
+public class PieceTest {
+/*
     String pieceName = "DOG";
     int squareID = 13;
     String squareName = "Over the Garden Wall";
@@ -25,5 +25,5 @@ public class PieceTest {
         piece.setSquare(this.square);
         assertEquals("Piece position set is not assigned properly.", this.square,piece.getSquare());
     }
-
-}*/
+*/
+}
