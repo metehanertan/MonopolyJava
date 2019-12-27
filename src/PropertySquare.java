@@ -136,6 +136,7 @@ public class PropertySquare extends PurchasableSquare {
                 player.decreaseHouseCount();
                 player.getMoney().increaseMoney(housePrice / 2);
                 System.out.println(player.getPlayerName() + " has sold a house on " + this.getSquareName() + " and takes " + housePrice + "$");
+                break;
             }
         }
 

@@ -484,6 +484,15 @@ public class Player {
                     }
                 } else if (hotelCount != 0 || houseCount != 0) {
                     if (hotelCount == 0) {
+                        for(PurchasableSquare pSquare : properties){
+                            if(pSquare instanceof PropertySquare){
+                                if(((PropertySquare) pSquare).getHouseCount() > 0){
+                                    ((PropertySquare) pSquare).sellHouse(this, mpGame);
+                                    break;
+                                }
+                            }
+                        }
+                        /*
                         for (int i = 0; i < board.getSquareList().length; i++) {
                             if (board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare) board.getSquareList()[i]).getOwner() == this) {
                                 if (((PropertySquare) board.getSquareList()[i]).getHouseCount() > 0) {
@@ -491,8 +500,17 @@ public class Player {
                                     break;
                                 }
                             }
-                        }
+                        }*/
                     } else {
+                        for(PurchasableSquare pSquare : properties) {
+                            if (pSquare instanceof PropertySquare) {
+                                if (((PropertySquare) pSquare).getHouseCount() > 0) {
+                                    ((PropertySquare) pSquare).sellHotel(this, mpGame);
+                                    break;
+                                }
+                            }
+                        }
+                        /*
                         for (int i = 0; i < board.getSquareList().length; i++) {
                             if (board.getSquareList()[i] instanceof PropertySquare && ((PropertySquare) board.getSquareList()[i]).getOwner() == this) {
                                 if (((PropertySquare) board.getSquareList()[i]).getHotelCount() > 0) {
@@ -500,7 +518,7 @@ public class Player {
                                     break;
                                 }
                             }
-                        }
+                        }*/
                     }
                 } else {
                     if (!mortgageSets()) {
