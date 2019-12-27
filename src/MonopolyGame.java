@@ -18,24 +18,24 @@ public class MonopolyGame {
     private int jailFine; // Fine for go out from the jail
     private int goToJailNumber; // Number of GoToJail squares
     private int currentPlayerSize; // Non-bankrupted player number
-    private int[] rent1;
-    private int[] rent2;
-    private int[] rent3;
-    private int[] rent4;
-    private int[] hotel;
-    private int[] mortgage;
-    private int[] pricePerHouse;
-    private int freeHouseNumber;
-    private int freeHotelNumber;
-    private Dice moveDice;
-    private Dice choiceDice;
-    private ArrayList<House> houseList;
-    private ArrayList<Hotel> hotelList;
-    private static MonopolyGame instance;
-    private int[] utilityMortgage;
-    private int[] transportMortgage;
+    private int[] rent1; // rent values of 1 house
+    private int[] rent2; // rent values of 2 houses
+    private int[] rent3; // rent values of 3 houses
+    private int[] rent4; // rent values of 4 houses
+    private int[] hotel; // rent values of a hotel
+    private int[] mortgage; // mortgage values of properties
+    private int[] pricePerHouse; // price of a house to buy
+    private int freeHouseNumber; // total number of houses in the game
+    private int freeHotelNumber; // total number of hotels in the game
+    private Dice moveDice; // Dice for moving
+    private Dice choiceDice; // Dice for making a choice
+    private ArrayList<House> houseList; // List that contains house objects
+    private ArrayList<Hotel> hotelList; // List that contains hotel objects
+    private static MonopolyGame instance; // instance of MonopolyGame (Singleton Design Pattern)
+    private int[] utilityMortgage; // mortgage values of utilities
+    private int[] transportMortgage; // mortgage values of transports
 
-    //Constructor of MonopolyGame Class calling from Main Class.
+    //Constructor of MonopolyGame Class calling from Main Class. It is private because of the Singleton Design Pattern
     private MonopolyGame(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
                          int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                          int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
@@ -66,6 +66,10 @@ public class MonopolyGame {
         this.rent3 = rent3;
         this.rent4 = rent4;
         this.mortgage = mortgage;
+        this.pricePerHouse = pricePerHouse;
+        this.hotel = hotel;
+        this.utilityMortgage = utilityMortgage;
+        this.transportMortgage = transportMortgage;
 
         for (int i = 0; i < houseNumber; i++) {
             this.houseList.add(new House());
@@ -80,6 +84,7 @@ public class MonopolyGame {
         Collections.shuffle(board.getComChest());
     }
 
+    // getInstance method for create a MonopolyGame object. It is static because of the Singleton Design Pattern
     static public MonopolyGame getInstance(int playerSize, int threshold, int startMoney, int goMoney, String[] properties,
                                            int[] propertyFine, int[] propertyPrice, String[] propertyColor, String[] utilityName,
                                            int[] utilityRate, int[] utilityPrice, String[] transportName, int[] transportFine,
@@ -162,6 +167,7 @@ public class MonopolyGame {
                     continue;
                 }
 
+                //Check player for get back his/her mortgaged property. If he/she has enough money to get back, take it back.
                 if (playerList[i].getHasMortgaged()) {
                     playerList[i].getBackMortgaged(this);
                 }
@@ -174,24 +180,32 @@ public class MonopolyGame {
                 secondDice = playerList[i].getMoveDice().getSecondValue(); //Roll second dice
                 diceValue = firstDice + secondDice; //Add dice values to move the player.
 
+                // Current square that player lands on
                 tempSquare = playerList[i].getPiece().getSquare();
 
                 // If player in the jail
                 if (tempSquare instanceof JailSquare && playerList[i].isInJail()) {
 
+                    // If player has go out from jail card, use it.
                     if (playerList[i].getChanceOutOfJail() != null) {
                         playerList[i].setInJail(false);
                         playerList[i].setOutOfJailCard(false);
                         playerList[i].getChanceOutOfJail().setHasOwner(false);
                         playerList[i].setChanceOutOfJail(null);
                         System.out.println(playerList[i].getPlayerName() + " used to change go out of jail card!!");
-                    } else if (playerList[i].getCommunityOutOfJail() != null) {
+                    }
+
+                    // If player has go out from jail card, use it.
+                    else if (playerList[i].getCommunityOutOfJail() != null) {
                         playerList[i].setInJail(false);
                         playerList[i].setOutOfJailCard(false);
                         playerList[i].getCommunityOutOfJail().setHasOwner(false);
                         playerList[i].setCommunityOutOfJail(null);
                         System.out.println(playerList[i].getPlayerName() + " used to community go out of jail card!!");
-                    } else {
+                    }
+
+                    //If player has no any card to go out from jail, then use the choice dice.
+                    else {
                         if (firstDice != secondDice) {
 
                             // Check if player wants to pay fine and go out to jail
@@ -201,16 +215,19 @@ public class MonopolyGame {
                                 ((JailSquare) tempSquare).playerWantsPayForJail(playerList[i]);
                             } else {
 
+                                // If player does not want pay for jail to go out, iterate turn to other player.
                                 if(((JailSquare) tempSquare).playerDoesntWantPayForJail(playerList[i], board, i)){
                                     i++;
                                     break;
                                 }
 
+                                // Check player is bankrupted or not.
                                 if (playerList[i].getIsBankrupted()) {
                                     currentPlayerSize--;
 
                                     playerList[i] = null;
 
+                                    // If there is only one person in the game, finish the game.
                                     if (currentPlayerSize == 1) {
                                         check = false;
                                         break;
@@ -392,12 +409,14 @@ public class MonopolyGame {
         }
     }
 
+    //Drawing a chance card method
     public void takeChangeCard(ChanceCard changeCard, Player player) {
         changeCard.chooseAction(changeCard.getId(), player, board, this);
         board.getChanceCard().add(board.getChanceCard().get(0));
         board.getChanceCard().remove(0);
     }
 
+    //Drawing a community chest card method
     public void takeCommunityCard(CommunityChest communityCard, Player player) {
         communityCard.chooseAction(communityCard.getId(), player, board, this);
         board.getComChest().add(board.getComChest().get(0));
@@ -405,12 +424,9 @@ public class MonopolyGame {
     }
 
     // Getter and setter methods
-
-
     public Player[] getPlayerList() {
         return playerList;
     }
-
 
     public int getThreshold() {
         return this.threshold;
