@@ -217,6 +217,16 @@ public class Player {
 
     // Check if player has all same property colors
     public boolean hasItAll(PropertySquare square, Board board) {
+      /*  String color = square.getColor();
+        boolean hasItAll = true;
+
+        for(int i = 0; i < board.getSquareList().length; i++){
+            if(board.getSquareList()[i] instanceof  PropertySquare){
+                if(((PropertySquare)board.getSquareList()[i]).getColor() == color && ((PropertySquare)board.getSquareList()[i]).getOwner() != this){
+                    hasItAll = false;
+                }
+            }
+        }*/
 
         PropertySquare tempProp;
         int tempIdPos;
@@ -263,6 +273,7 @@ public class Player {
             i++;
         }
         return true;
+        //return hasItAll;
     }
 
     // Sell the cheapest property
